@@ -1,7 +1,7 @@
-import { FEATURES } from "@/utils/features";
 import Image from "next/image";
 import ImageWelcome from "./ImageWelcome";
-import Button from "@/components/UI/Button";
+import { FEATURES } from "@/lib/frontend/data";
+import { Button } from "@/components/UI/button";
 
 export default function Welcome() {
   return (
@@ -53,7 +53,7 @@ export default function Welcome() {
               corrupti et fugiat nulla qui soluta recusandae in maxime quasi aut
               ducimus illum aut optio quibusdam!
             </p>
-            <Button backgroundColor="bg-red-400">
+            <Button>
               <p className="m-0">View</p>
             </Button>
           </div>

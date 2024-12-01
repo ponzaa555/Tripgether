@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { navToTrip } from "@/lib/frontend/data";
 import {
   AiOutlineMenu,
   AiOutlineClose,
@@ -12,9 +11,13 @@ import {
 } from "react-icons/ai";
 import { useState } from "react";
 import { Avatar, Dropdown } from "flowbite-react";
+import { usePathname } from "next/navigation";
+import { link } from "@/lib/frontend/data";
 
-export default function MynavBar({}) {
+export default function MynavBar() {
+  const activePath = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -27,31 +30,24 @@ export default function MynavBar({}) {
             alt="logo"
             width={105}
             height={60}
-            className="cursor-pointer"
+            className="cursor-pointer w-full h-full"
           />
         </Link>
         <div className="hidden sm:flex ml-auto">
           <ul className="hidden sm:flex">
-            <Link href={navToTrip.hash}>
-              <li className="ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold">
-                Trip
-              </li>
-            </Link>
-            <Link href="#">
-              <li className="ml-10 uppercase hover:border-b-2 hover:border-amber-800 hover:text-orange-500 hover:font-bold text-base font-base">
-                Chat
-              </li>
-            </Link>
-            <Link href="#">
-              <li className="ml-10 uppercase hover:border-b-2 hover:border-amber-800 hover:text-orange-500 hover:font-bold text-base font-base">
-                Trip-Plan
-              </li>
-            </Link>
-            <Link href="#">
-              <li className="ml-10 uppercase hover:border-b-2 hover:border-amber-800 hover:text-orange-500 hover:font-bold text-base font-base">
-                Contact
-              </li>
-            </Link>
+            {link.map((data) => (
+              <Link key={`${data.name}-${data.name}`} href={data.href}>
+                <li
+                  className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
+                    activePath === data.href
+                      ? "border-amber-800 text-orange-500 font-bold"
+                      : ""
+                  }`}
+                >
+                  {data.name}
+                </li>
+              </Link>
+            ))}
           </ul>
         </div>
         <div className="ml-auto">
