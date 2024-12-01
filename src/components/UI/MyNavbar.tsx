@@ -22,7 +22,7 @@ export default function MynavBar() {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <nav className="fixed w-full h-14 shadow-xl bg-white z-[999]">
+    <nav className="fixed w-full h-14 shadow-xl bg-white z-[50]">
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <Image
