@@ -6,7 +6,10 @@ import { getServerSession } from "next-auth";
 import MynavBar from "@/components/ui/MyNavbar";
 import { ModalProvider } from "@/context/ModalContext";
 import LoginModal from "@/components/user/login/LoginModal";
-const inter = Inter({ subsets: ["latin"] });
+const mitr = Mitr({
+  weight: "300",
+  subsets: ["latin", "thai"],
+});
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
@@ -23,7 +26,6 @@ export default async function RootLayout({
   return (
     <html lang="en" style={{ scrollBehavior: "smooth" }}>
       <SessionProvider session={session}>
-        <body className={mitr.className}>
         <body className={inter.className}>
           <Toaster />
           <ModalProvider>
