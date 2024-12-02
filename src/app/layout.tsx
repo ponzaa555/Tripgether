@@ -4,7 +4,8 @@ import "./globals.css";
 import SessionProvider from "@/components/next-auth/SessionProvider";
 import { getServerSession } from "next-auth";
 import MynavBar from "@/components/ui/MyNavbar";
-
+import { ModalProvider } from "@/context/ModalContext";
+import LoginModal from "@/components/user/login/LoginModal";
 const mitr = Mitr({
   weight: "300",
   subsets: ["latin", "thai"],
@@ -25,8 +26,11 @@ export default async function RootLayout({
     <html lang="en" style={{ scrollBehavior: "smooth" }}>
       <SessionProvider session={session}>
         <body className={mitr.className}>
-          <MynavBar />
-          {children}
+          <ModalProvider>
+            <MynavBar />
+            {children}
+            <LoginModal />
+          </ModalProvider>
         </body>
       </SessionProvider>
     </html>
