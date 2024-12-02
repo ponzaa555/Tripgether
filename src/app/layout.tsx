@@ -6,6 +6,8 @@ import { getServerSession } from "next-auth";
 import MynavBar from "@/components/ui/MyNavbar";
 import { ModalProvider } from "@/context/ModalContext";
 import LoginModal from "@/components/user/login/LoginModal";
+import MynavBar from "@/components/ui/MyNavbar";
+
 const mitr = Mitr({
   weight: "300",
   subsets: ["latin", "thai"],

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ImageWelcome from "./ImageWelcome";
-import Button from "@/components/UI/Button";
+import { FEATURES } from "@/lib/frontend/data";
+import { Button } from "@/components/ui/button";
 
 export default function Welcome() {
   return (
