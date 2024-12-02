@@ -4,7 +4,8 @@ import "./globals.css";
 import SessionProvider from "@/components/next-auth/SessionProvider";
 import { getServerSession } from "next-auth";
 import MynavBar from "@/components/UI/MyNavbar";
-
+import { ModalProvider } from "@/context/ModalContext";
+import LoginModal from "@/components/user/login/LoginModal";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,8 +23,11 @@ export default async function RootLayout({
     <html lang="en" style={{ scrollBehavior: "smooth" }}>
       <SessionProvider session={session}>
         <body className={inter.className}>
-          <MynavBar />
-          {children}
+          <ModalProvider>
+            <MynavBar />
+            {children}
+            <LoginModal />
+          </ModalProvider>
         </body>
       </SessionProvider>
     </html>

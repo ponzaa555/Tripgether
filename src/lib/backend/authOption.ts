@@ -18,6 +18,7 @@ const authOption: AuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
   },
   secret: process.env.NEXTAUTH_SECRET,
+  debug:true
 };
 
 export default authOption;

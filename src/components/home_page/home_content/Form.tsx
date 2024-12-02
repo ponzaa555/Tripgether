@@ -1,9 +1,10 @@
 // import Dropdown from "./Dropdown";
+"use client";
 import Button from "../../UI/Button";
-
 type Props = {};
 
 const Form = (props: Props) => {
+
   return (
     <ul className="flex items-center justify-around px-0 rounded-md bg-gray-100 bg-opacity-85 max-w-2xl w-full h-20">
       <li className="flex items-center justify-center relative px-8">

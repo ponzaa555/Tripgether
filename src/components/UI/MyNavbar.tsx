@@ -12,14 +12,15 @@ import {
 } from "react-icons/ai";
 import { useState } from "react";
 import { Avatar, Dropdown } from "flowbite-react";
+import SignInButton from "../user/login/SiginButton";
 
-export default function MynavBar({}) {
+export default function MynavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <nav className="fixed w-full h-14 shadow-xl bg-white z-[999]">
+    <nav className={`fixed w-full h-14 shadow-xl bg-white z-[999]`}>
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <Image
@@ -82,6 +83,7 @@ export default function MynavBar({}) {
         <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
           <AiOutlineMenu size={25} />
         </div>
+        <SignInButton/>
       </div>
       <div
         className={
