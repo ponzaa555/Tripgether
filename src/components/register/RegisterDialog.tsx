@@ -3,6 +3,7 @@ import MyDialog from "../ui/MyDialog";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -16,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
 import { MailIcon } from "lucide-react";
 import { PasswordInput } from "../ui/password_input";
-import { Button } from "../ui/button";
 
 type Props = {
   isOpen: boolean;
