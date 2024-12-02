@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../UI/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./dialog";
 
 type Props = {
   isOpen: boolean;
