@@ -39,7 +39,7 @@ export default function MynavBar() {
               <Link key={`${data.name}-${data.name}`} href={data.href}>
                 <li
                   className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
-                    activePath === data.href
+                    activePath.startsWith(data.href)
                       ? "border-amber-800 text-orange-500 font-bold"
                       : ""
                   }`}

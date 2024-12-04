@@ -1,9 +1,12 @@
-import React from "react";
+import ConvarsationFallback from "@/components/chat_page/conversation/ConvarsationFallback";
+import ItemList from "@/components/chat_page/item_list/ItemList";
 
-type Props = {};
-
-const ChatPage = (props: Props) => {
-  return <div>ChatPage</div>;
+const ChatPage = () => {
+  return (
+    <>
+      <ConvarsationFallback />
+    </>
+  );
 };
 
 export default ChatPage;
