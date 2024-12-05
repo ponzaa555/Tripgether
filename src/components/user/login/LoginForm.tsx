@@ -4,6 +4,9 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
+import { useModal } from "@/context/ModalContext";
+import {ErrorToast, LoadingToast, SuccessToast} from "@/components/toastcomponent/toast";
+import { toastErrorOptions, toastLoadingOptions, toastSuccessOptions } from "@/components/toastcomponent/toastOpteions";
 
 
 
@@ -13,57 +16,32 @@ const LoginForm: React.FC= () => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const { isLoginModalOpen, closeLoginModal } = useModal();
+
     const handleLogin = async (credentials: { email: string; password: string }) => {
-        setIsSubmitting(true); // Start loading
-        setErrorMessage(null); // Clear previous errors
+        setIsSubmitting(true);
+        setErrorMessage(null);
 
-        console.log("handle login loginForm")
-        const result = await signIn("credentials", {
-            redirect: false, // Prevent automatic redirection
-            ...credentials,
-        });
-        const toastOptions = {
-            position: "top-right" as const,
-            duration: 3000,
-            style: {
-                background: '#fff',
-                color: '#1F2937',
-                padding: '16px',
-                borderRadius: '8px',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-            },
-            className: 'group',
-            // Add custom close button
-            closeButton: (t: any) => (
-                <button
-                    className="absolute right-2 top-2 w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
-                    onClick={() => toast.dismiss(t.id)}
-                >
-                    <span className="text-gray-500 text-sm">×</span>
-                </button>
-            ),
-        };
+        const toastId = LoadingToast({message: "Loading....", options: toastLoadingOptions});
+        
+        try {
+            const result = await signIn("credentials", {
+                redirect: false,
+                ...credentials,
+            });
+            
+            toast.dismiss(toastId);
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
-        if (result?.error) {
-            toast.error(result.error, {
-                ...toastOptions,
-                style: {
-                    ...toastOptions.style,
-                    background: '#B91C1C', // Red background
-                    color: '#ffffff', // White text
-                },
-                className: 'border-2 border-white', // White border
-                icon: '❌',
-            });
-        } else {
-            toast.success("Login successful!", {
-                ...toastOptions,
-                className: 'border border-green-200',
-                icon: '✅',
-            });
+            if (result?.error) {
+                ErrorToast({message: result.error, options: toastErrorOptions});
+            } else {
+                SuccessToast("Login Success", toastSuccessOptions);
+                closeLoginModal();
+            }
+        } finally {
+            setIsSubmitting(false);
         }
-
-        setIsSubmitting(false); // Stop loading
     };
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -94,13 +72,12 @@ const LoginForm: React.FC= () => {
                     placeholder="Password"
                     required
                 />
-                {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
                 <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-500 dark:text-gray-300 focus:outline-none"
                 >
-                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                    <FontAwesomeIcon icon={showPassword ? faEye  : faEyeSlash} />
                 </button>
             </div>
             <p className=' my-5 text-sm font-sans'>Forget your
