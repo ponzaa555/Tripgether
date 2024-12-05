@@ -3,10 +3,9 @@ import { Mitr } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/components/next-auth/SessionProvider";
 import { getServerSession } from "next-auth";
-import MynavBar from "@/components/ui/MyNavbar";
 import { ModalProvider } from "@/context/ModalContext";
 import LoginModal from "@/components/user/login/LoginModal";
-import MynavBar from "@/components/ui/MyNavbar";
+import MynavBar from "@/components/UI/MyNavbar";
 
 const mitr = Mitr({
   weight: "300",

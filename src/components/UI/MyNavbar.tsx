@@ -14,12 +14,12 @@ import { Avatar, Dropdown } from "flowbite-react";
 import { usePathname } from "next/navigation";
 import { link } from "@/lib/frontend/data";
 import SignInButton from "../user/login/SiginButton";
-import { usePathname } from "next/navigation";
-import { link } from "@/lib/frontend/data";
+import { signOut, useSession } from "next-auth/react"
 
 export default function MynavBar() {
   const activePath = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session, status } = useSession()
 
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -29,7 +29,7 @@ export default function MynavBar() {
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <Image
-            src="/logo.png"
+            src= "/logo.png"
             alt="logo"
             width={105}
             height={60}
@@ -60,22 +60,24 @@ export default function MynavBar() {
             label={
               <Avatar
                 alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                img= { session?.user?.image ? session?.user?.image : "https://flowbite.com/docs/images/people/profile-picture-5.jpg"}
                 rounded
               />
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
+              <span className="block text-sm">
+                {session ? session.user?.name : "Bonnie Green"}
+              </span>
               <span className="block truncate text-sm font-medium">
-                name@flowbite.com
+                {session ? session.user?.email : "name@flowbite.com "} 
               </span>
             </Dropdown.Header>
             <Dropdown.Item>Profile</Dropdown.Item>
             <Dropdown.Item>Friends</Dropdown.Item>
             <Dropdown.Item>Settings</Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={() => signOut()}>Sign out</Dropdown.Item>
           </Dropdown>
         </div>
         <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
