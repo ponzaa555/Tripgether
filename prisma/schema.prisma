@@ -29,6 +29,7 @@ model User {
   createdAt     DateTime @db.Date
   email         String   @unique
   /// Could not determine type: the field only had null or empty values in the sample set.
+  password      String? 
   emailVerified Json?
   image         String
   name          String
