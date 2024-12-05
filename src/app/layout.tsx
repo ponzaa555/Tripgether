@@ -5,6 +5,7 @@ import SessionProvider from "@/components/next-auth/SessionProvider";
 import { getServerSession } from "next-auth";
 import MynavBar from "@/components/ui/MyNavbar";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { Toaster } from "@/components/ui/sonner";
 
 const mitr = Mitr({
   weight: "300",
@@ -30,6 +31,7 @@ export default async function RootLayout({
             <MynavBar />
             <div className="pt-14">{children}</div>
           </TooltipProvider>
+          <Toaster richColors />
         </body>
       </SessionProvider>
     </html>

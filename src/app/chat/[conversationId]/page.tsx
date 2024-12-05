@@ -1,16 +1,16 @@
-import ConvarsationFallback from "@/components/chat_page/conversation/ConvarsationFallback";
+import ConvarsationContainer from "@/components/chat_page/conversation/ConvarsationContainer";
 import ItemList from "@/components/chat_page/item_list/ItemList";
 import SidebarWrapper from "@/components/chat_page/sidebar/SidebarWrapper";
 
-const ChatPage = () => {
+const ConversationPage = () => {
   return (
     <>
       <SidebarWrapper>
         <ItemList title="Conversations"></ItemList>
-        <ConvarsationFallback />
+        <ConvarsationContainer>Conversation Page</ConvarsationContainer>;
       </SidebarWrapper>
     </>
   );
 };
 
-export default ChatPage;
+export default ConversationPage;

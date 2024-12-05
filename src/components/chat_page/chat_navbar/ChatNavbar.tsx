@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   Tooltip,
@@ -20,8 +21,13 @@ const ChatNavbar = () => {
               <li className="relative" key={id}>
                 <Link href={path.href}>
                   <Tooltip>
-                    <TooltipTrigger>
-                      {path.active ? path.iconActive : path.iconInActive}
+                    <TooltipTrigger asChild>
+                      <Button
+                        size="icon"
+                        variant={path.active ? "default" : "outline"}
+                      >
+                        {path.icon}
+                      </Button>
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>{path.name}</p>

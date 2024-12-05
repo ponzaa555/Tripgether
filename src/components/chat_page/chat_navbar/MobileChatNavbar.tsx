@@ -7,11 +7,18 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useConversation } from "@/hooks/useConversation";
 import { useNavigation } from "@/hooks/useNavigation";
 import Link from "next/link";
 
 const MobileChatNavbar = () => {
   const paths = useNavigation();
+  const { isActive } = useConversation();
+
+  if (isActive) {
+    return null;
+  }
+
   return (
     <Card className="fixed bottom-4 w-[calc(100vw-32px)] flex items-center h-16 p-2 lg:hidden">
       <nav className="w-full">
@@ -21,8 +28,13 @@ const MobileChatNavbar = () => {
               <li className="relative" key={id}>
                 <Link href={path.href}>
                   <Tooltip>
-                    <TooltipTrigger>
-                      {path.active ? path.iconActive : path.iconInActive}
+                    <TooltipTrigger asChild>
+                      <Button
+                        size="icon"
+                        variant={path.active ? "default" : "outline"}
+                      >
+                        {path.icon}
+                      </Button>
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>{path.name}</p>

@@ -10,16 +10,14 @@ export const useNavigation = () => {
       {
         name: "Conversations",
         href: "/chat",
-        iconActive: <MessageSquare color="orange" className="bg-orange-300" />,
-        iconInActive: <MessageSquare />,
-        active: pathname === "/chat",
+        icon: <MessageSquare />,
+        active: pathname.startsWith("/chat") && !pathname.endsWith("/friends"),
       },
       {
         name: "Friends",
         href: "/chat/friends",
-        iconActive: <Users color="orange" />,
-        iconInActive: <Users />,
-        active: pathname.includes("/friends"),
+        icon: <Users />,
+        active: pathname.startsWith("/chat") && pathname.endsWith("/friends"),
       },
     ],
     [pathname]
