@@ -6,3 +6,6 @@ html,
 body {
   overscroll-behavior: none;
 }
+.group {
+  position: relative;
+}

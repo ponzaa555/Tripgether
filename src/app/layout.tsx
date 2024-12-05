@@ -7,6 +7,7 @@ import MynavBar from "@/components/UI/MyNavbar";
 import { ModalProvider } from "@/context/ModalContext";
 import LoginModal from "@/components/user/login/LoginModal";
 const inter = Inter({ subsets: ["latin"] });
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,6 +24,7 @@ export default async function RootLayout({
     <html lang="en" style={{ scrollBehavior: "smooth" }}>
       <SessionProvider session={session}>
         <body className={inter.className}>
+          <Toaster />
           <ModalProvider>
             <MynavBar />
             {children}
