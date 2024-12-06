@@ -23,3 +23,4 @@ const MyDialog = ({ isOpen, title, setIsOpen, children }: Props) => {
 };
 
 export default MyDialog;
+

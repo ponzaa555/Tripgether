@@ -12,6 +12,8 @@ import {
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { link } from "@/lib/frontend/data";
+import SignInButton from "../user/login/SiginButton";
+import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./avatar";
 import {
   DropdownMenu,
@@ -26,12 +28,13 @@ import { ChevronDown } from "lucide-react";
 export default function MynavBar() {
   const activePath = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session, status } = useSession();
 
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <nav className="fixed w-full h-14 shadow-xl bg-white z-[50] pr-3">
+    <nav className="fixed w-full h-14 shadow-xl bg-white z-[50]">
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <Image
@@ -80,6 +83,7 @@ export default function MynavBar() {
         <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
           <AiOutlineMenu size={25} />
         </div>
+        <SignInButton />
       </div>
       <div
         className={

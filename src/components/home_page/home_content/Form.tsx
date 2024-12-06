@@ -1,11 +1,12 @@
 "use client";
 import RegisterDialog from "@/components/register/RegisterDialog";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/Button";
 import { useState } from "react";
 
 type Props = {};
 
 const Form = (props: Props) => {
+
   const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
 
   return (
