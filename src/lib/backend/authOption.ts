@@ -35,18 +35,13 @@ const authOption: AuthOptions = {
         if (!credentials) {
           return null;
         }
-        console.log("credentials : ",credentials);
-        console.log("process.env.NEXTAUTH_URL : ",process.env.NEXTAUTH_URL);
         try{
-          console.log("body : ",JSON.stringify(credentials));
           const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/Myauth/Login`, {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: { "Content-Type": "application/json" }
         })
-        console.log("res : ",res);
         const data = await res.json();
-        console.log("data : ",data);
         // If no error and we have user data, return it
         if (!res.ok) {
           const error = data.message || "Invalid credentials";
