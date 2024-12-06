@@ -36,6 +36,7 @@ const authOption: AuthOptions = {
           return null;
         }
         console.log("credentials : ",credentials);
+        console.log("process.env.NEXTAUTH_URL : ",process.env.NEXTAUTH_URL);
         try{
           const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/Myauth/Login`, {
             method: 'POST',
