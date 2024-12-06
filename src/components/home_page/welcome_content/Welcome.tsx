@@ -54,7 +54,6 @@ export default function Welcome() {
               ducimus illum aut optio quibusdam!
             </p>
             <Button>
-            <Button>
               <p className="m-0">View</p>
             </Button>
           </div>

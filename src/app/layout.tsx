@@ -27,7 +27,7 @@ export default async function RootLayout({
   return (
     <html lang="en" style={{ scrollBehavior: "smooth" }}>
       <SessionProvider session={session}>
-        <body className={inter.className}>
+        <body className={mitr.className}>
           <Toaster />
           <ModalProvider>
             <MynavBar />
