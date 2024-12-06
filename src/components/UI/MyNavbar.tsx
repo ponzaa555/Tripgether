@@ -10,9 +10,18 @@ import {
   AiOutlineTwitter,
 } from "react-icons/ai";
 import { useState } from "react";
-import { Avatar, Dropdown } from "flowbite-react";
 import { usePathname } from "next/navigation";
 import { link } from "@/lib/frontend/data";
+import { Avatar, AvatarImage } from "./avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
 export default function MynavBar() {
   const activePath = usePathname();
@@ -22,7 +31,7 @@ export default function MynavBar() {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <nav className="fixed w-full h-14 shadow-xl bg-white z-[50]">
+    <nav className="fixed w-full h-14 shadow-xl bg-white z-[50] pr-3">
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <Image
@@ -50,30 +59,23 @@ export default function MynavBar() {
             ))}
           </ul>
         </div>
-        <div className="ml-auto">
-          <Dropdown
-            arrowIcon={true}
-            inline
-            label={
-              <Avatar
-                alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                rounded
-              />
-            }
-          >
-            <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
-              <span className="block truncate text-sm font-medium">
-                name@flowbite.com
-              </span>
-            </Dropdown.Header>
-            <Dropdown.Item>Profile</Dropdown.Item>
-            <Dropdown.Item>Friends</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
-          </Dropdown>
+        <div className="flex justify-center ml-auto select-none">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex flex-row items-center gap-1">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+              </Avatar>
+              <ChevronDown />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Billing</DropdownMenuItem>
+              <DropdownMenuItem>Team</DropdownMenuItem>
+              <DropdownMenuItem>Subscription</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
           <AiOutlineMenu size={25} />
