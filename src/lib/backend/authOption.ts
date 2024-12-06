@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./prisma";
 import CredentialsProvider from "next-auth/providers/credentials"
 import { NextResponse } from "next/server";
+import { Adapter } from "next-auth/adapters";
 
 const authOption: AuthOptions = {
   providers: [
@@ -56,7 +57,7 @@ const authOption: AuthOptions = {
       }
     })
   ],
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   session: {
     strategy: "jwt",
   },

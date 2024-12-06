@@ -17,7 +17,7 @@ export async function CreateUser(email: string, password: string): Promise<User>
 {
   try {
     const hashedPassword = await encryptPassword(password);
-    const newUser = await prisma.user.create<User>({
+    const newUser = await prisma.user.create({
       data: {
         email: email,
         password: hashedPassword,

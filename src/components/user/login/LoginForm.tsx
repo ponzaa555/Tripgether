@@ -30,7 +30,7 @@ const LoginForm: React.FC= () => {
                 ...credentials,
             });
             
-            toast.dismiss(toastId);
+            toast.dismiss(toastId as string);
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             if (result?.error) {
