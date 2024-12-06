@@ -43,8 +43,9 @@ const authOption: AuthOptions = {
             body: JSON.stringify(credentials),
             headers: { "Content-Type": "application/json" }
         })
+        console.log("res : ",res);
         const data = await res.json();
-
+        console.log("data : ",data);
         // If no error and we have user data, return it
         if (!res.ok) {
           const error = data.message || "Invalid credentials";
