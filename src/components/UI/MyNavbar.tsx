@@ -13,7 +13,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { link } from "@/lib/frontend/data";
 import SignInButton from "../user/login/SiginButton";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./avatar";
 import {
   DropdownMenu,
@@ -62,28 +62,33 @@ export default function MynavBar() {
             ))}
           </ul>
         </div>
-        <div className="flex justify-center ml-auto select-none">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex flex-row items-center gap-1">
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-              </Avatar>
-              <ChevronDown />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-        <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
-          <AiOutlineMenu size={25} />
-        </div>
-        <SignInButton />
+        {session?.user ? (
+          <>
+            <div className="flex justify-center ml-auto select-none">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex flex-row items-center gap-1">
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                  </Avatar>
+                  <ChevronDown />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Billing</DropdownMenuItem>
+                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  <DropdownMenuItem>Subscription</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
+              <AiOutlineMenu size={25} />
+            </div>
+          </>
+        ) : (
+          <SignInButton />
+        )}
       </div>
       <div
         className={

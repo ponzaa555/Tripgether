@@ -9,7 +9,7 @@ import MynavBar from "@/components/ui/MyNavbar";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { ConvexClientProvider } from "./ConvexClientProvider";
-import { Toaster_ } from "react-hot-toast";
+import { Toaster as ReactHotToastToaster } from "react-hot-toast";
 
 const mitr = Mitr({
   weight: "300",
@@ -33,7 +33,7 @@ export default async function RootLayout({
         <body className={mitr.className}>
           <ConvexClientProvider>
             <TooltipProvider>
-              <Toaster_ />
+              <ReactHotToastToaster />
               <ModalProvider>
                 <MynavBar />
                 <div className="pt-14">{children}</div>

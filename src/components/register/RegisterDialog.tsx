@@ -1,5 +1,5 @@
 "use client";
-import MyDialog from "@/components/UI/MyDialog";
+import MyDialog from "@/components/ui/MyDialog";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -11,15 +11,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/UI/form";
-import { Input } from "@/components/UI/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
 import { MailIcon } from "lucide-react";
-import { PasswordInput } from "@/components/UI/password_input";
-import { Button } from "@/components/UI/Button";
+import { PasswordInput } from "@/components/ui/password_input";
+import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
-import {ErrorToast, LoadingToast, SuccessToast} from "@/components/toastcomponent/toast";
-import { toastErrorOptions, toastLoadingOptions, toastSuccessOptions } from "@/components/toastcomponent/toastOpteions";
+import {
+  ErrorToast,
+  LoadingToast,
+  SuccessToast,
+} from "@/components/toastcomponent/toast";
+import {
+  toastErrorOptions,
+  toastLoadingOptions,
+  toastSuccessOptions,
+} from "@/components/toastcomponent/toastOpteions";
 
 type Props = {
   isOpen: boolean;
@@ -56,20 +64,27 @@ const RegisterDialog = ({ isOpen, setIsOpen }: Props) => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    // TODO: send to backend  
-    const toastid =  LoadingToast({message: "Registering...", options: toastLoadingOptions});  
+    // TODO: send to backend
+    const toastid = LoadingToast({
+      message: "Registering...",
+      options: toastLoadingOptions,
+    });
     const result = await fetch("/api/auth/Myauth/Register", {
       method: "POST",
       body: JSON.stringify(values),
     });
-    
+
     toast.dismiss(toastid as string);
-    await new Promise(resolve => setTimeout(resolve,1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     var resultBody = await result.json();
     // error
     if (result.status != 201) {
-      ErrorToast({message: resultBody.message as string, options: toastErrorOptions, id: toastid as string});
+      ErrorToast({
+        message: resultBody.message as string,
+        options: toastErrorOptions,
+        id: toastid as string,
+      });
     } else {
       SuccessToast("Register Success", toastSuccessOptions);
       setIsOpen(false);
