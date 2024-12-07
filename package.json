@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
+    "poststart": "prisma db pull",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

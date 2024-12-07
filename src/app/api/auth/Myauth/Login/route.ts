@@ -5,12 +5,9 @@ import {
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  console.log("====================   Login   =============");
   var body = await req.json();
   const { email, password } = body;
 
-  // Find User
-//   console.log("email : ",email);
   var user = await FindUserByEmail(email);
   if (!user)
     return NextResponse.json(
