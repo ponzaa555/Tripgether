@@ -31,16 +31,15 @@ export default function MynavBar() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  console.log("session", session);
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <nav className="fixed w-full h-14 shadow-xl bg-white z-[50]">
+    <nav className={`fixed w-full h-14 shadow-xl bg-white z-[50]`}>
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <Image
-            src="/logo.png"
+            src= "/logo.png"
             alt="logo"
             width={105}
             height={60}
@@ -148,7 +147,6 @@ export default function MynavBar() {
           <AiOutlineMenu size={25} />
         </div>
         <SignInButton/>
->>>>>>> a8aead1 ([FixDeploy] AuthProvider and Add id to session)
       </div>
       <div
         className={
