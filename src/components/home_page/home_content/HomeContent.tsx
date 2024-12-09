@@ -1,4 +1,3 @@
-import Form from "./Form";
 import Hero from "./Hero";
 import MyBackgroundSlider from "./BackgroundSlider";
 
@@ -8,7 +7,6 @@ export default function HomeContent() {
       <MyBackgroundSlider />
       <div className="flex flex-col items-end mr-[9.5rem] mt-20 space-y-10">
         <Hero />
-        <Form />
       </div>
     </div>
   );
