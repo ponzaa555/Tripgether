@@ -10,4 +10,7 @@ export default defineSchema({
   })
     .index("by_email", ["email"])
     .index("by_nextAuthId", ["nextAuthId"]),
+  chats: defineTable({
+    
+  })
 });

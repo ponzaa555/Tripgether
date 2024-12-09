@@ -8,7 +8,7 @@ import LoginModal from "@/components/user/login/LoginModal";
 import MynavBar from "@/components/ui/MyNavbar";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Toaster } from "@/components/ui/sonner";
-import { ConvexClientProvider } from "./ConvexClientProvider";
+// import { ConvexClientProvider } from "./ConvexClientProvider";
 import { Toaster as ReactHotToastToaster } from "react-hot-toast";
 
 const mitr = Mitr({
@@ -31,7 +31,7 @@ export default async function RootLayout({
     <html lang="en" style={{ scrollBehavior: "smooth" }}>
       <SessionProvider session={session}>
         <body className={mitr.className}>
-          <ConvexClientProvider>
+          {/* <ConvexClientProvider> */}
             <TooltipProvider>
               <ReactHotToastToaster />
               <ModalProvider>
@@ -41,7 +41,7 @@ export default async function RootLayout({
               </ModalProvider>
             </TooltipProvider>
             <Toaster richColors />
-          </ConvexClientProvider>
+          {/* </ConvexClientProvider> */}
         </body>
       </SessionProvider>
     </html>
