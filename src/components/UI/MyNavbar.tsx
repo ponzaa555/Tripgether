@@ -10,36 +10,26 @@ import {
   AiOutlineTwitter,
 } from "react-icons/ai";
 import { useState } from "react";
+import { Avatar, Dropdown } from "flowbite-react";
 import { usePathname } from "next/navigation";
 import { link } from "@/lib/frontend/data";
 import SignInButton from "../user/login/SiginButton";
-import { useSession } from "next-auth/react";
-import { Avatar, AvatarImage } from "./avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "./dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import { signOut, useSession } from "next-auth/react"
 
 export default function MynavBar() {
   const activePath = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession()
 
-  console.log("session", session);
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <nav className="fixed w-full h-14 shadow-xl bg-white z-[50]">
+    <nav className={`fixed w-full h-14 shadow-xl bg-white z-[50]`}>
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <Image
-            src="/logo.png"
+            src= "/logo.png"
             alt="logo"
             width={105}
             height={60}
@@ -52,7 +42,7 @@ export default function MynavBar() {
               <Link key={`${data.name}-${data.name}`} href={data.href}>
                 <li
                   className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
-                    activePath.startsWith(data.href)
+                    activePath === data.href
                       ? "border-amber-800 text-orange-500 font-bold"
                       : ""
                   }`}
@@ -63,35 +53,6 @@ export default function MynavBar() {
             ))}
           </ul>
         </div>
-<<<<<<< HEAD
-        {session?.user ? (
-          <>
-            <div className="flex justify-center ml-auto select-none">
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex flex-row items-center gap-1">
-                  <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                  </Avatar>
-                  <ChevronDown />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
-                  <DropdownMenuItem>Subscription</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-            <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
-              <AiOutlineMenu size={25} />
-            </div>
-          </>
-        ) : (
-          <SignInButton />
-        )}
-=======
         <div className="ml-auto">
           <Dropdown
             arrowIcon={true}
@@ -124,7 +85,6 @@ export default function MynavBar() {
           <AiOutlineMenu size={25} />
         </div>
         <SignInButton/>
->>>>>>> a8aead1 ([FixDeploy] AuthProvider and Add id to session)
       </div>
       <div
         className={
