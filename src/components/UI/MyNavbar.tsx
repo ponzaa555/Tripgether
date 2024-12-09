@@ -31,6 +31,7 @@ export default function MynavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, status } = useSession()
 
+  console.log("session", session);
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -63,40 +64,38 @@ export default function MynavBar() {
             ))}
           </ul>
         </div>
-        {session?.user && status === "authenticated" ? (
-          <>
-            <div className="flex justify-center ml-auto select-none">
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex flex-row items-center gap-1">
-                  <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                  </Avatar>
-                  <ChevronDown />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>{session.user.email}</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
-                  <DropdownMenuItem>Subscription</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                  >
-                    Sign out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-            <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
-              <AiOutlineMenu size={25} />
-            </div>
-          </>
-        ) : (
-          <div className="px-7">
-            <SignInButton />
-          </div>
-        )}
+        <div className="ml-auto">
+          <Dropdown
+            arrowIcon={true}
+            inline
+            label={
+              <Avatar
+                alt="User settings"
+                img={session?.user?.image || "https://flowbite.com/docs/images/people/profile-picture-5.jpg"}
+                rounded
+              />
+            }
+            
+          >
+            <Dropdown.Header>
+              <span className="block text-sm">
+                {session ? session.user?.name : "Bonnie Green"}
+              </span>
+              <span className="block truncate text-sm font-medium">
+                {session ? session.user?.email : "name@flowbite.com "} 
+              </span>
+            </Dropdown.Header>
+            <Dropdown.Item>Profile</Dropdown.Item>
+            <Dropdown.Item>Friends</Dropdown.Item>
+            <Dropdown.Item>Settings</Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={() => signOut()}>Sign out</Dropdown.Item>
+          </Dropdown>
+        </div>
+        <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
+          <AiOutlineMenu size={25} />
+        </div>
+        <SignInButton/>
       </div>
       <div
         className={
