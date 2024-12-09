@@ -31,7 +31,6 @@ export default function MynavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, status } = useSession()
 
-  console.log("session", session);
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
