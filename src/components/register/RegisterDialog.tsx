@@ -28,6 +28,7 @@ import {
   toastLoadingOptions,
   toastSuccessOptions,
 } from "@/components/toastcomponent/toastOpteions";
+import { useModal } from "@/context/ModalContext";
 
 type Props = {
   isOpen: boolean;
@@ -53,6 +54,7 @@ const formSchema = z
   );
 
 const RegisterDialog = ({ isOpen, setIsOpen }: Props) => {
+  const { openLoginModal } = useModal();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,8 +65,6 @@ const RegisterDialog = ({ isOpen, setIsOpen }: Props) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // TODO: send to backend
     const toastid = LoadingToast({
       message: "Registering...",
       options: toastLoadingOptions,
@@ -78,7 +78,6 @@ const RegisterDialog = ({ isOpen, setIsOpen }: Props) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     var resultBody = await result.json();
-    // error
     if (result.status != 201) {
       ErrorToast({
         message: resultBody.message as string,
@@ -172,7 +171,10 @@ const RegisterDialog = ({ isOpen, setIsOpen }: Props) => {
               <Button
                 type="button"
                 variant="link"
-                onClick={() => console.log("Hello")}
+                onClick={() => {
+                  setIsOpen(false);
+                  openLoginModal();
+                }}
               >
                 Login
               </Button>
