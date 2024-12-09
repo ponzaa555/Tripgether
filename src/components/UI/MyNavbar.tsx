@@ -21,6 +21,7 @@ export default function MynavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, status } = useSession()
 
+  console.log("session", session);
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -60,10 +61,11 @@ export default function MynavBar() {
             label={
               <Avatar
                 alt="User settings"
-                img= { session?.user?.image ? session?.user?.image : "https://flowbite.com/docs/images/people/profile-picture-5.jpg"}
+                img={session?.user?.image || "https://flowbite.com/docs/images/people/profile-picture-5.jpg"}
                 rounded
               />
             }
+            
           >
             <Dropdown.Header>
               <span className="block text-sm">
