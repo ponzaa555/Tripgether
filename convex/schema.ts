@@ -2,12 +2,10 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-  users: defineTable({
-    username: v.string(),
-    imageUrl: v.string(),
-    nextAuthId: v.string(),
-    email: v.string(),
+  requests: defineTable({
+    sender: v.string(),
+    receiver: v.string(),
   })
-    .index("by_email", ["email"])
-    .index("by_nextAuthId", ["nextAuthId"]),
+    .index("by_receiver", ["receiver"])
+    .index("by_receiver_sender", ["receiver", "sender"]),
 });
