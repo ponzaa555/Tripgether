@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { NextResponse } from "next/server";
 import { Adapter } from "next-auth/adapters";
 
 const authOption: AuthOptions = {
@@ -66,6 +67,22 @@ const authOption: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   debug: true,
+  callbacks: {
+    async jwt({ token, user }) {
+      // Add user.id to token on initial sign-in
+      if (user) {
+        token.id = user.id; // No type error now
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Ensure session.user exists before setting properties
+      if (session?.user) {
+        session.user.id = token.id as string; // Use the id from token
+      }
+      return session;
+    },
+  },
 };
 
 export default authOption;
