@@ -24,19 +24,25 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useMutationState } from "@/hooks/useMutation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, UserPlus } from "lucide-react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { api } from "../../../../convex/_generated/api";
+import { useSession } from "next-auth/react";
+import { ConvexError } from "convex/values";
 
 const addFriendFormSchema = z.object({
   email: z.string().email("Please enter a valid email."),
 });
 
 const AddFriendDialog = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { data: session, status } = useSession();
+  const { mutate: createRequest, pending } = useMutationState(
+    api.request.create
+  );
 
   const form = useForm<z.infer<typeof addFriendFormSchema>>({
     resolver: zodResolver(addFriendFormSchema),
@@ -44,17 +50,32 @@ const AddFriendDialog = () => {
   });
 
   const handleSubmit = async (values: z.infer<typeof addFriendFormSchema>) => {
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-      .then(() => {
-        form.reset();
-        toast.success("Friend request sent!");
-      })
-      .catch(() => {
-        toast.error("Failed to send friend request.");
+    try {
+      const data = await fetch("/api/emailCheck", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: values.email }),
       });
-    console.log(values);
-    setIsLoading(false);
+      const user = await data.json();
+      console.log(user);
+      await createRequest({
+        receiverId: user.user.id,
+        senderId: session?.user!.email!,
+      })
+        .then(() => {
+          form.reset();
+          toast.success("Friend request sent!");
+        })
+        .catch((e) => {
+          toast.error(
+            e instanceof ConvexError ? e.data : "Unexpected error occurred"
+          );
+        });
+    } catch (e) {
+      toast.error("User not found");
+    }
   };
 
   return (
@@ -97,14 +118,14 @@ const AddFriendDialog = () => {
               )}
             />
             <DialogFooter>
-              {isLoading ? (
-                <Button disabled>
+              {/* {isLoading ? ( */}
+              {/* <Button disabled>
                   <Loader2 className="animate-spin" />
                   Please wait
-                </Button>
-              ) : (
-                <Button type="submit">Send</Button>
-              )}
+                </Button> */}
+              {/* ) : ( */}
+              <Button type="submit">Send</Button>
+              {/* )} */}
             </DialogFooter>
           </form>
         </Form>
