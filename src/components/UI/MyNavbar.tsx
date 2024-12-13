@@ -48,53 +48,64 @@ export default function MynavBar() {
         </Link>
         <div className="hidden sm:flex ml-auto">
           <ul className="hidden sm:flex">
-            {link.map((data) => (
-              <Link key={`${data.name}-${data.name}`} href={data.href}>
-                <li
-                  className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
-                    activePath === data.href
-                      ? "border-amber-800 text-orange-500 font-bold"
-                      : ""
-                  }`}
-                >
-                  {data.name}
-                </li>
-              </Link>
-            ))}
+            {link.map((data) => {
+              if (
+                data.name === "Chat" &&
+                (!session?.user || status !== "authenticated")
+              ) {
+                return null;
+              } else {
+                return (
+                  <Link key={`${data.name}-${data.name}`} href={data.href}>
+                    <li
+                      className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
+                        activePath.startsWith(data.href)
+                          ? "border-amber-800 text-orange-500 font-bold"
+                          : ""
+                      }`}
+                    >
+                      {data.name}
+                    </li>
+                  </Link>
+                );
+              }
+            })}
           </ul>
         </div>
-        <div className="ml-auto">
-          <Dropdown
-            arrowIcon={true}
-            inline
-            label={
-              <Avatar
-                alt="User settings"
-                img={session?.user?.image || "https://flowbite.com/docs/images/people/profile-picture-5.jpg"}
-                rounded
-              />
-            }
-            
-          >
-            <Dropdown.Header>
-              <span className="block text-sm">
-                {session ? session.user?.name : "Bonnie Green"}
-              </span>
-              <span className="block truncate text-sm font-medium">
-                {session ? session.user?.email : "name@flowbite.com "} 
-              </span>
-            </Dropdown.Header>
-            <Dropdown.Item>Profile</Dropdown.Item>
-            <Dropdown.Item>Friends</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item onClick={() => signOut()}>Sign out</Dropdown.Item>
-          </Dropdown>
-        </div>
-        <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
-          <AiOutlineMenu size={25} />
-        </div>
-        <SignInButton/>
+        <>
+          <div className="flex justify-center ml-auto select-none">
+            {!session?.user || status !== "authenticated" ? (
+              <div className="px-7">
+                <SignInButton />
+              </div>
+            ) : (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex flex-row items-center gap-1">
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                  </Avatar>
+                  <ChevronDown />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>{session?.user.email}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  <DropdownMenuItem>Subscription</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                  >
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </div>
+          <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
+            <AiOutlineMenu size={25} />
+          </div>
+        </>
       </div>
       <div
         className={
@@ -110,46 +121,29 @@ export default function MynavBar() {
         </div>
         <div className="flex-col py-4">
           <ul>
-            <Link href="/">
-              <li
-                onClick={() => setIsMenuOpen(false)}
-                className="py-4 cursor-pointer"
-              >
-                Home
-              </li>
-            </Link>
-            <Link href="/">
-              <li
-                onClick={() => setIsMenuOpen(false)}
-                className="py-4 cursor-pointer"
-              >
-                Trip
-              </li>
-            </Link>
-            <Link href="/">
-              <li
-                onClick={() => setIsMenuOpen(false)}
-                className="py-4 cursor-pointer"
-              >
-                Chat
-              </li>
-            </Link>
-            <Link href="/">
-              <li
-                onClick={() => setIsMenuOpen(false)}
-                className="py-4 cursor-pointer"
-              >
-                Trip-plan
-              </li>
-            </Link>
-            <Link href="/">
-              <li
-                onClick={() => setIsMenuOpen(false)}
-                className="py-4 cursor-pointer"
-              >
-                Contact
-              </li>
-            </Link>
+            {link.map((data) => {
+              if (
+                data.name === "Chat" &&
+                (!session?.user || status !== "authenticated")
+              ) {
+                return null;
+              } else {
+                return (
+                  <Link key={`${data.name}-${data.name}`} href={data.href}>
+                    <li
+                      className={`py-4 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
+                        activePath.startsWith(data.href)
+                          ? "border-amber-800 text-orange-500 font-bold"
+                          : ""
+                      }`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {data.name}
+                    </li>
+                  </Link>
+                );
+              }
+            })}
           </ul>
         </div>
         <div className="flex flex-row justify-around pt-10 items-center">

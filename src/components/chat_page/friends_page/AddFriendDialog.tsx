@@ -50,32 +50,19 @@ const AddFriendDialog = () => {
   });
 
   const handleSubmit = async (values: z.infer<typeof addFriendFormSchema>) => {
-    try {
-      const data = await fetch("/api/emailCheck", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: values.email }),
-      });
-      const user = await data.json();
-      console.log(user);
-      await createRequest({
-        receiverId: user.user.id,
-        senderId: session?.user!.email!,
+    await createRequest({
+      email: values.email,
+      currentUserId: session?.user?.id,
+    })
+      .then(() => {
+        form.reset();
+        toast.success("Friend request sent!");
       })
-        .then(() => {
-          form.reset();
-          toast.success("Friend request sent!");
-        })
-        .catch((e) => {
-          toast.error(
-            e instanceof ConvexError ? e.data : "Unexpected error occurred"
-          );
-        });
-    } catch (e) {
-      toast.error("User not found");
-    }
+      .catch((e) => {
+        toast.error(
+          e instanceof ConvexError ? e.data : "Unexpected error occurred"
+        );
+      });
   };
 
   return (
@@ -118,14 +105,10 @@ const AddFriendDialog = () => {
               )}
             />
             <DialogFooter>
-              {/* {isLoading ? ( */}
-              {/* <Button disabled>
-                  <Loader2 className="animate-spin" />
-                  Please wait
-                </Button> */}
-              {/* ) : ( */}
-              <Button type="submit">Send</Button>
-              {/* )} */}
+              <Button type="submit" disabled={pending}>
+                {pending ? <Loader2 className="animate-spin" /> : null}
+                {pending ? "Please wait..." : "Send request"}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

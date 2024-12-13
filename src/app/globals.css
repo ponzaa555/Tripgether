@@ -75,3 +75,9 @@ body {
 .group {
   position: relative;
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

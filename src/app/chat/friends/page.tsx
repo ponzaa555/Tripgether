@@ -9,35 +9,15 @@ import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { User } from "@prisma/client";
 
 type Props = {};
 
 const FriendsPage = (props: Props) => {
   const { data: session } = useSession();
   const requests = useQuery(api.requests.get, {
-    senderId: session?.user!.email!,
+    currentUserId: session?.user!.id!,
   });
 
-  const [users, setUsers] = useState<User[]>([]);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      if (requests) {
-        const usersData = await Promise.all(
-          requests.map(async (request) => {
-            const res = await fetch(`/api/users/${request.senderId}`);
-            const user = await res.json();
-            return user;
-          })
-        );
-        setUsers(usersData);
-      }
-    };
-
-    fetchUsers();
-  }, [requests]);
   return (
     <>
       <SidebarWrapper>
@@ -48,18 +28,21 @@ const FriendsPage = (props: Props) => {
                 No friend request found
               </p>
             ) : (
-              users.map((user) => (
+              requests.map((request) => (
                 <Request
-                  key={user.id}
-                  id={user.id}
-                  imageUrl={user.image ?? "https://i.pravatar.cc/300"}
-                  username={user.name ?? "Unknown"}
-                  email={user.email}
+                  key={request.request._id}
+                  id={request.request._id}
+                  imageUrl={
+                    request.sender.imageUrl ??
+                    "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
+                  }
+                  username={request.sender.username ?? "Unknown"}
+                  email={request.sender.email}
                 />
               ))
             )
           ) : (
-            <Loader2 className="h-8 w-8" />
+            <Loader2 className="animate-spin" />
           )}
         </ItemList>
         <ConvarsationFallback />
