@@ -4,16 +4,29 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
 import { Card } from "@/components/ui/card";
+import { useMutationState } from "@/hooks/useMutation";
 import { Check, User, X } from "lucide-react";
+import { api } from "../../../../convex/_generated/api";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
+import { ConvexError } from "convex/values";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 type Props = {
-  id: string;
+  id: Id<"requests">;
   imageUrl: string;
   username: string;
   email: string;
 };
 
-const Request = ({ imageUrl, username, email }: Props) => {
+const Request = ({ id, imageUrl, username, email }: Props) => {
+  const { data: session } = useSession();
+  const { mutate: denyRequest, pending: denyPending } = useMutationState(
+    api.request.deny
+  );
+  const { mutate: acceptRequest, pending: acceptPending } = useMutationState(
+    api.request.accept
+  );
   return (
     <Card className="w-full p-2 flex items-center gap-2">
       <div className="flex w-full items-center justify-between">
@@ -30,10 +43,43 @@ const Request = ({ imageUrl, username, email }: Props) => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button size="icon" onClick={() => {}}>
+          <Button
+            size="icon"
+            disabled={denyPending || acceptPending}
+            onClick={() => {
+              acceptRequest({ id, currentUserId: session?.user!.id! })
+                .then(() => {
+                  toast.success("Friend Request Accepted!");
+                })
+                .catch((e) => {
+                  toast.error(
+                    e instanceof ConvexError
+                      ? e.data
+                      : "Unexpected error occurred"
+                  );
+                });
+            }}
+          >
             <Check />
           </Button>
-          <Button size="icon" variant="destructive" onClick={() => {}}>
+          <Button
+            size="icon"
+            disabled={denyPending || acceptPending}
+            variant="destructive"
+            onClick={() => {
+              denyRequest({ id, currentUserId: session?.user!.id! })
+                .then(() => {
+                  toast.success("Friend Request denied!");
+                })
+                .catch((e) => {
+                  toast.error(
+                    e instanceof ConvexError
+                      ? e.data
+                      : "Unexpected error occurred"
+                  );
+                });
+            }}
+          >
             <X className="h-4 w-4" />
           </Button>
         </div>
