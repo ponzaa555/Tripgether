@@ -12,10 +12,9 @@ import GroupConversationItem from "./conversation/GroupConversationItem";
 
 type ChatPageProps = {
   children: React.ReactNode;
-  isFormChat: boolean;
 };
 
-const ChatLayout = ({ isFormChat, children }: ChatPageProps) => {
+const ChatLayout = ({ children }: ChatPageProps) => {
   const { data: session } = useSession();
   const conversations = useQuery(api.conversations.get, {
     currentUserId: session!.user!.id!,
@@ -23,10 +22,7 @@ const ChatLayout = ({ isFormChat, children }: ChatPageProps) => {
   return (
     <>
       <SidebarWrapper>
-        <ItemList
-          title="Conversations"
-          action={isFormChat ? <CreateGroupDialog /> : null}
-        >
+        <ItemList title="Conversations" action={<CreateGroupDialog />}>
           {conversations ? (
             conversations.length === 0 ? (
               <p className="w-full h-full flex items-center justify-center">

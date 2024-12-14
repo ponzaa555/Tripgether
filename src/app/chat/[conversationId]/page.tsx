@@ -33,7 +33,7 @@ const ChatConversationPage = ({ params: { conversationId } }: Props) => {
   const [callType, setCallType] = useState<"audio" | "video" | null>(null);
 
   return (
-    <ChatLayout isFormChat={true}>
+    <ChatLayout>
       {conversation === undefined ? (
         <div className="w-full h-full flex items-center justify-center">
           <Loader2 className="animate-spin" />
