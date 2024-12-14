@@ -127,10 +127,6 @@ export const deleteGroup = mutation({
       )
       .collect();
 
-    if (!memberships || memberships.length <= 1) {
-      throw new ConvexError("This conversation dose not have any members");
-    }
-
     const messages = await ctx.db
       .query("messages")
       .withIndex("by_conversationId", (q) =>
