@@ -50,7 +50,10 @@ const ChatInput = () => {
       })
       .catch((e) => {
         toast.error(
-          e instanceof ConvexError ? e.data : "Unexpected error occured"
+          e instanceof ConvexError ? e.data : "Unexpected error occured",
+          {
+            position: "bottom-right",
+          }
         );
       });
   };

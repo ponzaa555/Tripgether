@@ -17,18 +17,8 @@ import { useEffect } from "react";
 import { MailIcon } from "lucide-react";
 import { PasswordInput } from "@/components/ui/password_input";
 import { Button } from "@/components/ui/button";
-import toast from "react-hot-toast";
-import {
-  ErrorToast,
-  LoadingToast,
-  SuccessToast,
-} from "@/components/toastcomponent/toast";
-import {
-  toastErrorOptions,
-  toastLoadingOptions,
-  toastSuccessOptions,
-} from "@/components/toastcomponent/toastOpteions";
 import { useModal } from "@/context/ModalContext";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
@@ -65,27 +55,16 @@ const RegisterDialog = ({ isOpen, setIsOpen }: Props) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const toastid = LoadingToast({
-      message: "Registering...",
-      options: toastLoadingOptions,
-    });
     const result = await fetch("/api/auth/Myauth/Register", {
       method: "POST",
       body: JSON.stringify(values),
     });
 
-    toast.dismiss(toastid as string);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
     var resultBody = await result.json();
     if (result.status != 201) {
-      ErrorToast({
-        message: resultBody.message as string,
-        options: toastErrorOptions,
-        id: toastid as string,
-      });
+      toast.error(resultBody.message as string);
     } else {
-      SuccessToast("Register Success", toastSuccessOptions);
+      toast.success("Register Success");
       setIsOpen(false);
     }
   }
