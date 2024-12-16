@@ -10,9 +10,8 @@ import {
   AiOutlineTwitter,
 } from "react-icons/ai";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { link } from "@/lib/frontend/data";
-import SignInButton from "../user/login/SiginButton";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./avatar";
 import {
@@ -24,11 +23,13 @@ import {
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { ChevronDown } from "lucide-react";
+import SignInButton from "../login/SiginButton";
 
 export default function MynavBar() {
   const activePath = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -88,9 +89,13 @@ export default function MynavBar() {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>{session?.user.email}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
-                  <DropdownMenuItem>Subscription</DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      router.push("/profile");
+                    }}
+                  >
+                    Profile
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={() => signOut({ callbackUrl: "/" })}

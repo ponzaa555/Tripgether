@@ -3,7 +3,7 @@ import ConvarsationFallback from "@/components/chat_page/conversation/Convarsati
 
 const ChatPage = () => {
   return (
-    <ChatLayout isFormChat={false}>
+    <ChatLayout>
       <ConvarsationFallback />
     </ChatLayout>
   );

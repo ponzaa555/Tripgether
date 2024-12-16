@@ -67,6 +67,9 @@ const authOption: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   debug: true,
   callbacks: {
+    async redirect({ baseUrl }) {
+      return baseUrl;
+    },
     async jwt({ token, user }) {
       // Add user.id to token on initial sign-in
       if (user) {

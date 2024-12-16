@@ -4,12 +4,11 @@ import "./globals.css";
 import SessionProvider from "@/components/next-auth/SessionProvider";
 import { getServerSession } from "next-auth";
 import { ModalProvider } from "@/context/ModalContext";
-import LoginModal from "@/components/user/login/LoginModal";
 import MynavBar from "@/components/ui/MyNavbar";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { ConvexClientProvider } from "./ConvexClientProvider";
-import { Toaster as ReactHotToastToaster } from "react-hot-toast";
+import LoginModal from "@/components/login/LoginModal";
 
 const mitr = Mitr({
   weight: "300",
@@ -32,15 +31,14 @@ export default async function RootLayout({
       <SessionProvider session={session}>
         <body className={mitr.className}>
           <ConvexClientProvider>
-            <TooltipProvider>
-              <ReactHotToastToaster />
-              <ModalProvider>
+            <ModalProvider>
+              <TooltipProvider>
                 <MynavBar />
                 <div className="pt-14">{children}</div>
                 <LoginModal />
-              </ModalProvider>
-            </TooltipProvider>
-            <Toaster richColors />
+              </TooltipProvider>
+              <Toaster richColors />
+            </ModalProvider>
           </ConvexClientProvider>
         </body>
       </SessionProvider>
