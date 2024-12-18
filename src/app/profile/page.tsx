@@ -277,6 +277,8 @@ const Profile = () => {
           <p>There is no media to show.</p>
         </div>
       </div>
+
+      <div></div>
     </div>
   );
 };
