@@ -278,7 +278,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="flex flex-col w-full bg-white gap-5 p-3">
+      <div className="flex flex-col w-full bg-white h-[35rem] gap-5 p-3">
         <div className="flex flex-row justify-between">
           <Image src="/logo.png" alt="logo" width={100} height={100} />
           <Button>
@@ -323,8 +323,8 @@ const Profile = () => {
             </li>
           </ul>
         </nav>
-        <div className="flex h-80 justify-center items-center w-full ">
-          There is no media to show.
+        <div className="flex justify-center items-center w-full pt-48">
+          <p>There is no media to show.</p>
         </div>
       </div>
     </div>
