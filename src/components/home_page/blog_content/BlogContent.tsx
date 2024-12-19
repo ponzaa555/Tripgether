@@ -10,19 +10,24 @@ type Props = {};
 
 const BlogContent = (props: Props) => {
   return (
-    <div className="flex flex-col items-center pt-20 px-24">
-      <h3 className="text-4xl font-normal py-5">Enjoy The Moment</h3>
-      <div className="columns-1 pt-8 sm:columns-3 lg:columns-5 w-full mb-6">
+    <div className="flex flex-col items-center pt-20 px-12">
+      <h3 className="text-3xl sm:text-5xl md:text-6xl font-black">
+        Enjoy The Moment
+      </h3>
+      <div className="columns-1 pt-8 sm:columns-3 lg:columns-5 w-full">
         {blogMockData.map((data) => (
-          <div key={data.id} className="break-inside-avoid mb-4">
+          <div
+            key={data.id}
+            className="break-inside-avoid flex flex-col gap-1 pb-10"
+          >
             <Image
               src={data.image}
               alt={data.title}
-              width={100}
-              height={100}
+              width={1000}
+              height={1000}
               className="shadow-sm w-full h-full"
             />
-            <div className="flex flex-row justify-between pt-1">
+            <div className="flex flex-row justify-between">
               <p className="flex font-light text-xs text-gray-400 items-baseline gap-1">
                 3 Aug, 23 at 2:31 PM.
                 <span>
@@ -36,7 +41,7 @@ const BlogContent = (props: Props) => {
                 20
               </p>
             </div>
-            <h3 className="text-sm font-medium pt-1 pb-2">{data.title}</h3>
+            <h3 className="text-sm font-black">{data.title}</h3>
             <p className="text-xs text-gray-800">{data.author}</p>
           </div>
         ))}
