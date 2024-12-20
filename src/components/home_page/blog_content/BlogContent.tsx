@@ -10,7 +10,7 @@ type Props = {};
 
 const BlogContent = (props: Props) => {
   return (
-    <div className="flex flex-col items-center pt-20 px-12">
+    <div className="flex flex-col items-center px-12">
       <h3 className="text-3xl sm:text-5xl md:text-6xl font-black">
         Enjoy The Moment
       </h3>

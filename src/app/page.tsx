@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <>
       <HomeContent />
-      <div className="h-full w-screen bg-white">
+      <div className="flex flex-col gap-20 h-full w-screen bg-white">
         <Welcome />
         <BlogContent />
       </div>
