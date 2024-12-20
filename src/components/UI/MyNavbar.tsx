@@ -82,7 +82,12 @@ export default function MynavBar() {
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex flex-row items-center gap-1">
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage
+                      src={
+                        session.user.image ??
+                        "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"
+                      }
+                    />
                   </Avatar>
                   <ChevronDown />
                 </DropdownMenuTrigger>

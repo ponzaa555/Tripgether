@@ -47,11 +47,11 @@ export const link = [
   },
   {
     name: "Trip-Plan",
-    href: "/trip-plan",
+    href: "/plan",
   },
   {
-    name: "Contact",
-    href: "/contact",
+    name: "About-Us",
+    href: "/about-us",
   },
 ] as const;
 
