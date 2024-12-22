@@ -3,7 +3,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/src/components/ui/dialog";
+} from "@/src/components/UI/dialog";
 
 type Props = {
   isOpen: boolean;

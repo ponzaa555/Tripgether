@@ -13,7 +13,7 @@ import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { link } from "@/src/lib/frontend/data";
 import { signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarImage } from "@/src/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/src/components/UI/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +21,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+} from "@/src/components/UI/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import SignInButton from "@/src/components/login/SiginButton";
 

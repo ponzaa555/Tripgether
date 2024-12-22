@@ -1,7 +1,7 @@
 "use client";
 
 import BlogContent from "@/src/components/home_page/blog_content/BlogContent";
-import { Input } from "@/src/components/ui/input";
+import { Input } from "@/src/components/UI/input";
 import useTripSearch from "@/src/hooks/useTripSearch";
 import { useState } from "react";
 

@@ -1,5 +1,5 @@
 "use client";
-import MyDialog from "@/src/components/ui/MyDialog";
+import MyDialog from "@/src/components/UI/MyDialog";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -11,12 +11,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/src/components/ui/form";
-import { Input } from "@/src/components/ui/input";
+} from "@/src/components/UI/form";
+import { Input } from "@/src/components/UI/input";
 import { useEffect } from "react";
 import { MailIcon } from "lucide-react";
-import { PasswordInput } from "@/src/components/ui/password_input";
-import { Button } from "@/src/components/ui/button";
+import { PasswordInput } from "@/src/components/UI/password_input";
+import { Button } from "@/src/components/UI/Button";
 import { useModal } from "@/src/context/ModalContext";
 import { toast } from "sonner";
 

@@ -4,10 +4,10 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/src/components/ui/avatar";
-import { Button } from "@/src/components/ui/button";
+} from "@/src/components/UI/avatar";
+import { Button } from "@/src/components/UI/Button";
 
-import { Card } from "@/src/components/ui/card";
+import { Card } from "@/src/components/UI/card";
 import { useMutationState } from "@/src/hooks/useMutation";
 import { Check, User, X } from "lucide-react";
 import { api } from "@/convex/_generated/api";

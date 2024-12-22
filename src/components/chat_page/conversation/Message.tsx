@@ -4,7 +4,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/src/components/ui/avatar";
+} from "@/src/components/UI/avatar";
 type Props = {
   fromCurrentUser: boolean;
   senderImage: string;

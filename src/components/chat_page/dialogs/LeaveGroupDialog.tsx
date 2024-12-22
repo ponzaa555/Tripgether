@@ -16,7 +16,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/src/components/ui/alert-dialog";
+} from "@/src/components/UI/alert-dialog";
 
 type Props = {
   conversationId: Id<"conversations">;

@@ -16,9 +16,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/src/components/ui/dialog";
-import { TooltipContent, TooltipTrigger } from "@/src/components/ui/tooltip";
-import { Button } from "@/src/components/ui/button";
+} from "@/src/components/UI/dialog";
+import { TooltipContent, TooltipTrigger } from "@/src/components/UI/tooltip";
+import { Button } from "@/src/components/UI/Button";
 import { Tooltip } from "@radix-ui/react-tooltip";
 import { CirclePlus, X } from "lucide-react";
 import {
@@ -28,20 +28,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/src/components/ui/form";
-import { Input } from "@/src/components/ui/input";
+} from "@/src/components/UI/form";
+import { Input } from "@/src/components/UI/input";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+} from "@/src/components/UI/dropdown-menu";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/src/components/ui/avatar";
-import { Card } from "@/src/components/ui/card";
+} from "@/src/components/UI/avatar";
+import { Card } from "@/src/components/UI/card";
 
 type Props = {};
 
