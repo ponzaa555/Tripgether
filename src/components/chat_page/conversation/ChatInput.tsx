@@ -1,19 +1,24 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
-import { useConversation } from "@/hooks/useConversation";
-import { useMutationState } from "@/hooks/useMutation";
+import { Card } from "@/src/components/ui/card";
+import { useConversation } from "@/src/hooks/useConversation";
+import { useMutationState } from "@/src/hooks/useMutation";
 import { z } from "zod";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { ConvexError } from "convex/values";
 import { useRef } from "react";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+} from "@/src/components/ui/form";
 import TextareaAutosize from "react-textarea-autosize";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import { SendHorizonal } from "lucide-react";
 
 const chatMessageSchema = z.object({

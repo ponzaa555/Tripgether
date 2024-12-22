@@ -1,8 +1,8 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
-import { useConversation } from "@/hooks/useConversation";
-import { cn } from "@/lib/utils";
+import { Card } from "@/src/components/ui/card";
+import { useConversation } from "@/src/hooks/useConversation";
+import { cn } from "@/src/lib/utils";
 
 type Props = React.PropsWithChildren<{
   title: string;

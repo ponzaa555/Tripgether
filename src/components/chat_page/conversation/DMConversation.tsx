@@ -1,9 +1,13 @@
 import Link from "next/link";
-import { Id } from "../../../../convex/_generated/dataModel";
-import { Card } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Id } from "@/convex/_generated/dataModel";
+import { Card } from "@/src/components/ui/card";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
 import { User } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/src/components/ui/badge";
 
 type Props = {
   id: Id<"conversations">;

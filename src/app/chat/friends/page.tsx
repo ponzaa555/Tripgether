@@ -1,12 +1,12 @@
 "use client";
 
-import ConvarsationFallback from "@/components/chat_page/conversation/ConvarsationFallback";
-import AddFriendDialog from "@/components/chat_page/friends_page/AddFriendDialog";
-import Request from "@/components/chat_page/friends_page/Request";
-import ItemList from "@/components/chat_page/item_list/ItemList";
-import SidebarWrapper from "@/components/chat_page/sidebar/SidebarWrapper";
+import ConvarsationFallback from "@/src/components/chat_page/conversation/ConvarsationFallback";
+import AddFriendDialog from "@/src/components/chat_page/friends_page/AddFriendDialog";
+import Request from "@/src/components/chat_page/friends_page/Request";
+import ItemList from "@/src/components/chat_page/item_list/ItemList";
+import SidebarWrapper from "@/src/components/chat_page/sidebar/SidebarWrapper";
 import { useQuery } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 

@@ -1,9 +1,9 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import MyBackgroundSlider from "@/components/home_page/home_content/BackgroundSlider";
+import { Button } from "@/src/components/ui/button";
+import MyBackgroundSlider from "@/src/components/home_page/home_content/BackgroundSlider";
 import { Flame } from "lucide-react";
 import Image from "next/image";
-import RegisterDialog from "@/components/register/RegisterDialog";
+import RegisterDialog from "@/src/components/register/RegisterDialog";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 

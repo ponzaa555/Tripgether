@@ -1,6 +1,6 @@
 "use client";
-import RegisterDialog from "@/components/register/RegisterDialog";
-import { Button } from "@/components/ui/button";
+import RegisterDialog from "@/src/components/register/RegisterDialog";
+import { Button } from "@/src/components/ui/button";
 import { useState } from "react";
 
 type Props = {};

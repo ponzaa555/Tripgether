@@ -1,6 +1,6 @@
 import React from "react";
-import ChatNavbar from "@/components/chat_page/chat_navbar/ChatNavbar";
-import MobileChatNavbar from "@/components/chat_page/chat_navbar/MobileChatNavbar";
+import ChatNavbar from "@/src/components/chat_page/chat_navbar/ChatNavbar";
+import MobileChatNavbar from "@/src/components/chat_page/chat_navbar/MobileChatNavbar";
 
 type Props = React.PropsWithChildren<{}>;
 

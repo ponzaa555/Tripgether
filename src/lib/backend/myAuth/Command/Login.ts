@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/backend/prisma";
+import { prisma } from "@/src/lib/backend/prisma";
 import { User } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 

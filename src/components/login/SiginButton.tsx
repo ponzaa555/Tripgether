@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useModal } from "@/context/ModalContext";
+import { useModal } from "@/src/context/ModalContext";
 
 const SignInButton: React.FC = () => {
   const { openLoginModal } = useModal();

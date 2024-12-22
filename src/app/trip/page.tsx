@@ -1,8 +1,8 @@
 "use client";
 
-import BlogContent from "@/components/home_page/blog_content/BlogContent";
-import { Input } from "@/components/ui/input";
-import useTripSearch from "@/hooks/useTripSearch";
+import BlogContent from "@/src/components/home_page/blog_content/BlogContent";
+import { Input } from "@/src/components/ui/input";
+import useTripSearch from "@/src/hooks/useTripSearch";
 import { useState } from "react";
 
 type Props = {};

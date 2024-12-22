@@ -1,19 +1,19 @@
 "use client";
 
-import ChatLayout from "@/components/chat_page/chat_layout";
+import ChatLayout from "@/src/components/chat_page/chat_layout";
 import { useQuery } from "convex/react";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
-import ConvarsationContainer from "@/components/chat_page/conversation/ConvarsationContainer";
-import { Id } from "../../../../convex/_generated/dataModel";
-import { api } from "../../../../convex/_generated/api";
-import Header from "@/components/chat_page/conversation/Header";
-import Body from "@/components/chat_page/conversation/Body";
-import ChatInput from "@/components/chat_page/conversation/ChatInput";
+import ConvarsationContainer from "@/src/components/chat_page/conversation/ConvarsationContainer";
+import { Id } from "@/convex/_generated/dataModel";
+import { api } from "@/convex/_generated/api";
+import Header from "@/src/components/chat_page/conversation/Header";
+import Body from "@/src/components/chat_page/conversation/Body";
+import ChatInput from "@/src/components/chat_page/conversation/ChatInput";
 import { useState } from "react";
-import RemoveFriendDialog from "@/components/chat_page/dialogs/RemoveFriendDialog";
-import DeleteGroupDialog from "@/components/chat_page/dialogs/DeleteGroupDialog";
-import LeaveGroupDialog from "@/components/chat_page/dialogs/LeaveGroupDialog";
+import RemoveFriendDialog from "@/src/components/chat_page/dialogs/RemoveFriendDialog";
+import DeleteGroupDialog from "@/src/components/chat_page/dialogs/DeleteGroupDialog";
+import LeaveGroupDialog from "@/src/components/chat_page/dialogs/LeaveGroupDialog";
 
 type Props = {
   params: {

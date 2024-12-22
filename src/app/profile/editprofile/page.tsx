@@ -1,14 +1,14 @@
 "use client";
-import IdentityForm from "@/components/profile_page/IdentityForm";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import IdentityForm from "@/src/components/profile_page/IdentityForm";
+import { Avatar, AvatarImage } from "@/src/components/ui/avatar";
+import { Button } from "@/src/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/src/components/ui/dialog";
 import { ImageUp, UserRound } from "lucide-react";
 import { useRef, useState } from "react";
 

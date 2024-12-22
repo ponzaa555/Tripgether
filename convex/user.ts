@@ -14,7 +14,7 @@ export const create = mutation({
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))
       .collect();
     if (user.length > 0) {
-      throw new ConvexError("User already exists");
+      return null;
     }
     ctx.db.insert("users", args);
     return args;

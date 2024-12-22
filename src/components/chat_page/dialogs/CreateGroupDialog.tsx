@@ -1,7 +1,7 @@
 import { useQuery } from "convex/react";
 import { z } from "zod";
-import { api } from "../../../../convex/_generated/api";
-import { useMutationState } from "@/hooks/useMutation";
+import { api } from "@/convex/_generated/api";
+import { useMutationState } from "@/src/hooks/useMutation";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,9 +16,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
+} from "@/src/components/ui/dialog";
+import { TooltipContent, TooltipTrigger } from "@/src/components/ui/tooltip";
+import { Button } from "@/src/components/ui/button";
 import { Tooltip } from "@radix-ui/react-tooltip";
 import { CirclePlus, X } from "lucide-react";
 import {
@@ -28,16 +28,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/src/components/ui/form";
+import { Input } from "@/src/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card } from "@/components/ui/card";
+} from "@/src/components/ui/dropdown-menu";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
+import { Card } from "@/src/components/ui/card";
 
 type Props = {};
 
