@@ -6,7 +6,7 @@
     "postinstall": "prisma generate",
     "poststart": "prisma db pull",
     "dev": "next dev",
-    "build": "next build && npx convex deploy --cmd 'npm run build'",
+    "build": "next build ",
     "start": "next start",
     "lint": "next lint"
   },
