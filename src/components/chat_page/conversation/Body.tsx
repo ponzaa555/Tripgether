@@ -1,17 +1,17 @@
-import { useConversation } from "@/hooks/useConversation";
+import { useConversation } from "@/src/hooks/useConversation";
 import { useQuery } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 import { useSession } from "next-auth/react";
-import Message from "./Message";
-import { useMutationState } from "@/hooks/useMutation";
+import Message from "@/src/components/chat_page/conversation/Message";
+import { useMutationState } from "@/src/hooks/useMutation";
 import { useEffect } from "react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/src/components/ui/tooltip";
 
 type Props = {
   members: {

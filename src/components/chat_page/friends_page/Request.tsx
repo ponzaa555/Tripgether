@@ -1,16 +1,20 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
+import { Button } from "@/src/components/ui/button";
 
-import { Card } from "@/components/ui/card";
-import { useMutationState } from "@/hooks/useMutation";
+import { Card } from "@/src/components/ui/card";
+import { useMutationState } from "@/src/hooks/useMutation";
 import { Check, User, X } from "lucide-react";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { ConvexError } from "convex/values";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { Id } from "@/convex/_generated/dataModel";
 
 type Props = {
   id: Id<"requests">;

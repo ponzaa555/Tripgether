@@ -2,13 +2,13 @@
 
 import { useQuery } from "convex/react";
 import { useSession } from "next-auth/react";
-import { api } from "../../../convex/_generated/api";
-import SidebarWrapper from "@/components/chat_page/sidebar/SidebarWrapper";
-import ItemList from "@/components/chat_page/item_list/ItemList";
-import DMConversation from "@/components/chat_page/conversation/DMConversation";
+import { api } from "@/convex/_generated/api";
+import SidebarWrapper from "@/src/components/chat_page/sidebar/SidebarWrapper";
+import ItemList from "@/src/components/chat_page/item_list/ItemList";
+import DMConversation from "@/src/components/chat_page/conversation/DMConversation";
 import { Loader2 } from "lucide-react";
-import CreateGroupDialog from "@/components/chat_page/dialogs/CreateGroupDialog";
-import GroupConversationItem from "@/components/chat_page/conversation/GroupConversationItem";
+import CreateGroupDialog from "@/src/components/chat_page/dialogs/CreateGroupDialog";
+import GroupConversationItem from "@/src/components/chat_page/conversation/GroupConversationItem";
 
 type ChatPageProps = {
   children: React.ReactNode;

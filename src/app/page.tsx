@@ -1,10 +1,10 @@
 "use client";
 
-import BlogContent from "@/components/home_page/blog_content/BlogContent";
-import HomeContent from "@/components/home_page/home_content/HomeContent";
-import Welcome from "@/components/home_page/welcome_content/Welcome";
+import BlogContent from "@/src/components/home_page/blog_content/BlogContent";
+import HomeContent from "@/src/components/home_page/home_content/HomeContent";
+import Welcome from "@/src/components/home_page/welcome_content/Welcome";
 import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
@@ -13,8 +13,12 @@ export default function Home() {
   const createUser = useMutation(api.user.create);
   useEffect(() => {
     const createUserIfAuthenticated = async () => {
-      if (session !== null && status === "authenticated" && session?.user) {
+      if (session?.user && status === "authenticated") {
         try {
+          if (!session.user.id) {
+            console.error("User id not found in session:", session.user);
+            return;
+          }
           await createUser({
             userId: session.user.id,
             username: session.user.name ?? "Unknown",
@@ -28,8 +32,10 @@ export default function Home() {
         }
       }
     };
+
     createUserIfAuthenticated();
-  }, [status, session, createUser]);
+  }, [session, status, createUser]);
+
   return (
     <>
       <HomeContent />

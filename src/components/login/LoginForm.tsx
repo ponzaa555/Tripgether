@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signIn } from "next-auth/react";
-import { useModal } from "@/context/ModalContext";
+import { useModal } from "@/src/context/ModalContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 

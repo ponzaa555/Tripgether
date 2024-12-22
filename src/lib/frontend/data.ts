@@ -1,7 +1,7 @@
-import groupPlanIcon from "@/assets/icons/groupPlan_Icon.png";
-import chatIcon from "@/assets/icons/chat_Icon.png";
-import planForm from "@/assets/icons/planForm_Icon.png";
-import blogIcon from "@/assets/icons/blog_Icon.png";
+import groupPlanIcon from "@/src/assets/icons/groupPlan_Icon.png";
+import chatIcon from "@/src/assets/icons/chat_Icon.png";
+import planForm from "@/src/assets/icons/planForm_Icon.png";
+import blogIcon from "@/src/assets/icons/blog_Icon.png";
 import { StaticImageData } from "next/image";
 
 type Feature = {

@@ -1,5 +1,5 @@
-import { FindUserByEmail } from "@/lib/backend/myAuth/Command/Login";
-import { CreateUser } from "@/lib/backend/myAuth/Command/Register";
+import { FindUserByEmail } from "@/src/lib/backend/myAuth/Command/Login";
+import { CreateUser } from "@/src/lib/backend/myAuth/Command/Register";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
   var user = await FindUserByEmail(email);
   // email already exists
-  console.log( "user : ", user);  
+  console.log("user : ", user);
   if (user)
     return NextResponse.json(
       { message: "Email already exists" },
@@ -17,5 +17,5 @@ export async function POST(req: NextRequest) {
     );
   // create user
   var newUser = await CreateUser(email, password);
-  return NextResponse.json(newUser , { status: 201 });
+  return NextResponse.json(newUser, { status: 201 });
 }

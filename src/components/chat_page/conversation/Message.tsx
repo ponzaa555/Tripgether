@@ -1,6 +1,10 @@
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/src/lib/utils";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
 type Props = {
   fromCurrentUser: boolean;
   senderImage: string;

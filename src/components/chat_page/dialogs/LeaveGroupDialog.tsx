@@ -1,9 +1,9 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
-import { Id } from "../../../../convex/_generated/dataModel";
-import { useMutationState } from "@/hooks/useMutation";
-import { api } from "../../../../convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+import { useMutationState } from "@/src/hooks/useMutation";
+import { api } from "@/convex/_generated/api";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { ConvexError } from "convex/values";
@@ -16,7 +16,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+} from "@/src/components/ui/alert-dialog";
 
 type Props = {
   conversationId: Id<"conversations">;

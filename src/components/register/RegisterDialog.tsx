@@ -1,5 +1,5 @@
 "use client";
-import MyDialog from "@/components/ui/MyDialog";
+import MyDialog from "@/src/components/ui/MyDialog";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -11,13 +11,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/src/components/ui/form";
+import { Input } from "@/src/components/ui/input";
 import { useEffect } from "react";
 import { MailIcon } from "lucide-react";
-import { PasswordInput } from "@/components/ui/password_input";
-import { Button } from "@/components/ui/button";
-import { useModal } from "@/context/ModalContext";
+import { PasswordInput } from "@/src/components/ui/password_input";
+import { Button } from "@/src/components/ui/button";
+import { useModal } from "@/src/context/ModalContext";
 import { toast } from "sonner";
 
 type Props = {

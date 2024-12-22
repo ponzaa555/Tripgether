@@ -2,7 +2,7 @@ import { useQuery } from "convex/react";
 import { MessageSquare, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import { api } from "../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 import { useSession } from "next-auth/react";
 
 export const useNavigation = () => {

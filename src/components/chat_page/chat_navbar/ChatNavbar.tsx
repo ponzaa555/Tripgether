@@ -1,14 +1,14 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Badge } from "@/src/components/ui/badge";
+import { Button } from "@/src/components/ui/button";
+import { Card } from "@/src/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { useNavigation } from "@/hooks/useNavigation";
+} from "@/src/components/ui/tooltip";
+import { useNavigation } from "@/src/hooks/useNavigation";
 import Link from "next/link";
 
 const ChatNavbar = () => {

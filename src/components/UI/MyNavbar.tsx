@@ -11,9 +11,9 @@ import {
 } from "react-icons/ai";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { link } from "@/lib/frontend/data";
+import { link } from "@/src/lib/frontend/data";
 import { signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/src/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,9 +21,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/src/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-import SignInButton from "@/components/login/SiginButton";
+import SignInButton from "@/src/components/login/SiginButton";
 
 export default function MynavBar() {
   const activePath = usePathname();

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { TfiWorld } from "react-icons/tfi";
 import { FaEye } from "react-icons/fa";
-import { blogMockData } from "@/lib/frontend/data";
+import { blogMockData } from "@/src/lib/frontend/data";
 
 type Props = {};
 

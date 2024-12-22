@@ -1,6 +1,6 @@
 "use client";
 
-import ConvarsationFallback from "@/components/chat_page/conversation/ConvarsationFallback";
+import ConvarsationFallback from "@/src/components/chat_page/conversation/ConvarsationFallback";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
