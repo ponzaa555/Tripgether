@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Mitr } from "next/font/google";
-import "@/app/globals.css";
+import "@/src/app/globals.css";
 import SessionProvider from "@/src/components/next-auth/SessionProvider";
 import { getServerSession } from "next-auth";
 import { ModalProvider } from "@/src/context/ModalContext";

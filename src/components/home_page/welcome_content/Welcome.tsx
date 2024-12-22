@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FEATURES } from "@/src/lib/frontend/data";
 import { Button } from "@/src/components/ui/button";
-import CoupleImage1 from "@/assets/images/couple-1.png";
+import CoupleImage1 from "@/src/assets/images/couple-1.png";
 import { useRouter } from "next/navigation";
 
 export default function Welcome() {
