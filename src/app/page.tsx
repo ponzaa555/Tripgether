@@ -35,6 +35,9 @@ export default function Home() {
       <HomeContent />
       <div className="flex flex-col gap-20 h-full w-screen bg-white">
         <Welcome />
+        <h3 className="flex self-center text-3xl sm:text-5xl md:text-6xl font-black">
+          Enjoy The Moment
+        </h3>
         <BlogContent />
       </div>
     </>

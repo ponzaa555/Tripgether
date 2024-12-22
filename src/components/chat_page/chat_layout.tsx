@@ -37,6 +37,7 @@ const ChatLayout = ({ children }: ChatPageProps) => {
                     name={conversation.conversation.name || ""}
                     lastMessageContent={conversation.lastMessage?.content}
                     lastMessageSender={conversation.lastMessage?.sender}
+                    unseenCount={conversation.unseenCount}
                   />
                 ) : (
                   <DMConversation
@@ -49,6 +50,7 @@ const ChatLayout = ({ children }: ChatPageProps) => {
                     username={conversation.otherMember?.username ?? "Unknown"}
                     lastMessageContent={conversation.lastMessage?.content}
                     lastMessageSender={conversation.lastMessage?.sender}
+                    unseenCount={conversation.unseenCount}
                   />
                 )
               )

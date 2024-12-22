@@ -59,6 +59,7 @@ export const get = query({
               throw new ConvexError("Member could not be found");
             }
             return {
+              _id: membership._id,
               username: member.username,
             };
           })
@@ -182,5 +183,39 @@ export const leaveGroup = mutation({
     }
 
     await ctx.db.delete(memberships._id);
+  },
+});
+
+export const markRead = mutation({
+  args: {
+    currentUserId: v.string(),
+    conversationId: v.id("conversations"),
+    messageId: v.id("messages"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.db
+      .query("users")
+      .withIndex("by_userId", (q) => q.eq("userId", args.currentUserId))
+      .unique();
+    if (!identity) {
+      throw new ConvexError("User not found");
+    }
+
+    const memberships = await ctx.db
+      .query("conversationMembers")
+      .withIndex("by_conversationId_memberId", (q) =>
+        q.eq("conversationId", args.conversationId).eq("memberId", identity._id)
+      )
+      .unique();
+
+    if (!memberships) {
+      throw new ConvexError("You are not a member of this group");
+    }
+
+    const lastMessage = await ctx.db.get(args.messageId);
+
+    await ctx.db.patch(memberships._id, {
+      lastSeenMessage: lastMessage ? lastMessage._id : undefined,
+    });
   },
 });

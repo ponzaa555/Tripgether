@@ -31,7 +31,7 @@ export const get = query({
       })
     );
     const conversationWithDetails = await Promise.all(
-      conversations.map(async (conversation) => {
+      conversations.map(async (conversation, index) => {
         const allConversationMemberships = await ctx.db
           .query("conversationMembers")
           .withIndex("by_conversationId", (q) =>
@@ -42,14 +42,40 @@ export const get = query({
           ctx,
           id: conversation.lastMessage,
         });
+        const lastSeenMessage = conversationMemberships[index].lastSeenMessage
+          ? await ctx.db.get(conversationMemberships[index].lastSeenMessage!)
+          : null;
+
+        const lastSeenMessageTime = lastSeenMessage
+          ? lastSeenMessage._creationTime
+          : -1;
+
+        const unseenMessages = await ctx.db
+          .query("messages")
+          .withIndex("by_conversationId", (q) =>
+            q.eq("conversationId", conversation._id)
+          )
+          .filter((q) => q.gt(q.field("_creationTime"), lastSeenMessageTime))
+          .filter((q) => q.neq(q.field("senderId"), identity._id))
+          .collect();
+
         if (conversation.isGroup) {
-          return { conversation, lastMessage };
+          return {
+            conversation,
+            lastMessage,
+            unseenCount: unseenMessages.length,
+          };
         } else {
           const otherMembership = allConversationMemberships.filter(
             (member) => member.memberId !== identity._id
           )[0];
           const otherMember = await ctx.db.get(otherMembership.memberId);
-          return { conversation, otherMember, lastMessage };
+          return {
+            conversation,
+            otherMember,
+            lastMessage,
+            unseenCount: unseenMessages.length,
+          };
         }
       })
     );
