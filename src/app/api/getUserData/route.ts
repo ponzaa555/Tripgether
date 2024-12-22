@@ -1,4 +1,4 @@
-import { FindUserById } from "@/lib/backend/myAuth/Command/Login";
+import { FindUserById } from "@/src/lib/backend/myAuth/Command/Login";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {

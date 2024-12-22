@@ -10,6 +10,7 @@ export async function POST(req: NextRequest) {
   var user = await FindUserByEmail(email);
   
   // email already exists
+  console.log("user : ", user);
   if (user)
     return NextResponse.json(
       { message: "Email already exists" },
