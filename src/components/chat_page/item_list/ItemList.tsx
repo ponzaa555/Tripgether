@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/src/components/ui/card";
+import { Card } from "@/src/components/UI/card";
 import { useConversation } from "@/src/hooks/useConversation";
 import { cn } from "@/src/lib/utils";
 

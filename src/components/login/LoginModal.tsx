@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import LoginForm from "@/src/components/login/LoginForm";
 import { useModal } from "@/src/context/ModalContext";
 import { signIn } from "next-auth/react";
-import { Dialog, DialogContent } from "@/src/components/ui/dialog";
+import { Dialog, DialogContent } from "@/src/components/UI/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/UI/Button";
 import RegisterDialog from "@/src/components/register/RegisterDialog";
 
 const LoginModal = () => {

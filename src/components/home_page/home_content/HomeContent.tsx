@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/UI/Button";
 import MyBackgroundSlider from "@/src/components/home_page/home_content/BackgroundSlider";
 import { Flame } from "lucide-react";
 import Image from "next/image";

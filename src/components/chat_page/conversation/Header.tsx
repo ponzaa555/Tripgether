@@ -2,15 +2,15 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/src/components/ui/avatar";
-import { Button } from "@/src/components/ui/button";
-import { Card } from "@/src/components/ui/card";
+} from "@/src/components/UI/avatar";
+import { Button } from "@/src/components/UI/Button";
+import { Card } from "@/src/components/UI/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+} from "@/src/components/UI/dropdown-menu";
 import { cn } from "@/src/lib/utils";
 import { CircleArrowLeft, Settings } from "lucide-react";
 import Link from "next/link";

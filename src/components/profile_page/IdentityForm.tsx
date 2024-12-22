@@ -11,19 +11,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/src/components/ui/form";
-import { Input } from "@/src/components/ui/input";
-import { Calendar } from "@/src/components/ui/calendar";
+} from "@/src/components/UI/form";
+import { Input } from "@/src/components/UI/input";
+import { Calendar } from "@/src/components/UI/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { Button } from "@/src/components/ui/button";
+} from "@/src/components/UI/popover";
+import { Button } from "@/src/components/UI/Button";
 import { cn } from "@/src/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { Textarea } from "@/src/components/ui/textarea";
+import { Textarea } from "@/src/components/UI/textarea";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({

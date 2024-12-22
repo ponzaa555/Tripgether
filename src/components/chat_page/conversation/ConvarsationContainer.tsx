@@ -1,4 +1,4 @@
-import { Card } from "@/src/components/ui/card";
+import { Card } from "@/src/components/UI/card";
 
 type Props = React.PropsWithChildren<{}>;
 

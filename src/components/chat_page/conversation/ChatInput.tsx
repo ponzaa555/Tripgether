@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/src/components/ui/card";
+import { Card } from "@/src/components/UI/card";
 import { useConversation } from "@/src/hooks/useConversation";
 import { useMutationState } from "@/src/hooks/useMutation";
 import { z } from "zod";
@@ -16,9 +16,9 @@ import {
   FormControl,
   FormField,
   FormItem,
-} from "@/src/components/ui/form";
+} from "@/src/components/UI/form";
 import TextareaAutosize from "react-textarea-autosize";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/UI/Button";
 import { SendHorizonal } from "lucide-react";
 
 const chatMessageSchema = z.object({

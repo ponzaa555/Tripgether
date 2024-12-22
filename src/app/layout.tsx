@@ -4,9 +4,9 @@ import "@/src/app/globals.css";
 import SessionProvider from "@/src/components/next-auth/SessionProvider";
 import { getServerSession } from "next-auth";
 import { ModalProvider } from "@/src/context/ModalContext";
-import MynavBar from "@/src/components/ui/MyNavbar";
+import MynavBar from "@/src/components/UI/MyNavbar";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import { Toaster } from "@/src/components/ui/sonner";
+import { Toaster } from "@/src/components/UI/sonner";
 import { ConvexClientProvider } from "@/src/app/ConvexClientProvider";
 import LoginModal from "@/src/components/login/LoginModal";
 

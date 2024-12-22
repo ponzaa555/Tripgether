@@ -1,13 +1,13 @@
 "use client";
 
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
-import { Card } from "@/src/components/ui/card";
+import { Badge } from "@/src/components/UI/badge";
+import { Button } from "@/src/components/UI/Button";
+import { Card } from "@/src/components/UI/card";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/src/components/ui/tooltip";
+} from "@/src/components/UI/tooltip";
 import { useConversation } from "@/src/hooks/useConversation";
 import { useNavigation } from "@/src/hooks/useNavigation";
 import Link from "next/link";
