@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Mitr } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import SessionProvider from "@/components/next-auth/SessionProvider";
 import { getServerSession } from "next-auth";
 import { ModalProvider } from "@/context/ModalContext";
 import MynavBar from "@/components/ui/MyNavbar";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Toaster } from "@/components/ui/sonner";
-import { ConvexClientProvider } from "./ConvexClientProvider";
+import { ConvexClientProvider } from "@/app/ConvexClientProvider";
 import LoginModal from "@/components/login/LoginModal";
 
 const mitr = Mitr({

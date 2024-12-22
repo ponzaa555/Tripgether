@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import MyBackgroundSlider from "./BackgroundSlider";
+import MyBackgroundSlider from "@/components/home_page/home_content/BackgroundSlider";
 import { Flame } from "lucide-react";
 import Image from "next/image";
 import RegisterDialog from "@/components/register/RegisterDialog";

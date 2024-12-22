@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import LoginForm from "./LoginForm";
+import LoginForm from "@/components/login/LoginForm";
 import { useModal } from "@/context/ModalContext";
 import { signIn } from "next-auth/react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
