@@ -1,4 +1,9 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 type Props = {
   isOpen: boolean;
@@ -23,4 +28,3 @@ const MyDialog = ({ isOpen, title, setIsOpen, children }: Props) => {
 };
 
 export default MyDialog;
-

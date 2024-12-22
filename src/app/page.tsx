@@ -13,7 +13,7 @@ export default function Home() {
   const createUser = useMutation(api.user.create);
   useEffect(() => {
     const createUserIfAuthenticated = async () => {
-      if (status === "authenticated" && session?.user) {
+      if (session !== null && status === "authenticated" && session?.user) {
         try {
           await createUser({
             userId: session.user.id,

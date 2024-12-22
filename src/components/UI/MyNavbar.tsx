@@ -13,7 +13,7 @@ import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { link } from "@/lib/frontend/data";
 import { signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarImage } from "./avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,9 +21,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-import SignInButton from "../login/SiginButton";
+import SignInButton from "@/components/login/SiginButton";
 
 export default function MynavBar() {
   const activePath = usePathname();
