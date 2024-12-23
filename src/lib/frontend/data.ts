@@ -10,6 +10,11 @@ type Feature = {
   descrpition: string;
 };
 
+type AboutUs = {
+  title: string;
+  content: string;
+};
+
 export const FEATURES: Feature[] = [
   {
     icon: groupPlanIcon,
@@ -138,3 +143,23 @@ export const blogMockData = [
       "https://imagedelivery.net/GUFM4Akk6JWzoEMVBlhEQw/9cbdba43-6c0b-4158-31a9-71f64714fa00/w=300",
   },
 ] as const;
+
+export const ABOUTUS: AboutUs[] = [
+  {
+    title: "Get inspiration",
+    content: "Enjoy travel inspiration's contents around the world.",
+  },
+  {
+    title: "Create trip",
+    content: "Plan you travel itinerary online with friends or on your own",
+  },
+  {
+    title: "Travel",
+    content: "Worry free, travel and enjoy your moment",
+  },
+  {
+    title: "Memories",
+    content:
+      "Share your moments with travel community or just for you, access anytime",
+  },
+];
