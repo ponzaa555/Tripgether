@@ -13,7 +13,7 @@ const ChatPage = () => {
   useEffect(() => {
     console.log("waiting ChatPage", session)
     if(session?.user.id == null){
-      new Promise((resolve) => setTimeout(resolve , 3000)) 
+      new Promise((resolve) => setTimeout(resolve , 10000)) 
       window.location.reload();
     }
   },[session])
