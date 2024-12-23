@@ -12,12 +12,11 @@ const ChatPage = () => {
 
   useEffect(() => {
     console.log("waiting ChatPage", session)
-    if(session?.user.id == null){
-      new Promise((resolve) => setTimeout(resolve , 10000)) 
-      window.location.reload();
-    }
   },[session])
 
+  if(session?.user.id == null){
+    return <p>Loading....</p>
+  }
   return (
     <ChatLayout>
       <ConvarsationFallback />
