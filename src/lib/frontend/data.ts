@@ -174,25 +174,17 @@ export const WHYUS: WhyUs[] = [
   {
     title: "Simplified Travel Planning",
     listData: [
-      "Smart tools for easy trip planning.",
-      "Automated itinerary management.",
-      "Hassle-free budget tracking.",
+      "Easy planning tools.",
+      "Auto itineraries.",
+      "Simple budgeting.",
     ],
   },
   {
     title: "Seamless Communication",
-    listData: [
-      "Group chat for instant updates.",
-      "Centralized trip details in one place.",
-      "Real-time notifications for changes.",
-    ],
+    listData: ["Group chat updates.", "Centralized details.", "Change alerts."],
   },
   {
     title: "Tailored Experiences",
-    listData: [
-      "Personalized trip suggestions.",
-      "Flexible itineraries to suit your needs.",
-      "Rewards for engaging with the platform.",
-    ],
+    listData: ["Custom suggestions.", "Flexible plans.", "Earn rewards."],
   },
 ] as const;
