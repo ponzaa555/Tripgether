@@ -10,7 +10,7 @@ import {
 import Image from "next/image";
 
 import Autoplay from "embla-carousel-autoplay";
-import { ABOUTUS } from "@/src/lib/frontend/data";
+import { ABOUTUS, WHYUS } from "@/src/lib/frontend/data";
 import { useEffect, useState } from "react";
 
 type Props = {};
@@ -129,29 +129,23 @@ const AboutUsPage = (props: Props) => {
           ))}
         </div>
       </div>
-      <div className="flex flex-col items-center gap-5">
-        <h1 className="font-black text-xl text-orange-400">TripGether</h1>
+      <div className="flex flex-col gap-5">
+        <h1 className="font-black text-xl text-orange-400 text-center">
+          TripGether
+        </h1>
         <h1 className="font-black text-2xl text-center">
           Why travelers love TripGether
         </h1>
-        <h2>Simplified Travel Planning</h2>
-        <ul className="list-disc list-inside">
-          <li>Smart tools for easy trip planning.</li>
-          <li>Automated itinerary management.</li>
-          <li>Hassle-free budget tracking.</li>
-        </ul>
-        <h2>Seamless Communication</h2>
-        <ul className="list-disc list-inside">
-          <li>Group chat for instant updates.</li>
-          <li>Centralized trip details in one place.</li>
-          <li>Real-time notifications for changes.</li>
-        </ul>
-        <h2>Tailored Experiences</h2>
-        <ul className="list-disc list-inside">
-          <li>Personalized trip suggestions.</li>
-          <li>Flexible itineraries to suit your needs.</li>
-          <li>Rewards for engaging with the platform.</li>
-        </ul>
+        {WHYUS.map((data, index) => (
+          <div key={index}>
+            <h2 className="font-black text-base">{data.title}</h2>
+            <ul className="list-disc list-inside pl-3 pt-2 text-sm font-light">
+              {data.listData.map((quote, index) => (
+                <li key={`${index}--${quote}`}>{quote}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );

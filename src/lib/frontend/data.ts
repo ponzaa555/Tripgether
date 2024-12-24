@@ -3,6 +3,7 @@ import chatIcon from "@/src/assets/icons/chat_Icon.png";
 import planForm from "@/src/assets/icons/planForm_Icon.png";
 import blogIcon from "@/src/assets/icons/blog_Icon.png";
 import { StaticImageData } from "next/image";
+import { title } from "process";
 
 type Feature = {
   icon: StaticImageData;
@@ -13,6 +14,11 @@ type Feature = {
 type AboutUs = {
   title: string;
   content: string;
+};
+
+type WhyUs = {
+  title: string;
+  listData: string[];
 };
 
 export const FEATURES: Feature[] = [
@@ -162,4 +168,31 @@ export const ABOUTUS: AboutUs[] = [
     content:
       "Share your moments with travel community or just for you, access anytime",
   },
-];
+] as const;
+
+export const WHYUS: WhyUs[] = [
+  {
+    title: "Simplified Travel Planning",
+    listData: [
+      "Smart tools for easy trip planning.",
+      "Automated itinerary management.",
+      "Hassle-free budget tracking.",
+    ],
+  },
+  {
+    title: "Seamless Communication",
+    listData: [
+      "Group chat for instant updates.",
+      "Centralized trip details in one place.",
+      "Real-time notifications for changes.",
+    ],
+  },
+  {
+    title: "Tailored Experiences",
+    listData: [
+      "Personalized trip suggestions.",
+      "Flexible itineraries to suit your needs.",
+      "Rewards for engaging with the platform.",
+    ],
+  },
+] as const;
