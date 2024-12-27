@@ -1,46 +1,10 @@
-"use client";
-
-import { Card, CardContent } from "@/src/components/UI/card";
-import {
-  Carousel,
-  CarouselApi,
-  CarouselContent,
-  CarouselItem,
-} from "@/src/components/UI/carousel";
 import Image from "next/image";
-
-import Autoplay from "embla-carousel-autoplay";
-import { ABOUTUS, WHYUS } from "@/src/lib/frontend/data";
-import { useEffect, useState } from "react";
+import { WHYUS } from "@/src/lib/frontend/data";
+import MyCarousel from "@/src/components/aboutUs_page/MyCarousel";
 
 type Props = {};
 
 const AboutUsPage = (props: Props) => {
-  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
-
-  useEffect(() => {
-    if (!carouselApi) return;
-
-    const updateCarouselState = () => {
-      setCurrentIndex(carouselApi.selectedScrollSnap());
-      setTotalItems(carouselApi.scrollSnapList().length);
-    };
-
-    updateCarouselState();
-
-    carouselApi.on("select", updateCarouselState);
-
-    return () => {
-      carouselApi.off("select", updateCarouselState);
-    };
-  }, [carouselApi]);
-
-  const scrollToIndex = (index: number) => {
-    carouselApi?.scrollTo(index);
-  };
-
   return (
     <div className="flex flex-col gap-5 p-5 pt-16 pb-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:items-center">
@@ -90,52 +54,7 @@ const AboutUsPage = (props: Props) => {
         <h2 className="font-black text-2xl text-center">
           TripGether Journey's Defination
         </h2>
-        <Carousel
-          setApi={setCarouselApi}
-          opts={{
-            align: "center",
-            loop: true,
-          }}
-          plugins={[
-            Autoplay({
-              delay: 5000,
-            }),
-          ]}
-          className="w-full"
-        >
-          <CarouselContent>
-            {ABOUTUS.map((data, index) => (
-              <CarouselItem key={index}>
-                <div className="p-1">
-                  <Card className="shadow-md select-none">
-                    <CardContent className="flex flex-row w-full h-32 justify-center items-center gap-5 p-6">
-                      <p className="bg-orange-400 text-white p-2 rounded-full">
-                        {index + 1}
-                      </p>
-                      <div className="flex flex-col">
-                        <h2 className="font-black">{data.title}</h2>
-                        <p className="font-thin text-sm text-slate-400">
-                          {data.content}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-        <div className="bottom-4 left-0 right-0 flex justify-center space-x-2 z-20">
-          {Array.from({ length: totalItems }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => scrollToIndex(index)}
-              className={`w-3 h-3 rounded-full ${
-                currentIndex === index ? "bg-orange-500" : "bg-gray-200"
-              }`}
-            />
-          ))}
-        </div>
+        <MyCarousel />
       </div>
       <div className="relative w-full h-40 mt-10">
         <Image
@@ -160,7 +79,10 @@ const AboutUsPage = (props: Props) => {
         </h1>
         <div className="columns-1 sm:columns-3 gap-6 md:gap-12 lg:gap-20 h-full">
           {WHYUS.map((data, index) => (
-            <div key={index}>
+            <div
+              key={index}
+              className="bg-sky-200 shadow-2xl p-5 my-5 sm:my-0 rounded-lg"
+            >
               <h2 className="font-black text-base md:text-xl">{data.title}</h2>
               <ul className="pl-3 text-sm font-light">
                 {data.listData.map((quote, index) => (

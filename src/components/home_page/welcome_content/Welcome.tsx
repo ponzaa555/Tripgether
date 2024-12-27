@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FEATURES } from "@/src/lib/frontend/data";
 import { Button } from "@/src/components/UI/Button";
-import CoupleImage1 from "@/src/assets/images/couple-1.png";
+import CoupleImage1 from "@/src/assets/images/couple-1.jpg";
 import { useRouter } from "next/navigation";
 
 export default function Welcome() {
@@ -46,7 +46,7 @@ export default function Welcome() {
           width={1000}
           height={1000}
           quality={100}
-          className="relative w-[15rem] h-[15rem] md:w-[25rem] md:h-[25rem] rounded-full"
+          className="relative w-full h-full rounded-2xl object-cover"
         />
         <div className="flex flex-col text-left gap-5">
           <h3 className="text-sm text-orange-500 font-semibold leading-loose">
