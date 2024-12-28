@@ -19,14 +19,14 @@ type Props = {
     username?: string;
     [key: string]: any;
   }[];
+  userId : string;
 };
 
-const Body = ({ members }: Props) => {
+const Body = ({ members , userId }: Props) => {
   const { conversationId } = useConversation();
-  const { data: session } = useSession();
   const messages = useQuery(api.messages.get, {
     id: conversationId as Id<"conversations">,
-    currentUserId: session?.user?.id!,
+    currentUserId: userId,
   });
 
   const { mutate: markRead } = useMutationState(api.conversation.markRead);
@@ -34,12 +34,12 @@ const Body = ({ members }: Props) => {
   useEffect(() => {
     if (messages && messages.length > 0) {
       markRead({
-        currentUserId: session?.user?.id!,
+        currentUserId: userId,
         conversationId: conversationId,
         messageId: messages[0].message._id,
       });
     }
-  }, [conversationId, markRead, session?.user?.id, messages]);
+  }, [conversationId, markRead, userId, messages]);
 
   const formatSeenBy = (names: string[]) => {
     switch (names.length) {

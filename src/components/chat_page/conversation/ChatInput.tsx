@@ -27,10 +27,13 @@ const chatMessageSchema = z.object({
   }),
 });
 
-const ChatInput = () => {
+type ChatsInputProps = {
+  userId :string
+}
+const ChatInput = ({userId}:ChatsInputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const { conversationId } = useConversation();
-  const { data: session } = useSession();
+
 
   const { mutate: createMessage, pending } = useMutationState(
     api.message.create
@@ -45,7 +48,7 @@ const ChatInput = () => {
 
   const handleSubmit = async (value: z.infer<typeof chatMessageSchema>) => {
     await createMessage({
-      currentUserId: session!.user!.id!,
+      currentUserId: userId,
       conversationId,
       type: "text",
       content: [value.content],
