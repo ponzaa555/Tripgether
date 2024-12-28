@@ -1,27 +1,20 @@
-"use client"
+
 
 import ChatLayout from "@/src/components/chat_page/chat_layout";
 import ConvarsationFallback from "@/src/components/chat_page/conversation/ConvarsationFallback";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import authOption from "@/src/lib/backend/authOption";
+import { getServerSession } from "next-auth";
 
-const ChatPage = () => {
-  const { data: session } = useSession();
-  let count = 0
-
-  useEffect(() => {
-    console.log("waiting ChatPage", session)
-  },[session])
-
-  if(session?.user.id == null){
-    return <p>Loading....</p>
+const ChatPage = async () => {
+  const session = await getServerSession(authOption)
+  if (session?.user.id != null) {
+    return (
+      <ChatLayout userID={session.user.id}>
+        <ConvarsationFallback />
+      </ChatLayout>
+    );
+  }else{
+    return <p>Loading...</p>
   }
-  return (
-    <ChatLayout>
-      <ConvarsationFallback />
-    </ChatLayout>
-  );
-};
-
+}
 export default ChatPage;
