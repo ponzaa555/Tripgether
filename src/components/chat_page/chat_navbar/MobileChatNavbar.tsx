@@ -12,8 +12,12 @@ import { useConversation } from "@/src/hooks/useConversation";
 import { useNavigation } from "@/src/hooks/useNavigation";
 import Link from "next/link";
 
-const MobileChatNavbar = () => {
-  const paths = useNavigation();
+
+type Props = {
+  userId : string
+}
+const MobileChatNavbar = ({userId}:Props) => {
+  const paths = useNavigation({userId:userId});
   const { isActive } = useConversation();
 
   if (isActive) {

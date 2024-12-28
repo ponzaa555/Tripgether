@@ -11,8 +11,12 @@ import {
 import { useNavigation } from "@/src/hooks/useNavigation";
 import Link from "next/link";
 
-const ChatNavbar = () => {
-  const paths = useNavigation();
+type Props = {
+  userId : string
+}
+
+const ChatNavbar = ({userId}:Props) => {
+  const paths = useNavigation({userId:userId});
   return (
     <Card className="hidden lg:flex lg:flex-col lg:justify-between lg:items-center lg:h-full lg:w-16 lg:px-2 lg:py-4">
       <nav>

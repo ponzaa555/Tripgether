@@ -38,8 +38,11 @@ const addFriendFormSchema = z.object({
   email: z.string().email("Please enter a valid email."),
 });
 
-const AddFriendDialog = () => {
-  const { data: session, status } = useSession();
+type Props = {
+  userId : string
+}
+const AddFriendDialog = ({userId}:Props) => {
+  
   const { mutate: createRequest, pending } = useMutationState(
     api.request.create
   );
@@ -52,7 +55,7 @@ const AddFriendDialog = () => {
   const handleSubmit = async (values: z.infer<typeof addFriendFormSchema>) => {
     await createRequest({
       email: values.email,
-      currentUserId: session?.user?.id,
+      currentUserId: userId,
     })
       .then(() => {
         form.reset();

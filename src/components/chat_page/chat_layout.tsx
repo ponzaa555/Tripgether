@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { useSession } from "next-auth/react";
 import { api } from "@/convex/_generated/api";
 import SidebarWrapper from "@/src/components/chat_page/sidebar/SidebarWrapper";
 import ItemList from "@/src/components/chat_page/item_list/ItemList";
@@ -12,17 +11,20 @@ import GroupConversationItem from "@/src/components/chat_page/conversation/Group
 
 type ChatPageProps = {
   children: React.ReactNode;
+  userID: string
 };
 
-const ChatLayout = ({ children }: ChatPageProps) => {
-  const { data: session } = useSession();
+const ChatLayout = ({ children, userID }: ChatPageProps) => {
+  console.log("Chatlayout userID: ", userID);
+
   const conversations = useQuery(api.conversations.get, {
-    currentUserId: session!.user!.id!,
+    currentUserId: userID
   });
+  console.log("Chatlayout conversation: ", conversations);
   return (
     <>
-      <SidebarWrapper>
-        <ItemList title="Conversations" action={<CreateGroupDialog />}>
+      <SidebarWrapper userId= {userID}>
+        <ItemList title="Conversations" action={<CreateGroupDialog  userId={userID}/>}>
           {conversations ? (
             conversations.length === 0 ? (
               <p className="w-full h-full flex items-center justify-center">

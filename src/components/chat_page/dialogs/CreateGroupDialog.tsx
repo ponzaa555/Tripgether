@@ -43,7 +43,9 @@ import {
 } from "@/src/components/UI/avatar";
 import { Card } from "@/src/components/UI/card";
 
-type Props = {};
+type Props = {
+  userId :string
+};
 
 const createGroupFormSchema = z.object({
   name: z.string().min(1, { message: "This field can't be empthy" }),
@@ -53,10 +55,9 @@ const createGroupFormSchema = z.object({
     .min(1, { message: "You must select at least 1 friend" }),
 });
 
-const CreateGroupDialog = (props: Props) => {
-  const { data: session } = useSession();
+const CreateGroupDialog = ({userId}: Props) => {
   const friends = useQuery(api.friends.get, {
-    currentUserId: session?.user?.id!,
+    currentUserId: userId,
   });
   const { mutate: createGroup, pending } = useMutationState(
     api.conversation.createGroup
@@ -84,7 +85,7 @@ const CreateGroupDialog = (props: Props) => {
     await createGroup({
       name: values.name,
       members: values.members,
-      currentUserId: session?.user?.id!,
+      currentUserId: userId,
     })
       .then(() => {
         form.reset();

@@ -1,19 +1,22 @@
 import { useQuery } from "convex/react";
 import { MessageSquare, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { use, useMemo } from "react";
 import { api } from "@/convex/_generated/api";
 import { useSession } from "next-auth/react";
 
-export const useNavigation = () => {
-  const { data: session } = useSession();
+type Props = {
+  userId :string
+}
+
+export const useNavigation = ({userId}:Props) => {
   const pathname = usePathname();
   const requestCount = useQuery(api.requests.count, {
-    currentUserId: session?.user!.id!,
+    currentUserId: userId,
   });
 
   const conversations = useQuery(api.conversations.get, {
-    currentUserId: session?.user!.id!,
+    currentUserId: userId,
   });
 
   const unseenMessagesCount = useMemo(() => {
