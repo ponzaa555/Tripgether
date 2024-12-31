@@ -22,13 +22,14 @@ type Props = {
   conversationId: Id<"conversations">;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  userId : string
 };
 
-const RemoveFriendDialog = ({ conversationId, open, setOpen }: Props) => {
+const RemoveFriendDialog = ({ conversationId, open, setOpen , userId }: Props) => {
   const { data: session } = useSession();
   const { mutate: removeFriend, pending } = useMutationState(api.friend.remove);
   const handleRemoveFriend = async () => {
-    removeFriend({ conversationId, currentUserId: session?.user?.id! })
+    removeFriend({ conversationId, currentUserId: userId })
       .then(() => {
         toast.success("Removed friend");
       })

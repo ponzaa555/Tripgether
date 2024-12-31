@@ -2,13 +2,16 @@ import React from "react";
 import ChatNavbar from "@/src/components/chat_page/chat_navbar/ChatNavbar";
 import MobileChatNavbar from "@/src/components/chat_page/chat_navbar/MobileChatNavbar";
 
-type Props = React.PropsWithChildren<{}>;
+type Props = {
+  children: React.ReactNode,
+  userId : string
+};
 
-const SidebarWrapper = ({ children }: Props) => {
+const SidebarWrapper = ({ children  , userId}: Props) => {
   return (
     <div className="h-[calc(100vh-60px)] w-full p-4 flex flex-col lg:flex-row gap-4">
-      <MobileChatNavbar />
-      <ChatNavbar />
+      <MobileChatNavbar userId= {userId}/>
+      <ChatNavbar userId={userId}/>
       <main className="h-[calc(100%-80px)] lg:h-full w-full flex gap-4">
         {children}
       </main>

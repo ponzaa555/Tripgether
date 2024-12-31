@@ -1,5 +1,6 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
+import { FindUserByEmail } from "./lib/backend/myAuth/Command/Login";
 
 export async function middleware(req: NextRequest) {
   const baseUrl = req.nextUrl.origin;
@@ -8,9 +9,10 @@ export async function middleware(req: NextRequest) {
     req: req,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  if (user == null) {
+  if (user == null ) {
     return NextResponse.redirect(new URL(`${baseUrl}/api/auth/signin`));
   }
+
 }
 export const config = {
   matcher: "/profile/:path*", // Define which routes should use the middleware
