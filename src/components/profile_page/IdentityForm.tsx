@@ -25,8 +25,10 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Textarea } from "@/src/components/UI/textarea";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import axios from "axios";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   firstName: z.string().min(1, {
     message: "This field can't be empty.",
   }),
@@ -59,8 +61,33 @@ const IdentityForm = ({}: IdentityFormProps) => {
     },
   });
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get("/api/getUserData"); // Replace with your API endpoint
+        const data = response.data.profileInfo;
+        console.log({data:data})
+
+        // Update form values with fetched data
+        form.reset({
+          firstName: data.firstName || "",
+          lastName: data.lastName || "",
+          email: data.email || "",
+          phoneNumber: data.phoneNumber || "",
+          dateOfBirth: data.birthDate ? new Date(data.birthDate) : undefined,
+          bio: data.aboutMe || "",
+        });
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+
+    fetchProfile();
+  }, [form]);
+
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
+    await axios.post("/api/getUserData",values);
   };
 
   return (

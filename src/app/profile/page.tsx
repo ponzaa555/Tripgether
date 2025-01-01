@@ -16,13 +16,16 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
   const [media, setMedia] = useState("photos");
   const [draft, setDraft] = useState("draft");
   const [trip, setTrip] = useState("all");
   const router = useRouter();
+
+  
+  // api
   return (
     <div className="bg-slate-200 w-full h-full">
       <div className="flex flex-col items-center justify-center gap-5 py-5 lg:hidden">

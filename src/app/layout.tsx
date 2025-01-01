@@ -7,7 +7,7 @@ import { ModalProvider } from "@/src/context/ModalContext";
 import MynavBar from "@/src/components/UI/MyNavbar";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Toaster } from "@/src/components/UI/sonner";
-import { ConvexClientProvider } from "@/src/app/ConvexClientProvider";
+import { ConvexClientProvider } from "./ConvexClientProvider";
 import LoginModal from "@/src/components/login/LoginModal";
 
 const mitr = Mitr({
