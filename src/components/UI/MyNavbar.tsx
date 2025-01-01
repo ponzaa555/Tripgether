@@ -35,11 +35,11 @@ export default function MynavBar() {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <nav className={`fixed w-full h-14 shadow-xl bg-white z-[50]`}>
+    <nav className="fixed w-full h-14 shadow-xl bg-white z-[50]">
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
         <Link href="/">
           <Image
-            src= "/logo.png"
+            src="/logo.png"
             alt="logo"
             width={105}
             height={60}
@@ -72,10 +72,13 @@ export default function MynavBar() {
             })}
           </ul>
         </div>
-<<<<<<< HEAD
-        {session?.user ? (
-          <>
-            <div className="flex justify-center ml-auto select-none">
+        <>
+          <div className="flex justify-center ml-auto select-none">
+            {!session?.user || status !== "authenticated" ? (
+              <div className="px-7">
+                <SignInButton />
+              </div>
+            ) : (
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex flex-row items-center gap-1">
                   <Avatar>
@@ -106,47 +109,12 @@ export default function MynavBar() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </div>
-            <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
-              <AiOutlineMenu size={25} />
-            </div>
-          </>
-        ) : (
-          <SignInButton />
-        )}
-=======
-        <div className="ml-auto">
-          <Dropdown
-            arrowIcon={true}
-            inline
-            label={
-              <Avatar
-                alt="User settings"
-                img={session?.user?.image || "https://flowbite.com/docs/images/people/profile-picture-5.jpg"}
-                rounded
-              />
-            }
-            
-          >
-            <Dropdown.Header>
-              <span className="block text-sm">
-                {session ? session.user?.name : "Bonnie Green"}
-              </span>
-              <span className="block truncate text-sm font-medium">
-                {session ? session.user?.email : "name@flowbite.com "} 
-              </span>
-            </Dropdown.Header>
-            <Dropdown.Item>Profile</Dropdown.Item>
-            <Dropdown.Item>Friends</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item onClick={() => signOut()}>Sign out</Dropdown.Item>
-          </Dropdown>
-        </div>
-        <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
-          <AiOutlineMenu size={25} />
-        </div>
-        <SignInButton/>
+            )}
+          </div>
+          <div onClick={handleNav} className="sm:hidden cursor-pointer pl-2">
+            <AiOutlineMenu size={25} />
+          </div>
+        </>
       </div>
       <div
         className={
