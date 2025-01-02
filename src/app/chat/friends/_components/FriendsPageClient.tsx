@@ -7,14 +7,13 @@ import ItemList from "@/src/components/chat_page/item_list/ItemList";
 import SidebarWrapper from "@/src/components/chat_page/sidebar/SidebarWrapper";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 
 type Props = {
-    userId :string
+  userId: string;
 };
 
-const FriendsPage = ({userId}: Props) => {
+const FriendsPage = ({ userId }: Props) => {
   const requests = useQuery(api.requests.get, {
     currentUserId: userId,
   });
@@ -22,7 +21,7 @@ const FriendsPage = ({userId}: Props) => {
   return (
     <>
       <SidebarWrapper userId={userId}>
-        <ItemList title="Friends" action={<AddFriendDialog userId={userId}/>}>
+        <ItemList title="Friends" action={<AddFriendDialog userId={userId} />}>
           {requests ? (
             requests.length === 0 ? (
               <p className="w-full h-full flex items-center justify-center">

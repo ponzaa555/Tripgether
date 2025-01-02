@@ -2,7 +2,6 @@ import { useConversation } from "@/src/hooks/useConversation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useSession } from "next-auth/react";
 import Message from "@/src/components/chat_page/conversation/Message";
 import { useMutationState } from "@/src/hooks/useMutation";
 import { useEffect } from "react";
@@ -19,10 +18,10 @@ type Props = {
     username?: string;
     [key: string]: any;
   }[];
-  userId : string;
+  userId: string;
 };
 
-const Body = ({ members , userId }: Props) => {
+const Body = ({ members, userId }: Props) => {
   const { conversationId } = useConversation();
   const messages = useQuery(api.messages.get, {
     id: conversationId as Id<"conversations">,

@@ -2,7 +2,6 @@
 
 import ChatLayout from "@/src/components/chat_page/chat_layout";
 import { useQuery } from "convex/react";
-import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import ConvarsationContainer from "@/src/components/chat_page/conversation/ConvarsationContainer";
 import { Id } from "@/convex/_generated/dataModel";
@@ -16,11 +15,11 @@ import DeleteGroupDialog from "@/src/components/chat_page/dialogs/DeleteGroupDia
 import LeaveGroupDialog from "@/src/components/chat_page/dialogs/LeaveGroupDialog";
 
 type Props = {
-    conversationId: Id<"conversations">;
-    userId : string
+  conversationId: Id<"conversations">;
+  userId: string;
 };
 
-const ChatConversationComponent = ({ conversationId , userId }: Props) => {
+const ChatConversationComponent = ({ conversationId, userId }: Props) => {
   const conversation = useQuery(api.conversation.get, {
     id: conversationId,
     currentUserId: userId,
@@ -28,7 +27,6 @@ const ChatConversationComponent = ({ conversationId , userId }: Props) => {
   const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = useState(false);
   const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = useState(false);
   const [leaveGroupDialogOpen, setLeaveGroupFriendDialogOpen] = useState(false);
-  const [callType, setCallType] = useState<"audio" | "video" | null>(null);
 
   return (
     <ChatLayout userID={userId}>
@@ -92,7 +90,7 @@ const ChatConversationComponent = ({ conversationId , userId }: Props) => {
                   ]
             }
           />
-          <Body 
+          <Body
             members={
               conversation.isGroup
                 ? conversation.otherMembers

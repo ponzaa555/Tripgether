@@ -39,7 +39,7 @@ const MyCarousel = (props: Props) => {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 items-center w-full h-full">
       <Carousel
         setApi={setCarouselApi}
         opts={{

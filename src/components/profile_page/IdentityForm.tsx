@@ -25,8 +25,9 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Textarea } from "@/src/components/UI/textarea";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import axios from "axios";
+import { updateProfileData } from "@/src/lib/frontend/http";
+import { toast } from "sonner";
+import { useState } from "react";
 
 export const formSchema = z.object({
   firstName: z.string().min(1, {
@@ -41,53 +42,52 @@ export const formSchema = z.object({
   phoneNumber: z.string().length(10, {
     message: "This field must be 10 characters long.",
   }),
-  dateOfBirth: z.date().optional(),
-  bio: z.string().optional(),
+  birthDate: z.date().optional(),
+  aboutMe: z.string().optional(),
 });
 
-type IdentityFormProps = {};
+type IdentityFormProps = {
+  firstName?: string;
+  lastName?: string;
+  email: string;
+  phoneNumber?: string;
+  birthDate?: Date;
+  aboutMe?: string;
+};
 
-const IdentityForm = ({}: IdentityFormProps) => {
+const IdentityForm = ({
+  firstName,
+  lastName,
+  email,
+  phoneNumber,
+  birthDate,
+  aboutMe,
+}: IdentityFormProps) => {
   const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "test@gmail.com",
-      phoneNumber: "",
-      dateOfBirth: undefined,
-      bio: "",
+      firstName: firstName ?? "",
+      lastName: lastName ?? "",
+      email: email,
+      phoneNumber: phoneNumber ?? "",
+      birthDate: birthDate ? new Date(birthDate) : undefined,
+      aboutMe: aboutMe ?? "",
     },
   });
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get("/api/getUserData"); // Replace with your API endpoint
-        const data = response.data.profileInfo;
-        console.log({data:data})
-
-        // Update form values with fetched data
-        form.reset({
-          firstName: data.firstName || "",
-          lastName: data.lastName || "",
-          email: data.email || "",
-          phoneNumber: data.phoneNumber || "",
-          dateOfBirth: data.birthDate ? new Date(data.birthDate) : undefined,
-          bio: data.aboutMe || "",
-        });
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      }
-    };
-
-    fetchProfile();
-  }, [form]);
-
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    await axios.post("/api/getUserData",values);
+    setSubmitting(true);
+    const res = await updateProfileData(values);
+    if (res) {
+      toast.success("Profile updated successfully.");
+      setSubmitting(false);
+      router.back();
+    } else {
+      toast.error("Failed to update profile. Please try again later.");
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -171,7 +171,7 @@ const IdentityForm = ({}: IdentityFormProps) => {
         />
         <FormField
           control={form.control}
-          name="dateOfBirth"
+          name="birthDate"
           render={({ field }) => (
             <FormItem className="flex flex-col mt-2 gap-2">
               <FormLabel>Birth date</FormLabel>
@@ -216,7 +216,7 @@ const IdentityForm = ({}: IdentityFormProps) => {
         <h2 className="mt-11 text-xl font-extrabold">About me</h2>
         <FormField
           control={form.control}
-          name="bio"
+          name="aboutMe"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Bio</FormLabel>
@@ -233,9 +233,12 @@ const IdentityForm = ({}: IdentityFormProps) => {
           )}
         />
         <div className="flex flex-row gap-5">
-          <Button type="submit">Update profile</Button>
+          <Button type="submit" disabled={submitting}>
+            {submitting ? "Updating..." : "Update"}
+          </Button>
           <Button
             type="button"
+            disabled={submitting}
             variant="secondary"
             onClick={() => {
               router.back();

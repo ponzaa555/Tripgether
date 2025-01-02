@@ -7,7 +7,6 @@ import { z } from "zod";
 import { api } from "@/convex/_generated/api";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { ConvexError } from "convex/values";
 import { useRef } from "react";
@@ -28,12 +27,11 @@ const chatMessageSchema = z.object({
 });
 
 type ChatsInputProps = {
-  userId :string
-}
-const ChatInput = ({userId}:ChatsInputProps) => {
+  userId: string;
+};
+const ChatInput = ({ userId }: ChatsInputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const { conversationId } = useConversation();
-
 
   const { mutate: createMessage, pending } = useMutationState(
     api.message.create

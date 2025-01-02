@@ -9,16 +9,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/src/components/UI/dialog";
-import { ImageUp, UserRound } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useFetch } from "@/src/hooks/useFetch";
+import { fetchProfileData } from "@/src/lib/frontend/http";
+import { ImageUp, Loader2, UserRound } from "lucide-react";
+import { useRef, useState } from "react";
 
 type EditProfileProps = {};
 
 export default function EditProfile({}: EditProfileProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<File | null>(null);
-
-
 
   const handleImageUpload = () => {
     if (inputRef.current) {
@@ -33,6 +33,21 @@ export default function EditProfile({}: EditProfileProps) {
       setImage(file);
     }
   };
+
+  const { isFetching, error, fetchedData } = useFetch(fetchProfileData, {});
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (isFetching) {
+    return (
+      <div className="flex flex-col w-screen h-screen justify-center items-center">
+        <Loader2 className="w-16 h-16 animate-spin text-orange-400" />
+        <h2 className="animate-pulse">Please wait...</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-full items-center justify-center pt-10 px-10 mb-4">
@@ -86,7 +101,7 @@ export default function EditProfile({}: EditProfileProps) {
             </DialogTitle>
           </DialogContent>
         </Dialog>
-        <IdentityForm />
+        <IdentityForm {...fetchedData} />
       </div>
     </div>
   );

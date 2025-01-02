@@ -2,7 +2,6 @@ import { useQuery } from "convex/react";
 import { z } from "zod";
 import { api } from "@/convex/_generated/api";
 import { useMutationState } from "@/src/hooks/useMutation";
-import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo } from "react";
@@ -44,7 +43,7 @@ import {
 import { Card } from "@/src/components/UI/card";
 
 type Props = {
-  userId :string
+  userId: string;
 };
 
 const createGroupFormSchema = z.object({
@@ -55,7 +54,7 @@ const createGroupFormSchema = z.object({
     .min(1, { message: "You must select at least 1 friend" }),
 });
 
-const CreateGroupDialog = ({userId}: Props) => {
+const CreateGroupDialog = ({ userId }: Props) => {
   const friends = useQuery(api.friends.get, {
     currentUserId: userId,
   });
