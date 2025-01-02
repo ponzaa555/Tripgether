@@ -10,13 +10,15 @@ import {
   DialogTrigger,
 } from "@/src/components/UI/dialog";
 import { ImageUp, UserRound } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type EditProfileProps = {};
 
 export default function EditProfile({}: EditProfileProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<File | null>(null);
+
+
 
   const handleImageUpload = () => {
     if (inputRef.current) {

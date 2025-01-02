@@ -16,13 +16,16 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
   const [media, setMedia] = useState("photos");
   const [draft, setDraft] = useState("draft");
   const [trip, setTrip] = useState("all");
   const router = useRouter();
+
+  
+  // api
   return (
     <div className="bg-slate-200 w-full h-full">
       <div className="flex flex-col items-center justify-center gap-5 py-5 lg:hidden">
@@ -225,6 +228,56 @@ const Profile = () => {
               </Button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col w-full bg-white h-[35rem] gap-5 p-3">
+        <div className="flex flex-row justify-between">
+          <Image src="/logo.png" alt="logo" width={100} height={100} />
+          <Button>
+            <CirclePlus />
+            Create trip plan
+          </Button>
+        </div>
+        <nav>
+          <ul className="flex justify-center gap-3 flex-wrap">
+            <li>
+              <Button
+                variant="link"
+                className={`transition duration-300 ease-in-out  ${trip === "all" ? "bg-orange-400 text-white" : "text-black"} `}
+                onClick={() => setTrip("all")}
+              >
+                <p className="text-xs">
+                  All trips <br />({0})
+                </p>
+              </Button>
+            </li>
+            <li>
+              <Button
+                variant="link"
+                className={`transition duration-300 ease-in-out  ${trip === "withme" ? "bg-orange-400 text-white" : "text-black"} `}
+                onClick={() => setTrip("withme")}
+              >
+                <p className="text-xs">
+                  Shared with me <br />({1})
+                </p>
+              </Button>
+            </li>
+            <li>
+              <Button
+                variant="link"
+                className={`transition duration-300 ease-in-out  ${trip === "upcoming" ? "bg-orange-400 text-white" : "text-black"} `}
+                onClick={() => setTrip("upcoming")}
+              >
+                <p className="text-xs">
+                  Upcoming trip <br />({2})
+                </p>
+              </Button>
+            </li>
+          </ul>
+        </nav>
+        <div className="flex justify-center items-center w-full pt-48">
+          <p>There is no media to show.</p>
         </div>
       </div>
 

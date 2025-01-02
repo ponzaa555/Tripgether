@@ -1,22 +1,31 @@
-import { FindUserById } from "@/src/lib/backend/myAuth/Command/Login";
+import authOption from "@/src/lib/backend/authOption";
+import { GetProfileById, UpsertProfile } from "@/src/lib/backend/myAuth/Command/profile/profile";
+import { ProfileMap } from "@/src/lib/backend/myAuth/Command/profile/type";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  var body = await req.json();
-  const { id } = body;
+  console.log(" ================== getUserData Post ==================")
+  const session = await getServerSession(authOption);
+  const userId = session?.user.id as string
+  const info = await req.json();
+  
+  //map info To ProfileMap
+  const profileMap:ProfileMap = {
+    firstName:info.firstName,
+    lastName:info.lastName,
+    email:info.email,
+    phoneNumber:info.phoneNumber,
+    birthDate:info.dateOfBirth,
+    aboutMe:info. bio
+  };
+  const res = await UpsertProfile(profileMap , userId)
+  return NextResponse.json({profile : res} , {status:201})
+}
+export async function GET(req: NextRequest) {
+  const session = await getServerSession(authOption);
+  if(!session ) return NextResponse.json({error:"Not authentication"},{status:401})
 
-  var user = await FindUserById(id);
-  if (!user)
-    return NextResponse.json(
-      { message: "Can not find a user id" },
-      { status: 404 }
-    );
-
-  return NextResponse.json(
-    {
-      user: user,
-      message: "User found",
-    },
-    { status: 200 }
-  );
+  const profileDetail = await GetProfileById(session.user.email!);
+  return  NextResponse.json({profileInfo:profileDetail}, {status:200});
 }
