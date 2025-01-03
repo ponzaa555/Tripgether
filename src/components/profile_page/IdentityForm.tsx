@@ -28,6 +28,13 @@ import { useRouter } from "next/navigation";
 import { updateProfileData } from "@/src/lib/frontend/http";
 import { toast } from "sonner";
 import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/components/UI/select";
 
 export const formSchema = z.object({
   firstName: z.string().min(1, {
@@ -44,6 +51,27 @@ export const formSchema = z.object({
   }),
   birthDate: z.date().optional(),
   aboutMe: z.string().optional(),
+});
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const startYear = 1900;
+const endYear = new Date().getFullYear();
+const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => {
+  return startYear + i;
 });
 
 type IdentityFormProps = {
@@ -195,14 +223,59 @@ const IdentityForm = ({
                   </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
+                  <div className="flex flex-row justify-between gap-2 p-2">
+                    <Select
+                      onValueChange={(value) => {
+                        const date = new Date(field.value ?? new Date());
+                        date.setMonth(months.indexOf(value));
+                        field.onChange(date);
+                      }}
+                      value={months[field.value?.getMonth() ?? 0]}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Month" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {months.map((month, index) => (
+                          <SelectItem key={index} value={month}>
+                            {month}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Select
+                      onValueChange={(value) => {
+                        const date = new Date(field.value ?? new Date());
+                        date.setFullYear(parseInt(value));
+                        field.onChange(date);
+                      }}
+                      value={
+                        field.value ? field.value.getFullYear().toString() : ""
+                      }
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Years" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {years.map((year, index) => (
+                          <SelectItem key={index} value={year.toString()}>
+                            {year}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                   <Calendar
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
+                    onMonthChange={(month) => {
+                      const date = new Date(field.value ?? new Date());
+                      date.setMonth(month.getMonth());
+                      field.onChange(date);
+                    }}
                     initialFocus
+                    month={field.value ?? new Date()}
                   />
                 </PopoverContent>
               </Popover>
