@@ -1,5 +1,5 @@
 "use client";
-import IdentityForm from "@/src/components/profile_page/IdentityForm";
+import IdentityForm from "@/src/components/editprofile_page/IdentityForm";
 import { Avatar, AvatarImage } from "@/src/components/UI/avatar";
 import { Button } from "@/src/components/UI/Button";
 import {
@@ -11,6 +11,7 @@ import {
 } from "@/src/components/UI/dialog";
 import { useFetch } from "@/src/hooks/useFetch";
 import { fetchProfileData } from "@/src/lib/frontend/http";
+import { mapProfileData } from "@/src/lib/utils";
 import { ImageUp, Loader2, UserRound } from "lucide-react";
 import { useRef, useState } from "react";
 
@@ -34,7 +35,10 @@ export default function EditProfile({}: EditProfileProps) {
     }
   };
 
-  const { isFetching, error, fetchedData } = useFetch(fetchProfileData, {});
+  const { isFetching, error, fetchedData } = useFetch(
+    fetchProfileData,
+    mapProfileData({})
+  );
 
   if (error) {
     return <div>Error: {error}</div>;

@@ -1,6 +1,8 @@
 import axios from "axios";
+import { mapProfileData } from "@/src/lib/utils";
+import { ProfileData } from "@/src/models/user/ProfileModel";
 
-export async function fetchProfileData() {
+export async function fetchProfileData(): Promise<ProfileData> {
   const res = await axios.get("/api/getUserData");
   const data = res.data.profileInfo;
 
@@ -8,7 +10,7 @@ export async function fetchProfileData() {
     throw new Error("Failed to fetch data.");
   }
 
-  return data;
+  return mapProfileData(data);
 }
 
 export async function updateProfileData(data: any) {
