@@ -10,14 +10,11 @@ import {
 } from "@/src/components/UI/tooltip";
 import { useConversation } from "@/src/hooks/useConversation";
 import { useNavigation } from "@/src/hooks/useNavigation";
+import { MobileChatNavbarProps } from "@/src/models/chat/conversation";
 import Link from "next/link";
 
-
-type Props = {
-  userId : string
-}
-const MobileChatNavbar = ({userId}:Props) => {
-  const paths = useNavigation({userId:userId});
+const MobileChatNavbar = ({ userId }: MobileChatNavbarProps) => {
+  const paths = useNavigation({ userId: userId });
   const { isActive } = useConversation();
 
   if (isActive) {

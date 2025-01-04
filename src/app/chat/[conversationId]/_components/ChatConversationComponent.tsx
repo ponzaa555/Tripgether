@@ -4,7 +4,6 @@ import ChatLayout from "@/src/components/chat_page/chat_layout";
 import { useQuery } from "convex/react";
 import { Loader2 } from "lucide-react";
 import ConvarsationContainer from "@/src/components/chat_page/conversation/ConvarsationContainer";
-import { Id } from "@/convex/_generated/dataModel";
 import { api } from "@/convex/_generated/api";
 import Header from "@/src/components/chat_page/conversation/Header";
 import Body from "@/src/components/chat_page/conversation/Body";
@@ -13,13 +12,12 @@ import { useState } from "react";
 import RemoveFriendDialog from "@/src/components/chat_page/dialogs/RemoveFriendDialog";
 import DeleteGroupDialog from "@/src/components/chat_page/dialogs/DeleteGroupDialog";
 import LeaveGroupDialog from "@/src/components/chat_page/dialogs/LeaveGroupDialog";
+import { ChatConversationComponentProps } from "@/src/models/chat/conversation";
 
-type Props = {
-  conversationId: Id<"conversations">;
-  userId: string;
-};
-
-const ChatConversationComponent = ({ conversationId, userId }: Props) => {
+const ChatConversationComponent = ({
+  conversationId,
+  userId,
+}: ChatConversationComponentProps) => {
   const conversation = useQuery(api.conversation.get, {
     id: conversationId,
     currentUserId: userId,
@@ -29,7 +27,7 @@ const ChatConversationComponent = ({ conversationId, userId }: Props) => {
   const [leaveGroupDialogOpen, setLeaveGroupFriendDialogOpen] = useState(false);
 
   return (
-    <ChatLayout userID={userId}>
+    <ChatLayout userId={userId}>
       {conversation === undefined ? (
         <div className="w-full h-full flex items-center justify-center">
           <Loader2 className="animate-spin" />

@@ -4,9 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@/src/components/UI/Button";
 import { CirclePlus } from "lucide-react";
 
-type Props = {};
-
-const AllTripComponent = (props: Props) => {
+const AllTripComponent = () => {
   const [trip, setTrip] = useState("all");
   return (
     <div className="flex flex-col w-full bg-white h-[35rem] gap-5 p-3">

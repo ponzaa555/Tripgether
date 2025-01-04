@@ -2,9 +2,7 @@ import Image from "next/image";
 import { WHYUS } from "@/src/lib/frontend/data";
 import MyCarousel from "@/src/components/aboutus_page/MyCarousel";
 
-type Props = {};
-
-const AboutUsPage = (props: Props) => {
+const AboutUsPage = () => {
   return (
     <div className="flex flex-col gap-5 p-5 pt-16 pb-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:items-center">

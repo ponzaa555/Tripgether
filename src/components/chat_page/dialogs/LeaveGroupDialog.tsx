@@ -1,7 +1,5 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
-import { Id } from "@/convex/_generated/dataModel";
 import { useMutationState } from "@/src/hooks/useMutation";
 import { api } from "@/convex/_generated/api";
 import { useSession } from "next-auth/react";
@@ -17,14 +15,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/src/components/UI/alert-dialog";
+import { LeaveGroupDialogProps } from "@/src/models/chat/conversation";
 
-type Props = {
-  conversationId: Id<"conversations">;
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
-
-const LeaveGroupDialog = ({ conversationId, open, setOpen }: Props) => {
+const LeaveGroupDialog = ({
+  conversationId,
+  open,
+  setOpen,
+}: LeaveGroupDialogProps) => {
   const { data: session } = useSession();
   const { mutate: leaveGroup, pending } = useMutationState(
     api.conversation.leaveGroup

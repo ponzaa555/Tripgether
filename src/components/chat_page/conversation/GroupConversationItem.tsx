@@ -1,16 +1,8 @@
 import Link from "next/link";
-import { Id } from "@/convex/_generated/dataModel";
 import { Card } from "@/src/components/UI/card";
 import { Avatar, AvatarFallback } from "@/src/components/UI/avatar";
 import { Badge } from "@/src/components/UI/badge";
-
-type Props = {
-  id: Id<"conversations">;
-  name: string;
-  lastMessageSender?: string;
-  lastMessageContent?: string;
-  unseenCount: number;
-};
+import { GroupConversationItemProps } from "@/src/models/chat/conversation";
 
 const GroupConversationItem = ({
   id,
@@ -18,7 +10,7 @@ const GroupConversationItem = ({
   lastMessageContent,
   unseenCount,
   lastMessageSender,
-}: Props) => {
+}: GroupConversationItemProps) => {
   return (
     <Link href={`/chat/${id}`} className="w-full">
       <Card className="p-2 flex flex-row items-center justify-between">

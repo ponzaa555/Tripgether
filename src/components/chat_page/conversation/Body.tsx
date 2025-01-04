@@ -11,17 +11,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/src/components/UI/tooltip";
+import { BodyProps } from "@/src/models/chat/conversation";
 
-type Props = {
-  members: {
-    lastSeenMessageId?: Id<"messages">;
-    username?: string;
-    [key: string]: any;
-  }[];
-  userId: string;
-};
-
-const Body = ({ members, userId }: Props) => {
+const Body = ({ members, userId }: BodyProps) => {
   const { conversationId } = useConversation();
   const messages = useQuery(api.messages.get, {
     id: conversationId as Id<"conversations">,

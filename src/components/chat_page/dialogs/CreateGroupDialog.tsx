@@ -41,10 +41,7 @@ import {
   AvatarImage,
 } from "@/src/components/UI/avatar";
 import { Card } from "@/src/components/UI/card";
-
-type Props = {
-  userId: string;
-};
+import { CreateGroupDialogProps } from "@/src/models/chat/conversation";
 
 const createGroupFormSchema = z.object({
   name: z.string().min(1, { message: "This field can't be empthy" }),
@@ -54,7 +51,7 @@ const createGroupFormSchema = z.object({
     .min(1, { message: "You must select at least 1 friend" }),
 });
 
-const CreateGroupDialog = ({ userId }: Props) => {
+const CreateGroupDialog = ({ userId }: CreateGroupDialogProps) => {
   const friends = useQuery(api.friends.get, {
     currentUserId: userId,
   });

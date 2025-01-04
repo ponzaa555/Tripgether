@@ -15,9 +15,7 @@ import { mapProfileData } from "@/src/lib/utils";
 import { ImageUp, Loader2, UserRound } from "lucide-react";
 import { useRef, useState } from "react";
 
-type EditProfileProps = {};
-
-export default function EditProfile({}: EditProfileProps) {
+export default function EditProfile() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<File | null>(null);
 

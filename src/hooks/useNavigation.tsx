@@ -3,12 +3,9 @@ import { MessageSquare, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { api } from "@/convex/_generated/api";
+import { UserIdProps } from "../models/chat/conversation";
 
-type Props = {
-  userId: string;
-};
-
-export const useNavigation = ({ userId }: Props) => {
+export const useNavigation = ({ userId }: UserIdProps) => {
   const pathname = usePathname();
   const requestCount = useQuery(api.requests.count, {
     currentUserId: userId,

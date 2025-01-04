@@ -14,16 +14,9 @@ import { api } from "@/convex/_generated/api";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { ConvexError } from "convex/values";
-import { Id } from "@/convex/_generated/dataModel";
+import { RequestProps } from "@/src/models/chat/conversation";
 
-type Props = {
-  id: Id<"requests">;
-  imageUrl: string;
-  username: string;
-  email: string;
-};
-
-const Request = ({ id, imageUrl, username, email }: Props) => {
+const Request = ({ id, imageUrl, username, email }: RequestProps) => {
   const { data: session } = useSession();
   const { mutate: denyRequest, pending: denyPending } = useMutationState(
     api.request.deny

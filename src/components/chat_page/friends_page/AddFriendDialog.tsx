@@ -31,18 +31,14 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { api } from "@/convex/_generated/api";
-import { useSession } from "next-auth/react";
 import { ConvexError } from "convex/values";
+import { AddFriendDialogProps } from "@/src/models/chat/conversation";
 
 const addFriendFormSchema = z.object({
   email: z.string().email("Please enter a valid email."),
 });
 
-type Props = {
-  userId : string
-}
-const AddFriendDialog = ({userId}:Props) => {
-  
+const AddFriendDialog = ({ userId }: AddFriendDialogProps) => {
   const { mutate: createRequest, pending } = useMutationState(
     api.request.create
   );

@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { Button } from "@/src/components/UI/Button";
 import { Images, LibraryBig, Video } from "lucide-react";
 
-type Props = {};
-
-const MediaComponent = (props: Props) => {
+const MediaComponent = () => {
   const [media, setMedia] = useState("photos");
   return (
     <div className="bg-white w-full h-80 p-5 py-10 flex flex-col gap-5 sm:h-96 sm:gap-7 lg:h-[30rem]">

@@ -8,23 +8,19 @@ import DMConversation from "@/src/components/chat_page/conversation/DMConversati
 import { Loader2 } from "lucide-react";
 import CreateGroupDialog from "@/src/components/chat_page/dialogs/CreateGroupDialog";
 import GroupConversationItem from "@/src/components/chat_page/conversation/GroupConversationItem";
+import { ChatPageProps } from "@/src/models/chat/conversation";
 
-type ChatPageProps = {
-  children: React.ReactNode;
-  userID: string
-};
-
-const ChatLayout = ({ children, userID }: ChatPageProps) => {
-  console.log("Chatlayout userID: ", userID);
-
+const ChatLayout = ({ children, userId }: ChatPageProps) => {
   const conversations = useQuery(api.conversations.get, {
-    currentUserId: userID
+    currentUserId: userId,
   });
-  console.log("Chatlayout conversation: ", conversations);
   return (
     <>
-      <SidebarWrapper userId= {userID}>
-        <ItemList title="Conversations" action={<CreateGroupDialog  userId={userID}/>}>
+      <SidebarWrapper userId={userId}>
+        <ItemList
+          title="Conversations"
+          action={<CreateGroupDialog userId={userId} />}
+        >
           {conversations ? (
             conversations.length === 0 ? (
               <p className="w-full h-full flex items-center justify-center">

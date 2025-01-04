@@ -1,4 +1,4 @@
-export type ProfileData = {
+export type ProfileProps = {
   firstName?: string;
   lastName?: string;
   email: string;
@@ -6,3 +6,5 @@ export type ProfileData = {
   birthDate?: Date;
   aboutMe?: string;
 };
+
+export type IdentityFormProps = ProfileProps;

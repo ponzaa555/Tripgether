@@ -12,20 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "@/src/components/UI/dropdown-menu";
 import { cn } from "@/src/lib/utils";
+import { HeaderProps } from "@/src/models/chat/conversation";
 import { CircleArrowLeft, Settings } from "lucide-react";
 import Link from "next/link";
 
-type Props = {
-  imageUrl?: string;
-  name: string;
-  options?: {
-    label: string;
-    destructive: boolean;
-    onClick: () => void;
-  }[];
-};
-
-const Header = ({ imageUrl, name, options }: Props) => {
+const Header = ({ imageUrl, name, options }: HeaderProps) => {
   return (
     <Card className="w-full flex rounded-lg items-center p-2 justify-between">
       <div className="flex items-center gap-2">

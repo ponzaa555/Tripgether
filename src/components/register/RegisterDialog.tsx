@@ -19,11 +19,7 @@ import { PasswordInput } from "@/src/components/UI/password_input";
 import { Button } from "@/src/components/UI/Button";
 import { useModal } from "@/src/context/ModalContext";
 import { toast } from "sonner";
-
-type Props = {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { RegisterDialogProps } from "@/src/models/components/registerDialog";
 
 const formSchema = z
   .object({
@@ -43,7 +39,7 @@ const formSchema = z
     }
   );
 
-const RegisterDialog = ({ isOpen, setIsOpen }: Props) => {
+const RegisterDialog = ({ isOpen, setIsOpen }: RegisterDialogProps) => {
   const { openLoginModal } = useModal();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

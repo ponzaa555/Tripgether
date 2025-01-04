@@ -5,9 +5,7 @@ import { Input } from "@/src/components/UI/input";
 import useTripSearch from "@/src/hooks/useTripSearch";
 import { useState } from "react";
 
-type Props = {};
-
-const TripPage = (props: Props) => {
+const TripPage = () => {
   const [query, setQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const { loading, error, trips, hasMore } = useTripSearch(query, pageNumber);

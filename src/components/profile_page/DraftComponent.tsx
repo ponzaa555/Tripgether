@@ -1,13 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/src/components/UI/Button";
-import { Pencil } from "lucide-react";
-import Image from "next/image";
 import ItemComponent from "./ItemComponent";
 
-type Props = {};
-
-const DraftComponent = (props: Props) => {
+const DraftComponent = () => {
   const [draft, setDraft] = useState("draft");
   return (
     <div className="h-auto p-5 pt-20 flex flex-col gap-5">

@@ -9,14 +9,11 @@ import {
   TooltipTrigger,
 } from "@/src/components/UI/tooltip";
 import { useNavigation } from "@/src/hooks/useNavigation";
+import { ChatNavbarProps } from "@/src/models/chat/conversation";
 import Link from "next/link";
 
-type Props = {
-  userId : string
-}
-
-const ChatNavbar = ({userId}:Props) => {
-  const paths = useNavigation({userId:userId});
+const ChatNavbar = ({ userId }: ChatNavbarProps) => {
+  const paths = useNavigation({ userId: userId });
   return (
     <Card className="hidden lg:flex lg:flex-col lg:justify-between lg:items-center lg:h-full lg:w-16 lg:px-2 lg:py-4">
       <nav>

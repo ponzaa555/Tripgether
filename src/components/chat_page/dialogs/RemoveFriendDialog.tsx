@@ -1,7 +1,4 @@
 "use client";
-
-import { Dispatch, SetStateAction } from "react";
-import { Id } from "@/convex/_generated/dataModel";
 import { useMutationState } from "@/src/hooks/useMutation";
 import { api } from "@/convex/_generated/api";
 import { useSession } from "next-auth/react";
@@ -17,15 +14,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/src/components/UI/alert-dialog";
+import { RemoveFriendDialogProps } from "@/src/models/chat/conversation";
 
-type Props = {
-  conversationId: Id<"conversations">;
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-  userId : string
-};
-
-const RemoveFriendDialog = ({ conversationId, open, setOpen , userId }: Props) => {
+const RemoveFriendDialog = ({
+  conversationId,
+  open,
+  setOpen,
+  userId,
+}: RemoveFriendDialogProps) => {
   const { data: session } = useSession();
   const { mutate: removeFriend, pending } = useMutationState(api.friend.remove);
   const handleRemoveFriend = async () => {

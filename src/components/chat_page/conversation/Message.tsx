@@ -5,16 +5,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/src/components/UI/avatar";
-type Props = {
-  fromCurrentUser: boolean;
-  senderImage: string;
-  senderName: string;
-  lastByUser: boolean;
-  content: string[];
-  createdAt: number;
-  seen?: React.ReactNode;
-  type: string;
-};
+import { MessageProps } from "@/src/models/chat/conversation";
 
 const Message = ({
   fromCurrentUser,
@@ -25,7 +16,7 @@ const Message = ({
   createdAt,
   seen,
   type,
-}: Props) => {
+}: MessageProps) => {
   const formatTime = (timestamp: number) => {
     return format(timestamp, "HH:mm");
   };

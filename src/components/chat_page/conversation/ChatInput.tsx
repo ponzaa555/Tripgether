@@ -19,6 +19,7 @@ import {
 import TextareaAutosize from "react-textarea-autosize";
 import { Button } from "@/src/components/UI/Button";
 import { SendHorizonal } from "lucide-react";
+import { ChatInputProps } from "@/src/models/chat/conversation";
 
 const chatMessageSchema = z.object({
   content: z.string().min(1, {
@@ -26,10 +27,7 @@ const chatMessageSchema = z.object({
   }),
 });
 
-type ChatsInputProps = {
-  userId: string;
-};
-const ChatInput = ({ userId }: ChatsInputProps) => {
+const ChatInput = ({ userId }: ChatInputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const { conversationId } = useConversation();
 

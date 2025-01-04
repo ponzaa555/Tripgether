@@ -1,8 +1,8 @@
 import axios from "axios";
 import { mapProfileData } from "@/src/lib/utils";
-import { ProfileData } from "@/src/models/user/ProfileModel";
+import { ProfileProps } from "@/src/models/user/profile";
 
-export async function fetchProfileData(): Promise<ProfileData> {
+export async function fetchProfileData(): Promise<ProfileProps> {
   const res = await axios.get("/api/getUserData");
   const data = res.data.profileInfo;
 

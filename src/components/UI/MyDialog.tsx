@@ -4,15 +4,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/src/components/UI/dialog";
+import { MyDialogProps } from "@/src/models/components/myDialog";
 
-type Props = {
-  isOpen: boolean;
-  title: string;
-  children: React.ReactNode;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const MyDialog = ({ isOpen, title, setIsOpen, children }: Props) => {
+const MyDialog = ({ isOpen, title, setIsOpen, children }: MyDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>

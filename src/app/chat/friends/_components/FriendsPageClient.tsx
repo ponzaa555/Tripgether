@@ -8,12 +8,9 @@ import SidebarWrapper from "@/src/components/chat_page/sidebar/SidebarWrapper";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Loader2 } from "lucide-react";
+import { FriendsPageProps } from "@/src/models/chat/conversation";
 
-type Props = {
-  userId: string;
-};
-
-const FriendsPage = ({ userId }: Props) => {
+const FriendsPage = ({ userId }: FriendsPageProps) => {
   const requests = useQuery(api.requests.get, {
     currentUserId: userId,
   });

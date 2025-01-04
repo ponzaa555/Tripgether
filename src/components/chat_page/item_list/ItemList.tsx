@@ -3,13 +3,9 @@
 import { Card } from "@/src/components/UI/card";
 import { useConversation } from "@/src/hooks/useConversation";
 import { cn } from "@/src/lib/utils";
+import { ItemListProps } from "@/src/models/chat/conversation";
 
-type Props = React.PropsWithChildren<{
-  title: string;
-  action?: React.ReactNode;
-}>;
-
-const ItemList = ({ children, title, action: Action }: Props) => {
+const ItemList = ({ children, title, action: Action }: ItemListProps) => {
   const { isActive } = useConversation();
   return (
     <Card

@@ -1,12 +1,12 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { ProfileData } from "@/src/models/user/ProfileModel";
+import { ProfileProps } from "@/src/models/user/profile";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function mapProfileData(data: any): ProfileData {
+export function mapProfileData(data: any): ProfileProps {
   return {
     firstName: data.firstName,
     lastName: data.lastName,

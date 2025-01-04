@@ -35,6 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/UI/select";
+import { IdentityFormProps } from "@/src/models/user/profile";
 
 export const formSchema = z.object({
   firstName: z.string().min(1, {
@@ -73,15 +74,6 @@ const endYear = new Date().getFullYear();
 const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => {
   return startYear + i;
 });
-
-type IdentityFormProps = {
-  firstName?: string;
-  lastName?: string;
-  email: string;
-  phoneNumber?: string;
-  birthDate?: Date;
-  aboutMe?: string;
-};
 
 const IdentityForm = ({
   firstName,

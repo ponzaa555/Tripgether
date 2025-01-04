@@ -11,9 +11,7 @@ import { ABOUTUS } from "@/src/lib/frontend/data";
 import Autoplay from "embla-carousel-autoplay";
 import { Card, CardContent } from "@/src/components/UI/card";
 
-type Props = {};
-
-const MyCarousel = (props: Props) => {
+const MyCarousel = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [totalItems, setTotalItems] = useState(0);

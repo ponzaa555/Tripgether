@@ -3,9 +3,7 @@ import RegisterDialog from "@/src/components/register/RegisterDialog";
 import { Button } from "@/src/components/UI/Button";
 import { useState } from "react";
 
-type Props = {};
-
-const Form = (props: Props) => {
+const Form = () => {
   const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
 
   return (
