@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { WHYUS } from "@/src/lib/frontend/data";
-import MyCarousel from "@/src/components/aboutus_page/MyCarousel";
+import MyCarousel from "@/src/components/aboutUs_page/MyCarousel";
 
 const AboutUsPage = () => {
   return (
