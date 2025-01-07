@@ -72,27 +72,33 @@ const AboutUsPage = () => {
         <h1 className="font-black text-xl text-orange-400 text-center sm:text-lg sm:text-left">
           TripGether
         </h1>
-        <h1 className="font-black text-2xl text-center sm:text-5xl sm:text-left">
+        <h1 className="font-black text-2xl text-center sm:text-4xl">
           Why travelers love TripGether
         </h1>
-        <div className="columns-1 sm:columns-3 gap-6 md:gap-12 lg:gap-20 h-full">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-12 lg:gap-10 w-full px-5 sm:px-10 lg:px-40">
           {WHYUS.map((data, index) => (
-            <div
-              key={index}
-              className="bg-sky-200 shadow-2xl p-5 my-5 sm:my-0 rounded-lg"
-            >
-              <h2 className="font-black text-base md:text-xl">{data.title}</h2>
-              <ul className="pl-3 text-sm font-light">
-                {data.listData.map((quote, index) => (
-                  <div
-                    key={`${index}--${quote}`}
+            <div key={index} className="flex flex-col items-center">
+              <Image
+                src={data.picture}
+                alt={data.title}
+                className="rounded-xl"
+                width={300}
+                height={200}
+              />
+              <h2 className="font-black text-base md:text-xl mt-4">
+                {data.title}
+              </h2>
+              <ul className="pl-3 text-sm font-light mt-2">
+                {data.listData.map((quote, subIndex) => (
+                  <li
+                    key={`${index}-${subIndex}`}
                     className="flex flex-row items-baseline gap-2"
                   >
                     <p className="text-4xl translate-y-2 text-slate-500">·</p>
-                    <li className="text-wrap md:text-lg text-slate-500">
+                    <span className="text-wrap md:text-lg text-slate-500">
                       {quote}
-                    </li>
-                  </div>
+                    </span>
+                  </li>
                 ))}
               </ul>
             </div>

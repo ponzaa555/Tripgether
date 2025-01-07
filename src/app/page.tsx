@@ -39,12 +39,15 @@ export default function Home() {
   return (
     <>
       <HomeContent />
-      <div className="flex flex-col gap-20 h-full w-screen bg-white">
+      <div className="flex flex-col gap-4 h-full w-screen bg-white">
         <Welcome />
-        <h3 className="flex self-center text-3xl sm:text-5xl md:text-6xl font-black">
-          Enjoy The Moment
-        </h3>
-        <BlogContent />
+        <div className="flex flex-col gap-7 pt-20">
+          <h3 className="flex self-center text-orange-500">TRIP</h3>
+          <h3 className="flex self-center text-2xl sm:text-3xl md:text-4xl font-black">
+            Enjoy The Moment
+          </h3>
+          <BlogContent />
+        </div>
       </div>
     </>
   );

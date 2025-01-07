@@ -20,7 +20,7 @@ const BlogContent = () => {
               alt={data.title}
               width={1000}
               height={1000}
-              className="shadow-sm w-full h-full"
+              className="shadow-sm w-full rounded-lg hover:scale-105 transform transition-transform duration-300 h-full"
             />
             <div className="flex flex-row justify-between">
               <p className="flex font-light text-xs text-gray-400 items-baseline gap-1">

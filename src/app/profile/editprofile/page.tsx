@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/src/components/UI/dialog";
+import LoadingComponent from "@/src/components/UI/Loading";
 import { useFetch } from "@/src/hooks/useFetch";
 import { fetchProfileData } from "@/src/lib/frontend/http";
 import { mapProfileData } from "@/src/lib/utils";
@@ -43,12 +44,7 @@ export default function EditProfile() {
   }
 
   if (isFetching) {
-    return (
-      <div className="flex flex-col w-screen h-screen justify-center items-center">
-        <Loader2 className="w-16 h-16 animate-spin text-orange-400" />
-        <h2 className="animate-pulse">Please wait...</h2>
-      </div>
-    );
+    return <LoadingComponent />;
   }
 
   return (

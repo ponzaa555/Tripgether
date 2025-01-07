@@ -2,8 +2,10 @@ import groupPlanIcon from "@/src/assets/icons/groupPlan_Icon.png";
 import chatIcon from "@/src/assets/icons/chat_Icon.png";
 import planForm from "@/src/assets/icons/planForm_Icon.png";
 import blogIcon from "@/src/assets/icons/blog_Icon.png";
+import picture1 from "@/src/assets/images/picture1.jpg";
+import picture2 from "@/src/assets/images/picture2.jpg";
+import picture3 from "@/src/assets/images/picture3.jpg";
 import { StaticImageData } from "next/image";
-import { title } from "process";
 
 type Feature = {
   icon: StaticImageData;
@@ -18,6 +20,7 @@ type AboutUs = {
 
 type WhyUs = {
   title: string;
+  picture: StaticImageData;
   listData: string[];
 };
 
@@ -173,6 +176,7 @@ export const ABOUTUS: AboutUs[] = [
 export const WHYUS: WhyUs[] = [
   {
     title: "Simplified Travel Planning",
+    picture: picture1,
     listData: [
       "Easy planning tools.",
       "Auto itineraries.",
@@ -181,10 +185,12 @@ export const WHYUS: WhyUs[] = [
   },
   {
     title: "Seamless Communication",
+    picture: picture2,
     listData: ["Group chat updates.", "Centralized details.", "Change alerts."],
   },
   {
     title: "Tailored Experiences",
+    picture: picture3,
     listData: ["Custom suggestions.", "Flexible plans.", "Earn rewards."],
   },
 ] as const;
