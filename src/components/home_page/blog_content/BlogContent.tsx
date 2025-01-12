@@ -9,7 +9,7 @@ import { blogMockData } from "@/src/lib/frontend/data";
 const BlogContent = () => {
   return (
     <div className="flex flex-col items-center px-12">
-      <div className="columns-1 sm:columns-3 lg:columns-5 w-full">
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 w-full px-20">
         {blogMockData.map((data) => (
           <div
             key={data.id}
