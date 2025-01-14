@@ -14,10 +14,11 @@ import LoadingComponent from "@/src/components/UI/Loading";
 import { useFetch } from "@/src/hooks/useFetch";
 import { fetchProfileData } from "@/src/lib/frontend/http";
 import { mapProfileData } from "@/src/lib/utils";
+import { UserIdProps } from "@/src/models/chat/conversation";
 import { ImageUp, UserRound } from "lucide-react";
 import { useRef, useState } from "react";
 
-export default function EditProfileComponent() {
+export default function EditProfileComponent({ userId }: UserIdProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<File | null>(null);
 
@@ -100,7 +101,7 @@ export default function EditProfileComponent() {
             </DialogTitle>
           </DialogContent>
         </Dialog>
-        <IdentityForm {...fetchedData} />
+        <IdentityForm {...fetchedData} userId={userId} />
       </div>
     </div>
   );

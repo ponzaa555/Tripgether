@@ -7,4 +7,4 @@ export type ProfileProps = {
   aboutMe?: string;
 };
 
-export type IdentityFormProps = ProfileProps;
+export type IdentityFormProps = { userId: string } & ProfileProps;

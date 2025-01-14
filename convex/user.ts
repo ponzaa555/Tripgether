@@ -1,7 +1,7 @@
-import { ConvexError, v } from "convex/values";
+import { v } from "convex/values";
 import { mutation } from "./_generated/server";
 
-export const create = mutation({
+export const createOrUpdateUser = mutation({
   args: {
     username: v.string(),
     imageUrl: v.string(),
@@ -12,11 +12,16 @@ export const create = mutation({
     const user = await ctx.db
       .query("users")
       .withIndex("by_userId", (q) => q.eq("userId", args.userId))
-      .collect();
-    if (user.length > 0) {
-      return null;
+      .unique();
+    if (user) {
+      await ctx.db.patch(user._id, {
+        username: args.username,
+        imageUrl: args.imageUrl,
+        email: args.email,
+      });
+    } else {
+      await ctx.db.insert("users", args);
     }
-    ctx.db.insert("users", args);
     return args;
   },
 });
