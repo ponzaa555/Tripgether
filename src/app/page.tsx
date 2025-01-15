@@ -1,54 +1,9 @@
-"use client";
+import authOption from "@/src/lib/backend/authOption";
+import { getServerSession } from "next-auth";
+import HomeComponent from "@/src/components/home_page/HomeComponent";
 
-import BlogContent from "@/src/components/home_page/blog_content/BlogContent";
-import HomeContent from "@/src/components/home_page/home_content/HomeContent";
-import Welcome from "@/src/components/home_page/welcome_content/Welcome";
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
-
-export default function Home() {
-  const { data: session, status } = useSession();
-  const createUser = useMutation(api.user.createOrUpdateUser);
-  useEffect(() => {
-    const createUserIfAuthenticated = async () => {
-      if (session?.user && status === "authenticated") {
-        try {
-          if (!session.user.id) {
-            console.error("User id not found in session:", session.user);
-            return;
-          }
-          await createUser({
-            userId: session.user.id,
-            username: session.user.name ?? "Unknown",
-            imageUrl:
-              session.user.image ??
-              "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg",
-            email: session.user.email ?? "Unknown",
-          });
-        } catch (error) {
-          console.error("Error creating user:", error);
-        }
-      }
-    };
-
-    createUserIfAuthenticated();
-  }, [session, status, createUser]);
-
-  return (
-    <>
-      <HomeContent />
-      <div className="flex flex-col gap-4 h-full w-screen bg-white">
-        <Welcome />
-        <div className="flex flex-col gap-7 pt-20">
-          <h3 className="flex self-center text-orange-500">TRIP</h3>
-          <h3 className="flex self-center text-2xl sm:text-3xl md:text-4xl font-black">
-            Enjoy The Moment
-          </h3>
-          <BlogContent />
-        </div>
-      </div>
-    </>
-  );
-}
+const Home = async () => {
+  const session = await getServerSession(authOption);
+  return <HomeComponent session={session} />;
+};
+export default Home;
