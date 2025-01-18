@@ -11,7 +11,7 @@ const nextConfig = {
         pathname: "**",
       },
     ],
-    domains:['lh3.googleusercontent.com']
+    domains:['lh3.googleusercontent.com',"res.cloudinary.com"]
   },
 };
 
