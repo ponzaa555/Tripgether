@@ -9,6 +9,9 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Toaster } from "@/src/components/UI/sonner";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import LoginModal from "@/src/components/login/LoginModal";
+import { headers } from "next/headers";
+import authOption from "../lib/backend/authOption";
+
 
 const mitr = Mitr({
   weight: "300",
@@ -20,12 +23,16 @@ export const metadata: Metadata = {
   description: "Travel together with TripGether",
 };
 
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOption);
+
+
+  // Check if the current path matches any in noNavbarPaths
   return (
     <html lang="en" style={{ scrollBehavior: "smooth" }}>
       <SessionProvider session={session}>
@@ -33,7 +40,7 @@ export default async function RootLayout({
           <ConvexClientProvider>
             <ModalProvider>
               <TooltipProvider>
-                <MynavBar />
+                 <MynavBar />
                 <div className="pt-14">{children}</div>
                 <LoginModal />
               </TooltipProvider>

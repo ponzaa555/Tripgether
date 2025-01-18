@@ -16,3 +16,27 @@ export function mapProfileData(data: any): ProfileProps {
     aboutMe: data.aboutMe,
   };
 }
+
+export function calDateDuration(stDate: string, endDate: string) {
+  const start = new Date(stDate);
+  const end = new Date(endDate);
+
+  // Validate date
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    throw new Error("Invalid date(s) provided.");
+  }
+
+  // Difference in milliseconds
+  const diffInMs = end.getTime() - start.getTime();
+
+  // Convert the difference to various units:
+  // 1 day = 24 hours
+  // 1 hour = 60 minutes
+  // 1 minute = 60 seconds
+  // 1 second = 1000 milliseconds
+
+  let remaining = diffInMs;
+
+  const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+  return days
+}

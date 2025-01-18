@@ -48,4 +48,13 @@ export default defineSchema({
     type: v.string(),
     content: v.array(v.string()),
   }).index("by_conversationId", ["conversationId"]),
+
+  Blog:defineTable({
+    blogName : v.string(),
+    authorId : v.string(),
+    teamMate : v.array(v.string()),
+    coverImgUrl : v.optional(v.string()),
+    stDate : v.string(),
+    endDate : v.string(),
+  })
 });

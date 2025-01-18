@@ -1,0 +1,71 @@
+"use client";
+
+import { Calendar, MenuIcon, MoreVertical } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { NavInput } from "./nav-input";
+import { Button } from "@/src/components/UI/Button";
+import { Hint } from "@/src/components/hint";
+import { calDateDuration } from "@/src/lib/utils";
+
+interface NavbarProps {
+  blogName: string;
+  startDate: string;
+  endDate: string;
+}
+
+export const Navbar = ({ blogName, startDate, endDate }: NavbarProps) => {
+  const duration = calDateDuration(startDate,endDate);
+  return (
+    <nav className="flex w-full top-0 fixed bg-white z-[51] min-h-[60px] shadow-xl items-center ">
+      <div className="flex flex-col sm:flex-row justify-between items-center h-full w-full px-6 2xl:px-16 gap-3">
+        {/* Left Section */}
+        <div className="flex items-center w-full sm:w-1/2 gap-5">
+          <MenuIcon />
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="logo"
+              width={105}
+              height={60}
+              className="cursor-pointer w-full h-full pt-2"
+            />
+          </Link>
+          <NavInput tripName={blogName} />
+        </div>
+
+        {/* Right Section */}
+        <div className="flex  sm:flex-row justify-between items-center w-full sm:w-1/2 sm:pl-6 gap-3">
+          {/* Date and Calendar Section */}
+          <div className="flex flex-row sm:flex-row items-center gap-3">
+            <div className="flex flex-col items-center">
+              <p className="text-xs text-go-gray">Days</p>
+              <p>{duration}</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <span>
+                <Calendar />
+              </span>
+              <div className="flex flex-col items-center sm:items-start">
+                <p className="text-xs text-go-gray">Start date</p>
+                <p className="text-sm font-semibold text-go-dark">
+                  {startDate} - {endDate}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Post Button and More Options */}
+          <div className="flex items-center gap-3">
+            <Button size="default" className="m-2">
+              Post
+            </Button>
+            <Hint label="More" side="bottom" sideOffset={3}>
+              <MoreVertical />
+            </Hint>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
