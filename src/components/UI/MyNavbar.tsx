@@ -31,6 +31,7 @@ export default function MynavBar() {
   const activePath = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, status } = useSession();
+  const [tripDialog, setTripDialog] = useState(false);
   const router = useRouter();
 
   const handleNav = () => {
@@ -57,7 +58,6 @@ export default function MynavBar() {
               ) {
                 return null;
               } else if (data.name === "Trip-Plan") {
-                const [tripDialog, setTripDialog] = useState(false);
                 return (
                   <>
                     <button onClick={() => setTripDialog(true)}  key={`${data.name}-${data.name}`}>
