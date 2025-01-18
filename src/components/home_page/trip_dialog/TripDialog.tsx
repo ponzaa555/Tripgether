@@ -58,6 +58,7 @@ export const TripDialog = ({
         const body: BlogDb = {
             blogName: location ,
             authorId:userId,
+            coverImgUrl:undefined,
             teamMate:[userId],
             stDate:startDate,
             endDate:endDate,
