@@ -1,20 +1,25 @@
 
 import { Room } from "@/src/components/room"
-import { EditBlog } from "./_components/editblog"
-import { Navbar } from "./_components/navbar"
-import { SideBar } from "./_components/side-bar"
+
 import LoadingComponent from "@/src/components/UI/Loading"
 import { CollaborativePage } from "./_components/collaborative-page"
-import { useMutationState } from "@/src/hooks/useMutation"
-import { api } from "@/convex/_generated/api"
+
+import { getServerSession } from "next-auth"
+import authOption from "@/src/lib/backend/authOption"
 interface BlogIdPageProps {
     params: {
         tripId: string
     }
 }
-const BlogIdPage = ({ params }: BlogIdPageProps) => {
+const BlogIdPage = async({ params }: BlogIdPageProps) => {
+    const user = await getServerSession(authOption);
+    if(!user){
+        return(
+            <LoadingComponent/>
+        )
+    }
     return (
-        <Room roomId= {params.tripId} fallback ={<LoadingComponent/>}>
+        <Room roomId= {params.tripId} fallback ={<LoadingComponent/>} userId={user!.user.id}>
             <CollaborativePage blogId={params.tripId}/>
         </Room>
     )
