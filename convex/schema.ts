@@ -48,4 +48,40 @@ export default defineSchema({
     type: v.string(),
     content: v.array(v.string()),
   }).index("by_conversationId", ["conversationId"]),
+
+  blogs: defineTable({
+    blogName: v.string(),
+    authorId: v.id("users"),
+    imageUrl: v.string(),
+    teamMate: v.array(v.id("users")),
+    stDate: v.string(),
+    endDate: v.string(),
+  })
+    .index("by_authorId", ["authorId"])
+    .index("by_teamMate", ["teamMate"]),
+
+  like: defineTable({
+    blogId: v.id("blogs"),
+    userId: v.id("users"),
+    createdAt: v.string(),
+  })
+    .index("by_blogId_userId", ["blogId", "userId"])
+    .index("by_blogId", ["blogId"]),
+
+  comment: defineTable({
+    blogId: v.id("blogs"),
+    userId: v.id("users"),
+    content: v.string(),
+    createdAt: v.string(),
+  })
+    .index("by_blogId", ["blogId"])
+    .index("by_userId", ["userId"]),
+
+  bookmark: defineTable({
+    blogId: v.id("blogs"),
+    userId: v.id("users"),
+    createdAt: v.string(),
+  })
+    .index("by_blogId_userId", ["blogId", "userId"])
+    .index("by_userId", ["userId"]),
 });
