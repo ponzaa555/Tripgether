@@ -1,13 +1,15 @@
 "use client";
-import { useOthers } from "@liveblocks/react"
+import { useMutation, useOthers } from "@liveblocks/react"
 import { EditBlog } from "./editblog"
 import { Navbar } from "./navbar"
 import { SideBar } from "./side-bar"
 import { useMutationState } from "@/src/hooks/useMutation";
 import { api } from "@/convex/_generated/api";
 import { useEffect, useState } from "react";
-import { BlogDb } from "@/src/models/components/Blog";
+import { BlogDb, PlanTrip, TripContentType } from "@/src/models/components/Blog";
 import LoadingComponent from "@/src/components/UI/Loading";
+import { LiveObject } from "@liveblocks/client";
+import { nanoid } from "nanoid"
 
 interface CollaborativeProps {
     blogId: string
@@ -17,6 +19,7 @@ export const CollaborativePage = ({ blogId }: CollaborativeProps) => {
 
     const { mutate, pending } = useMutationState(api.blog.getById);
     const [blogInfo, setBlogInfo] = useState<BlogDb>();
+    // แก้ให้เรียกครั้งเดียว
     useEffect(() => {
         const blogsInfo = mutate({
             blogId: blogId
@@ -33,7 +36,8 @@ export const CollaborativePage = ({ blogId }: CollaborativeProps) => {
         }).catch(() => {
             console.log("Error get blog by blogId")
         })
-    }, [mutate])
+        // add Description
+    },[])
     console.log({ blogInfo });
     if(!blogInfo){
         return(
