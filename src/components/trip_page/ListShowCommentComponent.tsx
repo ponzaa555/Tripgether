@@ -41,7 +41,7 @@ const ListShowCommentComponent = ({
   userId,
 }: {
   allComment: Comment[];
-  userId: string;
+  userId: string | null;
 }) => {
   const [selectedCommentId, setSelectedCommentId] =
     useState<Id<"comment"> | null>(null);

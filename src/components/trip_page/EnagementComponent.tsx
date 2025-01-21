@@ -12,14 +12,16 @@ import { Loader2 } from "lucide-react";
 import { useMutationState } from "@/src/hooks/useMutation";
 import SharesDialog from "./SharesDialog";
 import { useState } from "react";
+import { useModal } from "@/src/context/ModalContext";
 
 const EnagementComponent = ({
   tripId,
   userId,
 }: {
   tripId: Id<"blogs">;
-  userId: string;
+  userId: string | null;
 }) => {
+  const { openLoginModal } = useModal();
   const [sharesDialog, setSharesDialog] = useState(false);
 
   const allLike = useQuery(api.engagement.getLikesByBlog, {
@@ -58,6 +60,10 @@ const EnagementComponent = ({
         <div
           className="flex flex-row gap-2 items-center cursor-pointer"
           onClick={() => {
+            if (!userId) {
+              openLoginModal();
+              return;
+            }
             likeMutate({
               blogId: tripId,
               currentUserId: userId,
@@ -81,6 +87,10 @@ const EnagementComponent = ({
         <div
           className="flex flex-row gap-2 items-center cursor-pointer"
           onClick={() => {
+            if (!userId) {
+              openLoginModal();
+              return;
+            }
             bookmarkMutate({
               blogId: tripId,
               currentUserId: userId,

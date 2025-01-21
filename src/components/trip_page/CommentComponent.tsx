@@ -11,16 +11,18 @@ import { useMutationState } from "@/src/hooks/useMutation";
 import { Id } from "@/convex/_generated/dataModel";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useModal } from "@/src/context/ModalContext";
 
 const CommentComponent = ({
   tripId,
   userId,
 }: {
   tripId: Id<"blogs">;
-  userId: string;
+  userId: string | null;
 }) => {
+  const { openLoginModal } = useModal();
   const userData = useQuery(api.user.getUserData, {
-    userId: userId,
+    userId: userId || "",
   });
 
   const { mutate: createComment } = useMutationState(
@@ -34,6 +36,9 @@ const CommentComponent = ({
   };
 
   const handleSubmit = () => {
+    if (userId === null) {
+      return openLoginModal();
+    }
     if (comment === "") {
       toast.error("Comment cannot be empty");
     } else {

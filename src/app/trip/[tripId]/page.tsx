@@ -12,11 +12,9 @@ const TripId = async ({
   };
 }) => {
   const session = await getServerSession(authOption);
-  if (session?.user.id != null) {
-    return <EnagementComponent tripId={tripId} userId={session.user.id} />;
-  } else {
-    <LoadingComponent />;
-  }
+  return (
+    <EnagementComponent tripId={tripId} userId={session?.user?.id || null} />
+  );
 };
 
 export default TripId;

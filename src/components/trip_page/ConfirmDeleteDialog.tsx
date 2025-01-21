@@ -21,7 +21,7 @@ const ConfirmDeleteDialog = ({
   setOpen,
 }: {
   commentId: Id<"comment"> | null;
-  currentUserId: string;
+  currentUserId: string | null;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
