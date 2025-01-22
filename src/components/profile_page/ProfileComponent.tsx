@@ -37,7 +37,7 @@ const ProfileComponent = () => {
       <div className="flex flex-col items-center justify-center gap-5 py-5 lg:hidden">
         <Avatar className="w-28 h-28 sm:w-36 sm:h-36">
           <AvatarImage />
-          <AvatarFallback>111</AvatarFallback>
+          <AvatarFallback></AvatarFallback>
         </Avatar>
         <div className="bg-orange-500 rounded-sm">
           <BoomBox color="white" />
@@ -75,13 +75,13 @@ const ProfileComponent = () => {
         <div className="grid-rows-3 flex flex-col items-center gap-5">
           <Avatar className="w-36 h-36">
             <AvatarImage />
-            <AvatarFallback>111</AvatarFallback>
+            <AvatarFallback></AvatarFallback>
           </Avatar>
           <div className="bg-orange-500 rounded-sm">
             <BoomBox color="white" />
           </div>
           <p className="font-extralight text-sm text-slate-700 sm:text-base">
-            test@gmail.com
+            {fetchedData.email}
           </p>
           <Button onClick={() => router.push("/profile/editprofile")}>
             <UserPen /> Edit profile
