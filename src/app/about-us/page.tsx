@@ -4,7 +4,7 @@ import MyCarousel from "@/src/components/aboutUs_page/MyCarousel";
 
 const AboutUsPage = () => {
   return (
-    <div className="flex flex-col gap-5 p-5 pt-16 pb-20">
+    <div className="flex flex-col gap-5 p-5 pt-24 pb-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:items-center">
         <div className="w-full h-full">
           <Image

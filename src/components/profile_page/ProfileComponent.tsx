@@ -33,7 +33,7 @@ const ProfileComponent = () => {
   }
 
   return (
-    <div className="bg-slate-200 w-full h-full">
+    <div className="bg-slate-200 w-full h-full pt-16">
       <div className="flex flex-col items-center justify-center gap-5 py-5 lg:hidden">
         <Avatar className="w-28 h-28 sm:w-36 sm:h-36">
           <AvatarImage />

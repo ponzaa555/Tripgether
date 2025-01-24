@@ -15,7 +15,7 @@ const ChatLayout = ({ children, userId }: ChatPageProps) => {
     currentUserId: userId,
   });
   return (
-    <>
+    <div className="pt-14">
       <SidebarWrapper userId={userId}>
         <ItemList
           title="Conversations"
@@ -59,7 +59,7 @@ const ChatLayout = ({ children, userId }: ChatPageProps) => {
         </ItemList>
         {children}
       </SidebarWrapper>
-    </>
+    </div>
   );
 };
 

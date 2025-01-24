@@ -40,8 +40,8 @@ export default async function RootLayout({
           <ConvexClientProvider>
             <ModalProvider>
               <TooltipProvider>
-                 <MynavBar />
-                <div className="pt-14">{children}</div>
+                <MynavBar />
+                <div>{children}</div>
                 <LoginModal />
               </TooltipProvider>
               <Toaster richColors />
