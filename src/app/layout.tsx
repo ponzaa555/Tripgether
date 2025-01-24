@@ -34,7 +34,7 @@ export default async function RootLayout({
             <ModalProvider>
               <TooltipProvider>
                 <MynavBar />
-                <div className="pt-14">{children}</div>
+                <div>{children}</div>
                 <LoginModal />
               </TooltipProvider>
               <Toaster richColors />

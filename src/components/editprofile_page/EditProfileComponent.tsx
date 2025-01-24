@@ -50,7 +50,7 @@ export default function EditProfileComponent({ userId }: UserIdProps) {
   }
 
   return (
-    <div className="flex flex-col h-full items-center justify-center pt-10 px-10 mb-4">
+    <div className="flex flex-col h-full items-center justify-center pt-20 px-10 mb-4">
       <h1 className="text-xl font-extrabold self-start py-4">
         Account settings
       </h1>

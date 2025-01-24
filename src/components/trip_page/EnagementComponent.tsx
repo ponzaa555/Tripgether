@@ -10,17 +10,15 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Button } from "@/src/components/UI/Button";
 import { Loader2 } from "lucide-react";
 import { useMutationState } from "@/src/hooks/useMutation";
-import SharesDialog from "./SharesDialog";
+import SharesDialog from "@/src/components/trip_page/SharesDialog";
 import { useState } from "react";
 import { useModal } from "@/src/context/ModalContext";
 
-const EnagementComponent = ({
-  tripId,
-  userId,
-}: {
+const EnagementComponent: React.FC<{
   tripId: Id<"blogs">;
   userId: string | null;
-}) => {
+  children: React.ReactNode;
+}> = ({ tripId, userId, children }) => {
   const { openLoginModal } = useModal();
   const [sharesDialog, setSharesDialog] = useState(false);
 
@@ -54,9 +52,9 @@ const EnagementComponent = ({
     );
   }
   return (
-    <div>
+    <div className="flex flex-col gap-5 w-full">
       <SharesDialog open={sharesDialog} setOpen={setSharesDialog} />
-      <div className="flex flex-row gap-5">
+      <div className="flex flex-row justify-evenly gap-5 sm:justify-start">
         <div
           className="flex flex-row gap-2 items-center cursor-pointer"
           onClick={() => {
@@ -70,19 +68,22 @@ const EnagementComponent = ({
             });
           }}
         >
-          {like ? <IoIosHeart color="red" /> : <FaRegHeart color="gray" />}
-          <p>{allLike.length} likes</p>
+          <div className="flex flex-row gap-2 justify-center items-center">
+            {like ? (
+              <IoIosHeart color="red" size={20} />
+            ) : (
+              <FaRegHeart color="gray" size={20} />
+            )}
+            <p>{allLike.length}</p>
+            <p className="hidden sm:block">likes</p>
+          </div>
         </div>
-        <div
-          className="flex flex-row gap-2 items-center cursor-pointer"
-          onClick={() => {
-            document
-              .getElementById("comment")
-              ?.scrollIntoView({ behavior: "smooth" });
-          }}
-        >
-          <FaRegComment color="gray" />
-          <p>{allComment.length} Comment</p>
+        <div className="flex flex-row gap-2 items-center cursor-default">
+          <div className="flex flex-row gap-2 justify-center items-center">
+            <FaRegComment color="gray" size={20} />
+            <p>{allComment.length}</p>
+            <p className="hidden sm:block">Comment</p>
+          </div>
         </div>
         <div
           className="flex flex-row gap-2 items-center cursor-pointer"
@@ -97,23 +98,29 @@ const EnagementComponent = ({
             });
           }}
         >
-          {bookmark ? (
-            <FaBookmark color="orange" />
-          ) : (
-            <CiBookmark color="gray" />
-          )}
-          <p>{allBookmark.length} Saved</p>
+          <div className="flex flex-row gap-2 justify-center items-center">
+            {bookmark ? (
+              <FaBookmark color="orange" size={20} />
+            ) : (
+              <CiBookmark color="gray" size={20} />
+            )}
+            <p>{allBookmark.length}</p>
+            <p className="hidden sm:block">Saved</p>
+          </div>
         </div>
         <Button
           onClick={() => {
             setSharesDialog(true);
           }}
         >
-          <CiShare2 color="white" />
+          <CiShare2 color="white" size={20} />
           <p>Shares</p>
         </Button>
       </div>
-      <div id="comment" className="gap-2">
+      <div className="w-full border-[0.5px] border-slate-200"></div>
+      {children}
+      <div className="flex flex-col gap-5">
+        <p className="text-lg font-black">Comments</p>
         <CommentComponent userId={userId} tripId={tripId} />
         <ListShowCommentComponent
           allComment={reversedComments}

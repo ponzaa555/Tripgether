@@ -38,7 +38,7 @@ const HomeComponent = ({ session }: HomeComponentProps) => {
   }, [createUser, session]);
 
   return (
-    <>
+    <div className="pt-14">
       <HomeContent />
       <div className="flex flex-col gap-4 h-full w-screen bg-white">
         <Welcome />
@@ -50,7 +50,7 @@ const HomeComponent = ({ session }: HomeComponentProps) => {
           <BlogContent />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

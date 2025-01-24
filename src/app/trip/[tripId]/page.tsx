@@ -1,6 +1,6 @@
 import { Id } from "@/convex/_generated/dataModel";
-import EnagementComponent from "@/src/components/trip_page/EnagementComponent";
-import LoadingComponent from "@/src/components/UI/Loading";
+import BigScreen from "@/src/components/trip_page/screen/BigScreen";
+import NormalScreen from "@/src/components/trip_page/screen/NormalScreen";
 import authOption from "@/src/lib/backend/authOption";
 import { getServerSession } from "next-auth";
 
@@ -13,7 +13,14 @@ const TripId = async ({
 }) => {
   const session = await getServerSession(authOption);
   return (
-    <EnagementComponent tripId={tripId} userId={session?.user?.id || null} />
+    <div>
+      <div className="lg:hidden">
+        <NormalScreen tripId={tripId} userId={session?.user.id || null} />
+      </div>
+      <div className="hidden lg:block">
+        <BigScreen tripId={tripId} userId={session?.user.id || null} />
+      </div>
+    </div>
   );
 };
 

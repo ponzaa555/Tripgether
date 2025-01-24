@@ -11,7 +11,7 @@ const BlogContent = () => {
   const router = useRouter();
   return (
     <div className="flex flex-col items-center px-12">
-      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 w-full px-20">
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 w-full px-10">
         {blogMockData.map((data) => (
           <div
             key={data.id}
