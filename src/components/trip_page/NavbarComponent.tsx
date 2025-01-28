@@ -4,6 +4,7 @@ import { BiTrip } from "react-icons/bi";
 import { SlPicture } from "react-icons/sl";
 import { useState } from "react";
 import Image from "next/image";
+import { FaRegCreditCard } from "react-icons/fa6";
 
 const images = [
   "https://cdn.pixabay.com/photo/2024/03/04/10/20/ai-generated-8612174_1280.png",
@@ -38,7 +39,7 @@ const NavbarComponent = () => {
   };
 
   return (
-    <div className="flex flex-col py-10 px-8 items-center gap-5">
+    <div className="flex flex-col py-8 px-4 items-center gap-10 h-full border-r border-gray-300">
       {selectedImageIndex !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
           <button
@@ -71,25 +72,32 @@ const NavbarComponent = () => {
         </div>
       )}
       <div
-        className="flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl bg-teal-400 border-transparent cursor-pointer"
+        className="flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl bg-teal-500 border-transparent cursor-pointer"
         onClick={() => scrollToSection("overview")}
       >
-        <RiEditCircleLine size={40} color="white" />
-        <p className="font-black text-white">Overview</p>
+        <RiEditCircleLine size={30} color="white" />
+        <p className="font-black text-white text-xs">Overview</p>
       </div>
       <div
-        className="flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl bg-orange-400 border-transparent cursor-pointer"
+        className="flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl bg-orange-500 border-transparent cursor-pointer"
         onClick={() => scrollToSection("tripgether")}
       >
-        <BiTrip size={40} color="white" />
-        <p className="font-black text-white">Tripgether</p>
+        <BiTrip size={30} color="white" />
+        <p className="font-black text-white text-xs">Tripgether</p>
       </div>
       <div
-        className="flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl bg-pink-600 border-transparent cursor-pointer"
+        className="flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl bg-teal-500 border-transparent cursor-pointer"
+        onClick={() => scrollToSection("expense")}
+      >
+        <FaRegCreditCard size={30} color="white" />
+        <p className="font-black text-white text-xs">Expense</p>
+      </div>
+      <div
+        className="flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl bg-orange-500 border-transparent cursor-pointer"
         onClick={() => setSelectedImageIndex(0)}
       >
-        <SlPicture size={40} color="white" />
-        <p className="font-black text-white">Media</p>
+        <SlPicture size={30} color="white" />
+        <p className="font-black text-white text-xs">Media</p>
       </div>
     </div>
   );
