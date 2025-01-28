@@ -42,7 +42,7 @@ const ImageComponent = () => {
                   height={500}
                 />
                 <div
-                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-xs font-bold rounded-lg"
+                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-xs font-bold rounded-lg text-center"
                   onClick={() => setSelectedImageIndex(index)}
                 >
                   + {images.length - 4} More
