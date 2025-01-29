@@ -61,7 +61,7 @@ export default defineSchema({
     .index("by_teamMate", ["teamMate"]),
 
   like: defineTable({
-    blogId: v.id("blogs"),
+    blogId: v.id("blog"),
     userId: v.id("users"),
     createdAt: v.string(),
   })
@@ -69,7 +69,7 @@ export default defineSchema({
     .index("by_blogId", ["blogId"]),
 
   comment: defineTable({
-    blogId: v.id("blogs"),
+    blogId: v.id("blog"),
     userId: v.id("users"),
     content: v.string(),
     createdAt: v.string(),
@@ -78,7 +78,7 @@ export default defineSchema({
     .index("by_userId", ["userId"]),
 
   bookmark: defineTable({
-    blogId: v.id("blogs"),
+    blogId: v.id("blog"),
     userId: v.id("users"),
     createdAt: v.string(),
   })
