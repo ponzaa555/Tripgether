@@ -3,7 +3,7 @@ import { mutation, query } from "./_generated/server";
 
 export const like = mutation({
   args: {
-    blogId: v.id("blogs"),
+    blogId: v.id("blog"),
     currentUserId: v.string(),
   },
   handler: async (ctx, args) => {
@@ -36,7 +36,7 @@ export const like = mutation({
 
 export const createComment = mutation({
   args: {
-    blogId: v.id("blogs"),
+    blogId: v.id("blog"),
     currentUserId: v.string(),
     content: v.string(),
   },
@@ -86,7 +86,7 @@ export const deleteComment = mutation({
 
 export const getCommentsByBlog = query({
   args: {
-    blogId: v.id("blogs"),
+    blogId: v.id("blog"),
   },
   handler: async (ctx, args) => {
     const comments = await ctx.db
@@ -110,7 +110,7 @@ export const getCommentsByBlog = query({
 
 export const getLikesByBlog = query({
   args: {
-    blogId: v.id("blogs"),
+    blogId: v.id("blog"),
   },
   handler: async (ctx, args) => {
     const likes = await ctx.db
@@ -133,7 +133,7 @@ export const getLikesByBlog = query({
 
 export const bookmark = mutation({
   args: {
-    blogId: v.id("blogs"),
+    blogId: v.id("blog"),
     currentUserId: v.string(),
   },
   handler: async (ctx, args) => {
@@ -165,7 +165,7 @@ export const bookmark = mutation({
 
 export const getBookmarksByBlog = query({
   args: {
-    blogId: v.id("blogs"),
+    blogId: v.id("blog"),
   },
   handler: async (ctx, args) => {
     const bookmarks = await ctx.db
