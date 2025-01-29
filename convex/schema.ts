@@ -49,12 +49,39 @@ export default defineSchema({
     content: v.array(v.string()),
   }).index("by_conversationId", ["conversationId"]),
 
-  Blog:defineTable({
-    blogName : v.string(),
-    authorId : v.string(),
-    teamMate : v.array(v.string()),
-    coverImgUrl : v.optional(v.string()),
-    stDate : v.string(),
-    endDate : v.string(),
+  blog: defineTable({
+    blogName: v.string(),
+    authorId: v.id("users"),
+    teamMate: v.array(v.string()),
+    coverImgUrl: v.optional(v.string()),
+    stDate: v.string(),
+    endDate: v.string(),
   })
+    .index("by_authorId", ["authorId"])
+    .index("by_teamMate", ["teamMate"]),
+
+  like: defineTable({
+    blogId: v.id("blogs"),
+    userId: v.id("users"),
+    createdAt: v.string(),
+  })
+    .index("by_blogId_userId", ["blogId", "userId"])
+    .index("by_blogId", ["blogId"]),
+
+  comment: defineTable({
+    blogId: v.id("blogs"),
+    userId: v.id("users"),
+    content: v.string(),
+    createdAt: v.string(),
+  })
+    .index("by_blogId", ["blogId"])
+    .index("by_userId", ["userId"]),
+
+  bookmark: defineTable({
+    blogId: v.id("blogs"),
+    userId: v.id("users"),
+    createdAt: v.string(),
+  })
+    .index("by_blogId_userId", ["blogId", "userId"])
+    .index("by_userId", ["userId"]),
 });

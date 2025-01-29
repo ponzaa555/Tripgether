@@ -12,7 +12,6 @@ import LoginModal from "@/src/components/login/LoginModal";
 import { headers } from "next/headers";
 import authOption from "../lib/backend/authOption";
 
-
 const mitr = Mitr({
   weight: "300",
   subsets: ["latin", "thai"],
@@ -23,14 +22,12 @@ export const metadata: Metadata = {
   description: "Travel together with TripGether",
 };
 
-
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(authOption);
-
 
   // Check if the current path matches any in noNavbarPaths
   return (
@@ -40,8 +37,8 @@ export default async function RootLayout({
           <ConvexClientProvider>
             <ModalProvider>
               <TooltipProvider>
-                 <MynavBar />
-                <div className="pt-14">{children}</div>
+                <MynavBar />
+                <div>{children}</div>
                 <LoginModal />
               </TooltipProvider>
               <Toaster richColors />

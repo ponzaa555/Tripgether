@@ -36,6 +36,8 @@ import {
   SelectValue,
 } from "@/src/components/UI/select";
 import { IdentityFormProps } from "@/src/models/user/profile";
+import { api } from "@/convex/_generated/api";
+import { useMutation } from "convex/react";
 
 export const formSchema = z.object({
   firstName: z.string().min(1, {
@@ -82,7 +84,9 @@ const IdentityForm = ({
   phoneNumber,
   birthDate,
   aboutMe,
+  userId,
 }: IdentityFormProps) => {
+  const updateUser = useMutation(api.user.createOrUpdateUser);
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -103,6 +107,13 @@ const IdentityForm = ({
     if (res) {
       toast.success("Profile updated successfully.");
       setSubmitting(false);
+      await updateUser({
+        userId: userId,
+        username: values.firstName,
+        email: values.email,
+        imageUrl:
+          "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg",
+      });
       router.back();
     } else {
       toast.error("Failed to update profile. Please try again later.");

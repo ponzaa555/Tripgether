@@ -1,0 +1,33 @@
+import { LiaMapMarkerSolid } from "react-icons/lia";
+import { IoMdTime } from "react-icons/io";
+import { SlPicture } from "react-icons/sl";
+import { IoNavigateCircleOutline } from "react-icons/io5";
+
+const FloatBarComponent = () => {
+  return (
+    <div className="grid grid-cols-4 w-full justify-evenly rounded-md py-2 shadow-xl sm:w-96">
+      <div className="flex flex-col justify-center items-center border-r-2 border-dashed gap-2">
+        <LiaMapMarkerSolid size={25} color="gray" />
+        <p className="text-sm font-black">{20}</p>
+        <p className="text-xs">Visit Places.</p>
+      </div>
+      <div className="flex flex-col justify-center items-center border-r-2 border-dashed gap-2">
+        <IoMdTime size={25} color="gray" />
+        <p className="text-sm font-black">{20}</p>
+        <p className="text-xs">Days.</p>
+      </div>
+      <div className="flex flex-col justify-center items-center border-r-2 border-dashed gap-2">
+        <SlPicture size={25} color="gray" />
+        <p className="text-sm font-black">{20}</p>
+        <p className="text-xs">Media</p>
+      </div>
+      <div className="flex flex-col justify-center items-center gap-2">
+        <IoNavigateCircleOutline size={25} color="gray" />
+        <p className="text-sm font-black">{20}</p>
+        <p className="text-xs">KM</p>
+      </div>
+    </div>
+  );
+};
+
+export default FloatBarComponent;

@@ -39,25 +39,26 @@ export default function Welcome() {
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 pt-20 gap-5 px-5 justify-items-center items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 py-4 mt-20 gap-5 px-4 md:px-16 md:py-16 justify-items-center items-center bg-gradient-to-b from-slate-100 rounded-xl lg:px-20 lg:py-20">
         <Image
           src={CoupleImage1}
           alt="Honeymoon"
-          width={1000}
-          height={1000}
-          quality={100}
-          className="relative w-full h-full rounded-2xl object-cover"
+          width={1500}
+          height={1500}
+          className="relative w-full h-full rounded-2xl object-cover shadow-xl"
         />
-        <div className="flex flex-col text-left gap-5">
-          <h3 className="text-sm text-orange-500 font-semibold leading-loose">
+        <div className="flex flex-col gap-5 text-center">
+          <h3 className="text-sm lg:text-lg text-orange-500 font-semibold leading-loose">
             HONEYMOON SPECIALS
           </h3>
-          <h4 className="text-4xl font-semibold">
+          <h4 className="text-3xl lg:text-4xl font-semibold">
             Our Romantic Tropical Destinations
           </h4>
-          <p>
-            Discover serene beaches, lush landscapes, and luxurious retreats
-            designed for your dream getaway.
+          <p className="text-slate-500 text-left text-sm md:text-base lg:text-xl">
+            Discover your next dream destination! ✈️ Whether you're looking for
+            breathtaking beaches, hidden gems, or vibrant city escapes,
+            TripGether has everything you need to plan the perfect trip. Start
+            your adventure today—visit TripGether now!
           </p>
           <Button
             onClick={() => {

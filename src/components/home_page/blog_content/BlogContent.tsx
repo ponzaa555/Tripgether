@@ -5,15 +5,18 @@ import Image from "next/image";
 import { TfiWorld } from "react-icons/tfi";
 import { FaEye } from "react-icons/fa";
 import { blogMockData } from "@/src/lib/frontend/data";
+import { useRouter } from "next/navigation";
 
 const BlogContent = () => {
+  const router = useRouter();
   return (
-    <div className="flex flex-col items-center px-12">
-      <div className="columns-1 sm:columns-3 lg:columns-5 w-full">
+    <div className="flex flex-col items-center px-3">
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 w-full px-10">
         {blogMockData.map((data) => (
           <div
             key={data.id}
             className="break-inside-avoid flex flex-col gap-1 pb-10"
+            onClick={() => router.push(`/trip/${data.id}`)}
           >
             <Image
               src={data.image}

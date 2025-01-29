@@ -16,7 +16,7 @@ const TripPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-5 w-full pt-10">
+    <div className="flex flex-col gap-5 w-full pt-24">
       <h3 className="text-center text-3xl sm:text-5xl md:text-6xl font-black">
         Enjoy The Moment
       </h3>

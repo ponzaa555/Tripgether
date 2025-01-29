@@ -4,7 +4,7 @@ import MyCarousel from "@/src/components/aboutUs_page/MyCarousel";
 
 const AboutUsPage = () => {
   return (
-    <div className="flex flex-col gap-5 p-5 pt-16 pb-20">
+    <div className="flex flex-col gap-5 p-5 pt-24 pb-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:items-center">
         <div className="w-full h-full">
           <Image
@@ -23,27 +23,27 @@ const AboutUsPage = () => {
             Make every travel moment count
           </h1>
           <p>
-            <span className="font-black text-lg">'TripGether'</span> is an
-            innovative platform designed to revolutionize the way people
-            experience travel. Our comprehensive range of services caters to
-            every aspect of the traveler's journey. Whether you're seeking
-            inspiration, planning a trip, making bookings, or sharing your
-            adventures, <span className="font-black text-lg">'TripGether'</span>{" "}
-            has you covered.
+            <span className="font-black text-lg">'TripGether'</span> is a
+            groundbreaking platform that aims to change the way people travel.
+            Our wide array of services covers every part of a traveler's
+            journey. Whether you're looking for inspiration, planning a trip,
+            making reservations, or sharing your travel stories,{" "}
+            <span className="font-black text-lg">'TripGether'</span> has
+            everything you need.
             <br />
             <br />
-            <span className="font-black text-lg">'TripGether'</span> also offers
-            a vibrant travel social network, connecting like-minded explorers
-            from around the world. Share your travel experiences, interact with
-            fellow travelers, and seek recommendations from a community that
-            shares your passion. Every moment can be captured and cherished,
-            preserving memories that will last a lifetime.
+            <span className="font-black text-lg">'TripGether'</span> also
+            features a dynamic travel social network, connecting explorers from
+            all over the globe. Share your travel stories, engage with other
+            travelers, and get recommendations from a community that shares your
+            love for travel. Capture and cherish every moment, creating memories
+            that will last forever.
             <br />
             <br />
             Join <span className="font-black text-lg">'TripGether'</span> today
-            and embark on a transformative travel experience, where inspiration,
-            planning, booking, and social connections seamlessly come together
-            in one exceptional platform.
+            and start a transformative travel journey, where inspiration,
+            planning, booking, and social connections come together in one
+            exceptional platform.
           </p>
         </div>
       </div>
