@@ -70,7 +70,7 @@ export default function MynavBar() {
                         {data.name}
                       </li>
                     </button>
-                    <TripDialog isOpen={tripDialog} setIsOpen={setTripDialog} userId={session!.user.id } />
+                    <TripDialog isOpen={tripDialog} setIsOpen={setTripDialog} userId={session?.user.id } />
                   </>
                 )
               }

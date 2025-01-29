@@ -58,10 +58,24 @@ export function Room({ children , roomId , fallback , userId}:RoomProps) {
               new LiveObject({
                 type : TripContentType.Hastag,
                 HastagList:[],
-              })
+              }),
           ],
+          [
+            "CoverImg",
+            new LiveObject({
+              type : TripContentType.CoveImg,
+              imgUrl: null,
+            }),
+          ],
+          [
+            "ExpenseList",
+            new LiveObject({
+              type : TripContentType.ExpensList,
+              expenseList : [],
+            }),
+          ]
       ]),
-        layerIds: new LiveList(["Describtion","Hastag"])
+        layerIds: new LiveList(["Describtion","Hastag" , "CoverImg" , "ExpenseList"])
       }}
       >
         <ClientSideSuspense fallback={<div>Loading…</div>}>

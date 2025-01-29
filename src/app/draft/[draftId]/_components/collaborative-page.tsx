@@ -46,13 +46,13 @@ export const CollaborativePage = ({ blogId }: CollaborativeProps) => {
     }
     return (
         <main>
-            <Navbar blogName={blogInfo!.blogName} startDate={blogInfo!.stDate} endDate={blogInfo!.endDate}  />
+            <Navbar blogName={blogInfo!.blogName} startDate={blogInfo!.stDate} endDate={blogInfo!.endDate} blogId={blogId}  />
             <div className=" flex">
                 {/* side Bar */}
                 <SideBar />
                 {/* Blogs Plan  */}
                 {/* Map */}
-                <EditBlog blogId={blogId} coverImg={blogInfo.coverImgUrl}/>
+                <EditBlog blogId={blogId} coverImg={blogInfo.coverImgUrl} stDate={blogInfo.stDate}/>
             </div>
             {/* <div>There are {userCount} other user(s) online</div>;  */}
         </main>

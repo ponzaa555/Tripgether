@@ -72,7 +72,7 @@ export const TripDialog = ({
             endDate:endDate,
         }).then((blogId) => {
             toast.success("Create Plans")
-            router.push(`/trip/${blogId}`)
+            router.push(`/draft/${blogId}`)
         }).catch((error) => {
             console.log({error})
             toast.error("Faild to create trips")

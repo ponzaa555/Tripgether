@@ -40,3 +40,10 @@ export function calDateDuration(stDate: string, endDate: string) {
   const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
   return days
 }
+
+export const handleScroll = (id : string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};

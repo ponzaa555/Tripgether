@@ -4,37 +4,28 @@ import { RegisterDialogProps } from "../models/components/registerDialog"
 import MyDialog from "@/src/components/UI/MyDialog";
 import UploadImg from "./uploadImage";
 import { UploadCloundinary } from "../lib/backend/uploadCloundinary";
-import { useState } from "react";
+import React, { useState } from "react";
 import LoadingComponent from "./UI/Loading";
 
 
 interface UploadImgDialog {
-
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    blogId: string
+    handleUploadPhoto: (file: File, blogId: string) => void
 }
 
 export const UploadImgDialog = ({
     isOpen,
     setIsOpen,
     blogId,
-}: RegisterDialogProps) => {
-    const [loading, setLoading] = useState(false);
-    const handleSubmit = async (file: File, blogId: string) => {
-        setLoading(true);
-        await UploadCloundinary(file, blogId)
-        setIsOpen(false)
-        setLoading(false)
-    }
+    handleUploadPhoto
+}: UploadImgDialog) => {
+
     return (
         // TODO แก้ UI loading 
-        <>
-            {!loading ? (
-                <MyDialog title="" isOpen={isOpen} setIsOpen={setIsOpen} >
-                    <UploadImg blogId={blogId!} handleSubmite={handleSubmit} />
-                </MyDialog>
-            ):(
-                <LoadingComponent/>
-            )
-        }
-        </>
+        <MyDialog title="" isOpen={isOpen} setIsOpen={setIsOpen} >
+            <UploadImg blogId={blogId!} handleSubmite={handleUploadPhoto} />
+        </MyDialog>
     )
 }

@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth"
 import authOption from "@/src/lib/backend/authOption"
 interface BlogIdPageProps {
     params: {
-        tripId: string
+        draftId: string
     }
 }
 const BlogIdPage = async({ params }: BlogIdPageProps) => {
@@ -19,8 +19,8 @@ const BlogIdPage = async({ params }: BlogIdPageProps) => {
         )
     }
     return (
-        <Room roomId= {params.tripId} fallback ={<LoadingComponent/>} userId={user!.user.id}>
-            <CollaborativePage blogId={params.tripId}/>
+        <Room roomId= {params.draftId} fallback ={<LoadingComponent/>} userId={user!.user.id}>
+            <CollaborativePage blogId={params.draftId}/>
         </Room>
     )
 }

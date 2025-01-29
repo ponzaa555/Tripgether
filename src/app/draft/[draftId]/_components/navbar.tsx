@@ -7,15 +7,26 @@ import { NavInput } from "./nav-input";
 import { Button } from "@/src/components/UI/Button";
 import { Hint } from "@/src/components/hint";
 import { calDateDuration } from "@/src/lib/utils";
+import { LiveblocksProvider } from "@liveblocks/react";
+import { GetRoomStorage, PostRoomStorageMongo } from "@/src/lib/backend/liveblock";
 
 interface NavbarProps {
   blogName: string;
   startDate: string;
   endDate: string;
+  blogId : string
 }
 
-export const Navbar = ({ blogName, startDate, endDate }: NavbarProps) => {
+export const Navbar = ({ blogName, startDate, endDate , blogId }: NavbarProps) => {
   const duration = calDateDuration(startDate,endDate);
+
+  const handlePostBlog = async( blogId : string) => {
+    const  room = await GetRoomStorage( blogId)
+    console.log({"storage.data" : room.storage.data})
+    const response = await PostRoomStorageMongo(blogId , room.storage.data)
+    console.log({response})
+  }
+  
   return (
     <nav className="flex w-full top-0 fixed bg-white z-[51] min-h-[60px] shadow-xl items-center ">
       <div className="flex flex-col sm:flex-row justify-between items-center h-full w-full px-6 2xl:px-16 gap-3">
@@ -57,7 +68,8 @@ export const Navbar = ({ blogName, startDate, endDate }: NavbarProps) => {
 
           {/* Post Button and More Options */}
           <div className="flex items-center gap-3">
-            <Button size="default" className="m-2">
+            <Button size="default" className="m-2"
+              onClick={() => handlePostBlog(blogId)}>
               Post
             </Button>
             <Hint label="More" side="bottom" sideOffset={3}>
