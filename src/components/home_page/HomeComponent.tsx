@@ -42,7 +42,7 @@ const HomeComponent = ({ session }: HomeComponentProps) => {
       <HomeContent />
       <div className="flex flex-col gap-4 h-full w-screen bg-white">
         <Welcome />
-        <div className="flex flex-col gap-7 pt-20">
+        <div className="flex flex-col gap-7 pt-5">
           <h3 className="flex self-center text-orange-500">TRIP</h3>
           <h3 className="flex self-center text-2xl sm:text-3xl md:text-4xl font-black">
             Enjoy The Moment
