@@ -26,7 +26,20 @@ export const createOrUpdateUser = mutation({
   },
 });
 
-export const getUserById = query({
+export const getUserById = mutation({
+  args: {
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .first();
+    return user;
+  },
+});
+
+export const getUserData = query({
   args: {
     userId: v.string(),
   },

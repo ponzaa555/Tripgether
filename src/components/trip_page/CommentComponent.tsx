@@ -21,7 +21,7 @@ const CommentComponent = ({
   userId: string | null;
 }) => {
   const { openLoginModal } = useModal();
-  const userData = useQuery(api.user.getUserById, {
+  const userData = useQuery(api.user.getUserData, {
     userId: userId || "",
   });
 
