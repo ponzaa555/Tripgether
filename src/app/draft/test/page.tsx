@@ -1,5 +1,5 @@
 import { DropDownListType } from "@/src/models/components/Blog"
-import DropdownList from "../[tripId]/_components/dropdown-list"
+import DropdownList from "../[draftId]/_components/dropdown-list"
 
 
 const TestComponent = () => {

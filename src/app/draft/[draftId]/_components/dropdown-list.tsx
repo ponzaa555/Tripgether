@@ -13,7 +13,8 @@ const DropdownList = ({listData}:DropdownListProps) =>{
         <div>
             {
                 listData.map((item) => (
-                    <DropdownItem title={item.title} content={item.listContent}/>
+                    <DropdownItem title={item.title} content={item.listContent} 
+                    key={item.title}/>
                 ))
             }
         </div>

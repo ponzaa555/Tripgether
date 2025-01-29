@@ -53,5 +53,13 @@ model Profile {
   birthDate   DateTime?
   aboutMe     String?
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@unique([email])
+}
+
+model Blog {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  roomId String
+  // member String[] 
+  layers  Json
 }

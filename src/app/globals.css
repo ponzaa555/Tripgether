@@ -85,3 +85,7 @@ body {
 .sonner-toast {
   z-index: 9999;
 }
+
+html {
+  scroll-behavior: smooth;
+}

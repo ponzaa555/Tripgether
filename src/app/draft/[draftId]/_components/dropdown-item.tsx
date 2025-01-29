@@ -1,8 +1,10 @@
 'use client'
 
+import { handleScroll } from "@/src/lib/utils";
 import { DropDownItemType } from "@/src/models/components/Blog";
 import { ChevronDown } from "lucide-react";
 import { Span } from "next/dist/trace";
+import Link from "next/link";
 import { useRef, useState } from "react"
 
 
@@ -24,15 +26,21 @@ const DropdownItem = ({title , content}:DropdownItemProps) => {
             </button>
             <div
                 ref={contentRef}
-                className={`transition-all duration-500 ease-in-out ${isOpen ? 'h-auto' : 'h-0'}`}
-                style={{  height:isOpen ? `${contentRef?.current?.scrollHeight}px` : '0'}}
+                className={`transition-all duration-500 ease-in-out ${isOpen ? ' max-h-full' : ' max-h-0'}`}
+                // style={{  height:isOpen ? `${contentRef?.current?.scrollHeight }px` : '0'}}
             >
                 <div className=" flex flex-col w-full text-sm font-medium mb-4">
                     {
                         content.map((content) => (
-                            <a className="py-4 pl-12 hover:bg-[#F4F5F8]">
+                            <Link className="py-4 pl-12 hover:bg-[#F4F5F8]" href={`#${content.key}`} 
+                            scroll={true}
+                            onClick={(e) => {
+                                e.preventDefault(); // Prevent default link behavior
+                                handleScroll(content.key); // Trigger smooth scrolling
+                              }}
+                              key={content.key}>
                                 {content.content}
-                            </a>
+                            </Link>
                         ))
                     }
                 </div>
@@ -40,5 +48,6 @@ const DropdownItem = ({title , content}:DropdownItemProps) => {
         </div>
     )
 }
+
 
 export default DropdownItem
