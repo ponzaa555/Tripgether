@@ -57,6 +57,7 @@ export default defineSchema({
     stDate: v.string(),
     endDate: v.string(),
   })
+    .index("by_blogName", ["blogName"])
     .index("by_authorId", ["authorId"])
     .index("by_teamMate", ["teamMate"]),
 

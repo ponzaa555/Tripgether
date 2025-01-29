@@ -1,16 +1,20 @@
 "use client";
 import { api } from "@/convex/_generated/api";
-import BlogContent from "@/src/components/home_page/blog_content/BlogContent";
 import HomeContent from "@/src/components/home_page/home_content/HomeContent";
 import Welcome from "@/src/components/home_page/welcome_content/Welcome";
 import { useMutation } from "convex/react";
 import { useEffect } from "react";
+import ShowRecommandComponent from "./blog_content/ShowRecommandComponent";
+import { Button } from "@/src/components/UI/Button";
+import { MdOutlineExplore } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 type HomeComponentProps = {
   session: any;
 };
 
 const HomeComponent = ({ session }: HomeComponentProps) => {
+  const router = useRouter();
   const createUser = useMutation(api.user.createOrUpdateUser);
   useEffect(() => {
     const createUserIfAuthenticated = async () => {
@@ -47,7 +51,14 @@ const HomeComponent = ({ session }: HomeComponentProps) => {
           <h3 className="flex self-center text-2xl sm:text-3xl md:text-4xl font-black">
             Enjoy The Moment
           </h3>
-          <BlogContent />
+          <ShowRecommandComponent />
+          <Button
+            className="w-min px-10 py-5 text-xl font-black self-center mb-14"
+            onClick={() => router.push("/trip")}
+          >
+            <MdOutlineExplore />
+            Explore
+          </Button>
         </div>
       </div>
     </div>

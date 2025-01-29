@@ -1,5 +1,6 @@
 import { ConvexError, v } from "convex/values";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
+import { paginationOptsValidator } from "convex/server";
 
 export const create = mutation({
   args: {
@@ -51,5 +52,42 @@ export const upSetImageCover = mutation({
     const { blogId } = args;
     await ctx.db.patch(blogId, { coverImgUrl: args.imgUrl });
     return args.imgUrl;
+  },
+});
+
+export const infiniteScrollAndSearch = query({
+  args: {
+    paginationOpts: paginationOptsValidator,
+    query: v.string(),
+  },
+  handler: async (ctx, args) => {
+    let data;
+    if (args.query === "") {
+      data = await ctx.db
+        .query("blog")
+        .order("desc")
+        .paginate(args.paginationOpts);
+    } else {
+      data = await ctx.db
+        .query("blog")
+        .filter((q) => q.eq(q.field("blogName"), args.query))
+        .order("desc")
+        .paginate(args.paginationOpts);
+    }
+
+    const blogWithUserData = await Promise.all(
+      data.page.map(async (blog) => {
+        const user = await ctx.db.get(blog.authorId);
+        return {
+          ...blog,
+          user,
+        };
+      })
+    );
+
+    return {
+      ...data,
+      page: blogWithUserData,
+    };
   },
 });

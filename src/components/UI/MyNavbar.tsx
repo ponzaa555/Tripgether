@@ -58,11 +58,8 @@ export default function MynavBar() {
                 return null;
               } else if (data.name === "Trip-Plan") {
                 return (
-                  <>
-                    <button
-                      onClick={() => setTripDialog(true)}
-                      key={`${data.name}-${data.name}`}
-                    >
+                  <div key={`${data.name}-${data.name}`}>
+                    <button onClick={() => setTripDialog(true)}>
                       <li
                         className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
                           activePath.startsWith(data.href)
@@ -78,7 +75,7 @@ export default function MynavBar() {
                       setIsOpen={setTripDialog}
                       userId={session?.user.id ?? ""}
                     />
-                  </>
+                  </div>
                 );
               } else {
                 return (
