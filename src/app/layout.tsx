@@ -9,7 +9,6 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Toaster } from "@/src/components/UI/sonner";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import LoginModal from "@/src/components/login/LoginModal";
-import { headers } from "next/headers";
 import authOption from "../lib/backend/authOption";
 
 const mitr = Mitr({

@@ -31,7 +31,7 @@ type Comment = {
   _creationTime: number;
   userId: Id<"users">;
   content: string;
-  blogId: Id<"blogs">;
+  blogId: Id<"blog">;
   createdAt: string;
   user: User | null;
 };

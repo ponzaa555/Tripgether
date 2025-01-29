@@ -7,7 +7,7 @@ import ListDayComponent from "@/src/components/trip_page/ListDayComponent";
 import SummaryExpenseComponent from "../SummaryExpenseComponent";
 import GalleryComponent from "../GalleryComponent";
 
-type Props = { tripId: Id<"blogs">; userId: string | null };
+type Props = { tripId: Id<"blog">; userId: string | null };
 
 const NormalScreen = ({ tripId, userId }: Props) => {
   return (
