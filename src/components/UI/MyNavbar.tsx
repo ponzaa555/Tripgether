@@ -24,7 +24,6 @@ import {
 } from "@/src/components/UI/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import SignInButton from "@/src/components/login/SiginButton";
-import { da } from "date-fns/locale";
 import { TripDialog } from "../home_page/trip_dialog/TripDialog";
 
 export default function MynavBar() {
@@ -53,35 +52,43 @@ export default function MynavBar() {
           <ul className="hidden sm:flex">
             {link.map((data) => {
               if (
-                data.name === "Chat" &&
+                (data.name === "Chat" || data.name === "Trip-Plan") &&
                 (!session?.user || status !== "authenticated")
               ) {
                 return null;
               } else if (data.name === "Trip-Plan") {
                 return (
                   <>
-                    <button onClick={() => setTripDialog(true)}  key={`${data.name}-${data.name}`}>
+                    <button
+                      onClick={() => setTripDialog(true)}
+                      key={`${data.name}-${data.name}`}
+                    >
                       <li
-                        className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${activePath.startsWith(data.href)
+                        className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
+                          activePath.startsWith(data.href)
                             ? "border-amber-800 text-orange-500 font-bold"
                             : ""
-                          }`}
+                        }`}
                       >
                         {data.name}
                       </li>
                     </button>
-                    <TripDialog isOpen={tripDialog} setIsOpen={setTripDialog} userId={session?.user.id } />
+                    <TripDialog
+                      isOpen={tripDialog}
+                      setIsOpen={setTripDialog}
+                      userId={session?.user.id ?? ""}
+                    />
                   </>
-                )
-              }
-              else {
+                );
+              } else {
                 return (
-                  <Link key={`${data.name}-${data.name}`} href={data.href} >
+                  <Link key={`${data.name}-${data.name}`} href={data.href}>
                     <li
-                      className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${activePath.startsWith(data.href)
+                      className={`ml-10 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
+                        activePath.startsWith(data.href)
                           ? "border-amber-800 text-orange-500 font-bold"
                           : ""
-                        }`}
+                      }`}
                     >
                       {data.name}
                     </li>
@@ -159,10 +166,11 @@ export default function MynavBar() {
                 return (
                   <Link key={`${data.name}-${data.name}`} href={data.href}>
                     <li
-                      className={`py-4 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${activePath.startsWith(data.href)
+                      className={`py-4 uppercase hover:border-b-2 hover:border-amber-800 text-base font-base active:hover:border-amber-800 active:hover:text-orange-500 active:hover:font-bold ${
+                        activePath.startsWith(data.href)
                           ? "border-amber-800 text-orange-500 font-bold"
                           : ""
-                        }`}
+                      }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {data.name}

@@ -8,7 +8,7 @@ const TripId = async ({
   params: { tripId },
 }: {
   params: {
-    tripId: Id<"blogs">;
+    tripId: Id<"blog">;
   };
 }) => {
   const session = await getServerSession(authOption);

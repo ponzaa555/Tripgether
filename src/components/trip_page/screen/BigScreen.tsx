@@ -9,7 +9,7 @@ import NavbarComponent from "../NavbarComponent";
 import SummaryExpenseComponent from "../SummaryExpenseComponent";
 import GalleryComponent from "../GalleryComponent";
 
-type Props = { tripId: Id<"blogs">; userId: string | null };
+type Props = { tripId: Id<"blog">; userId: string | null };
 
 const BigScreen = ({ tripId, userId }: Props) => {
   return (

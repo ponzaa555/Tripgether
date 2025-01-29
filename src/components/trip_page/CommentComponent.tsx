@@ -17,11 +17,11 @@ const CommentComponent = ({
   tripId,
   userId,
 }: {
-  tripId: Id<"blogs">;
+  tripId: Id<"blog">;
   userId: string | null;
 }) => {
   const { openLoginModal } = useModal();
-  const userData = useQuery(api.user.getUserData, {
+  const userData = useQuery(api.user.getUserById, {
     userId: userId || "",
   });
 

@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useModal } from "@/src/context/ModalContext";
 
 const EnagementComponent: React.FC<{
-  tripId: Id<"blogs">;
+  tripId: Id<"blog">;
   userId: string | null;
   children: React.ReactNode;
 }> = ({ tripId, userId, children }) => {
