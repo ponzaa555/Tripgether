@@ -52,7 +52,7 @@ export const CoverImage = ({
         <>
             {
                 !loading ? (
-                    <div className=" relative">
+                    <div className=" relative" id="TripCover">
                         <div className="flex justify-center w-full min-h-[400px] max-h-[1000px]  overflow-hidden bg- white cover p-1 relative"
                         // onFocus={(e) => {
                         //     console.log(e.target.id)
@@ -68,13 +68,13 @@ export const CoverImage = ({
                                     updateMyPresence({ focusedId: e.target.id })
                                 }}
                                 onClick={() => setUploadImgDialog(true)}
-                                id="TripCover">
+                                id="CoverImg">
                                 <Camera color="black" strokeWidth={1} stroke="#ffffff" fill="#000" size={20} />
                                 <span className=" text-sm font-sans">Edit Cover</span>
                             </button>
                             <UploadImgDialog isOpen={uploadImgDialog} setIsOpen={setUploadImgDialog} blogId={blogId} handleUploadPhoto={handleUploadPhoto} />
                         </div >
-                        <Selections id="TripCover" coverImg = {true} />
+                        <Selections id="CoverImg" coverImg = {true} />
                     </div>
                 ) : (
                     <div className="flex justify-cente items-center w-full max-h-[400px] overflow-hidden relative bg- white cover">

@@ -43,9 +43,9 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
     ) => {
         const layerIds = storage.get("layerIds")
         const layers = storage.get("layers")
-        const index = layerIds.findIndex(item => item === id)
-        const daylayerId = layerIds.delete(index)
-        const daylayer = layers.delete(id)
+        // const index = layerIds.findIndex(item => item === id)
+        // const daylayerId = layerIds.delete(index)
+        // const daylayer = layers.delete(id)
     }, [])
 
 
@@ -103,7 +103,7 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
     const updateMyPresence = useUpdateMyPresence();
     const { day, date, ListDestination, conclusionDay }: DayTrips = layer
     return (
-        <div>
+        <div id={`Day${day}`}>
             {/* Header */}
             <div className=" flex justify-between items-center w-full">
                 <div className="flex gap-x-4 items-center">

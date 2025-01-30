@@ -21,24 +21,21 @@ const TripPlan = ({ startDate }: TripPlanProps) => {
         { storage }
     ) => {
         const id = nanoid();
-        const layers = storage.get("layers")
+        const layers =  storage.get("layers")
         const layerIds = storage.get("layerIds")
         // ไม่มีวันเี่ยวเลย
         let newDateString;
         if (layerIds.length === 4) {
-            console.log({startDate})
             newDateString = startDate
         } else {
             const lastId = layerIds.toArray()[layerIds.length - 1]
             const data = layers.get(lastId)?.toObject()
+            console.log({data})
             const { date } = data
             const datetime = parse(date, "yyyy-mm-dd", new Date())
             const newDate = addDays(datetime, 1)
             newDateString = format(newDate, "yyyy-mm-dd")
         }
-
-
-
 
         const layer = new LiveObject({
             day: `Day${layerIds.length - 4 + 1}`,
@@ -47,9 +44,10 @@ const TripPlan = ({ startDate }: TripPlanProps) => {
             conclusionDay: undefined,
         })
 
-        layerIds.push(id)
-        layers.set(id, layer)
-    }, [])
+
+            layerIds.push(id)
+            layers.set(id, layer)
+    },[])
     return (
         <div className=" py-10 rounded-none mobile:px-4  px-[5.7rem] relative ">
             {
