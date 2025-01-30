@@ -14,12 +14,13 @@ blogId,
 stDate
 }:EditBlogProps) =>{
     return(
-        <main className=" flex w-full h-[calc(100vh-60px)]">
+        <main className=" flex w-full h-[calc(100vh)]">
             <div className=" w-full lg:w-2/3 flex md:w-full border-r-2 border-[#F4F8FB]  overflow-y-auto">
                 <BlogContent imgUrl={coverImg} blogId={blogId} stDate={stDate}/>
             </div>
             <div className=" hidden  lg:w-1/3 lg:flex justify-center h-full items-center ">
-                Map
+                <img src="/map2.webp" className=" w-full  h-[calc(100vh)]
+                "/>
             </div>
         </main>
     )

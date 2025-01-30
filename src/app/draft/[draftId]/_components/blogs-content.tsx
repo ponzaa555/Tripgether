@@ -24,7 +24,7 @@ const getBlog = async (blogId: string) => {
     const res = await GetBlogMongoDb(blogId)
     console.log(res.blog)
 }
-export const xBlogContent = ({ blogId, stDate, imgUrl }: BlogContentProps) => {
+export const BlogContent = ({ blogId, stDate, imgUrl }: BlogContentProps) => {
 
     const updateMyPresence = useUpdateMyPresence();
 
@@ -35,9 +35,6 @@ export const xBlogContent = ({ blogId, stDate, imgUrl }: BlogContentProps) => {
             <TripPlan startDate={stDate} />
             <ExpensePreview />
             <PreviewGallery />
-            <Button onClick={() => getBlog(blogId)}>
-                GetPlan
-            </Button>
         </main>
     )
 }

@@ -67,7 +67,7 @@ export type Destination = {
 export type DayTrips = {
   day: string;
   date: string;
-  conclusionDay: string | undefined;
+  title: string | undefined;
   ListDestination: Destination[];
 } & LsonObject;
 

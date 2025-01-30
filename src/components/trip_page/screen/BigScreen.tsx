@@ -39,7 +39,9 @@ const BigScreen = ({ tripId, userId }: Props) => {
           </div>
         </div>
       </div>
-      <div className="flex-[0.6] bg-blue-200">Google map</div>
+      <div className="flex-[0.6] bg-blue-200 w-full h-screen">
+        <img src="/map2.webp" className=" h-screen"/>
+        </div>
     </div>
   );
 };
