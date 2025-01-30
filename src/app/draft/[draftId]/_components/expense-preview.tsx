@@ -18,34 +18,34 @@ interface ExpensePreviewProps {
 
 export const ExpensePreview = ({ }: ExpensePreviewProps) => {
 
-    // const sumCost = useMutation((
+    const sumCost = useMutation((
         
-    // ) => {
-    //     let cost = 0
-    //     layerIds?.map((dayId:string , index :number) => {
-    //         const layer = layers?.get(dayId)
-    //         const listDestination: Destination[] = layer["ListDestination"];
-    //         const listNoteAndIndex = listDestination.map((value: Destination, index: number) => ({
-    //             listNote: value.noteList,
-    //             destinationIndex: index,
-    //         }));
-    //         listNoteAndIndex.map((destination, destinationIndex) => (
-    //             destination.listNote.map((note: NoteType, noteListIndex: number) => {
-    //                 if (note.noteType === AllNote.Expens) {
-    //                     cost += Number(note.cost)
-    //                 }
-    //                 return null; // Return null for non-expense notes
-    //             })
-    //         ))
-    //     })
-    //     return cost
-    // },[])
+    ) => {
+        let cost = 0
+        layerIds?.map((dayId:string , index :number) => {
+            const layer = layers?.get(dayId)
+            const listDestination: Destination[] = layer["ListDestination"];
+            const listNoteAndIndex = listDestination.map((value: Destination, index: number) => ({
+                listNote: value.noteList,
+                destinationIndex: index,
+            }));
+            listNoteAndIndex.map((destination, destinationIndex) => (
+                destination.listNote.map((note: NoteType, noteListIndex: number) => {
+                    if (note.noteType === AllNote.Expens) {
+                        cost += Number(note.cost)
+                    }
+                    return null; // Return null for non-expense notes
+                })
+            ))
+        })
+        return cost
+    },[])
     const layerIds = useStorage((root) => root.layerIds)?.slice(4,);
     const layers = useStorage((root) => root.layers);
     const [isOpenTrip, setIsOpenTrip] = useState(true);
     const [isOpenExpenseNote, setIsOpenExpenseNote] = useState(true)
     const contentRef = useRef(null)
-    // const cost = sumCost()
+    const cost = sumCost()
     return (
         <div className="py-10 rounded-none mobile:px-4  px-[5.7rem] ">
 
@@ -70,7 +70,7 @@ export const ExpensePreview = ({ }: ExpensePreviewProps) => {
             >
                 <div className=" mt-2">
                     {/* BudgetPlan */}
-                    <BudgetPlan day="5" money={5000} stDate="2025-01-01" endDate="2025-01-09" />
+                    <BudgetPlan day="3" money={5000} stDate="2025-01-01" endDate="2025-01-09" />
                 </div>
                 <div>
                     {/* head List expense */}
@@ -104,7 +104,7 @@ export const ExpensePreview = ({ }: ExpensePreviewProps) => {
                         </div>
                     </div>
                 </div>
-                <ExpenseSumary budget={500000} spend={500}/>
+                <ExpenseSumary budget={5000} spend={cost}/>
             </div>
         </div>
     )

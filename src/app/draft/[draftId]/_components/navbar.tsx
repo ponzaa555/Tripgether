@@ -9,6 +9,8 @@ import { Hint } from "@/src/components/hint";
 import { calDateDuration } from "@/src/lib/utils";
 import { LiveblocksProvider } from "@liveblocks/react";
 import { GetRoomStorage, PostRoomStorageMongo } from "@/src/lib/backend/liveblock";
+import { toast } from "sonner";
+import { useState } from "react";
 
 interface NavbarProps {
   blogName: string;
@@ -18,13 +20,20 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ blogName, startDate, endDate , blogId }: NavbarProps) => {
+  const [isLoading , setIsLoading] = useState(false)
   const duration = calDateDuration(startDate,endDate);
 
   const handlePostBlog = async( blogId : string) => {
+    setIsLoading(true)
     const  room = await GetRoomStorage( blogId)
     console.log({"storage.data" : room.storage.data})
     const response = await PostRoomStorageMongo(blogId , room.storage.data)
+    if(response.status === 200){
+      console.log("toast")
+      toast.success("Post sucesss")
+    }
     console.log({response})
+    setIsLoading(false)
   }
   
   return (
@@ -69,7 +78,8 @@ export const Navbar = ({ blogName, startDate, endDate , blogId }: NavbarProps) =
           {/* Post Button and More Options */}
           <div className="flex items-center gap-3">
             <Button size="default" className="m-2"
-              onClick={() => handlePostBlog(blogId)}>
+              onClick={() => handlePostBlog(blogId)}
+              disabled ={isLoading}>
               Post
             </Button>
             <Hint label="More" side="bottom" sideOffset={3}>

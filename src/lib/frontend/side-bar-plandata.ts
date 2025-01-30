@@ -10,10 +10,6 @@ export const listDataOverview: DropDownListType[] = [
         {
             key:"Description",
             content:"Description",
-        },
-        {
-            key:"My Booking",
-            content:"My Booking",
         }
     ,]
     },

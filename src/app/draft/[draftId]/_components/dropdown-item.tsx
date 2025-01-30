@@ -32,6 +32,7 @@ const DropdownItem = ({title , content}:DropdownItemProps) => {
                 <div className=" flex flex-col w-full text-sm font-medium mb-4">
                     {
                         content.map((content) => (
+                            
                             <Link className="py-4 pl-12 hover:bg-[#F4F5F8]" href={`#${content.key}`} 
                             scroll={true}
                             onClick={(e) => {

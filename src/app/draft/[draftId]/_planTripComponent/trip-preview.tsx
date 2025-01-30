@@ -30,22 +30,15 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
         const dayTrips = layer.get(id)?.set("ListDestination", destination)
     }, [])
 
-    const ResetDestination = useMutation((
-        { storage },
-    ) => {
-        const layer = storage.get("layers")
-        const dayTrips = layer.get(id)?.set("ListDestination", [])
-    }, [])
-
     const DeleteDatePlan = useMutation((
         { storage },
         id: string
     ) => {
         const layerIds = storage.get("layerIds")
         const layers = storage.get("layers")
-        // const index = layerIds.findIndex(item => item === id)
-        // const daylayerId = layerIds.delete(index)
-        // const daylayer = layers.delete(id)
+        const index = layerIds.findIndex(item => item === id)
+        const daylayerId = layerIds.delete(index)
+        const daylayer = layers.delete(id)
     }, [])
 
 
@@ -66,7 +59,13 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
         layer?.set("ListDestination", newListDestiantion)
     }, [])
 
-
+    const updateTitleOfDay = useMutation((
+        {storage},
+        newTitle : string
+    ) => {
+        const layer = storage.get("layers").get(id)
+        layer?.set("title" , newTitle);
+    },[])
     const handleAddDestination = () => {
         const destination: Destination = {
             type: TripContentType.Destination,
@@ -83,9 +82,6 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
         AddDestination(newDayTrips)
     }
 
-    const handleResetDestination = () => {
-        ResetDestination();
-    }
     const handleDeletePlanHandle = (id: string) => {
         DeleteDatePlan(id)
     }
@@ -101,9 +97,9 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
         )
     }
     const updateMyPresence = useUpdateMyPresence();
-    const { day, date, ListDestination, conclusionDay }: DayTrips = layer
+    const { day, date, ListDestination, title}: DayTrips = layer
     return (
-        <div id={`Day${day}`}>
+        <div id={`Day${day}`} >
             {/* Header */}
             <div className=" flex justify-between items-center w-full">
                 <div className="flex gap-x-4 items-center">
@@ -117,7 +113,7 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
                 </div>
                 <div className=" flex">
                     <InputDate date={date} />
-                    <MoreAction lable="Delete Date" deleteHandle={DeleteDatePlan(id)} typeAction="Date" index={id} />
+                    <MoreAction lable="Delete Date" deleteHandle={DeleteDatePlan} typeAction="Date" index={id} />
                 </div>
             </div>
 
@@ -133,8 +129,9 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
                 <div className=" relative">
                 <textarea className=" w-full placeholder:text-gray-400   text-sm px-3 py-3 rounded-md 
                  hover:bg-slate-200 hover:outline-gray-500 focus: outline-gray-500 transition-all duration-500 ease-in-out  "
-                    value={conclusionDay}
+                    value={title}
                     rows={2}
+                    onChange={(e) => updateTitleOfDay(e.target.value)}
                     placeholder="Add description of the day"
                     id="day-Description"
                 />
