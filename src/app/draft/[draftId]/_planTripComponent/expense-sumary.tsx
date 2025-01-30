@@ -8,6 +8,7 @@ interface ExpenseSumaryProps {
 export const ExpenseSumary = (
     { budget, spend }: ExpenseSumaryProps
 ) => {
+    const total = budget - spend
     return (
         <div className=" bg-[#f4f8fb] p-[22px] rounded-lg max-w-4xl">
             <h3 className="text-[16px]">Expenses Summary</h3>
@@ -17,7 +18,7 @@ export const ExpenseSumary = (
                     <div className="shrink-0 flex flex-col text-end">
                         <span className="shrink-0">
                             <span>฿ </span>
-                            <b className="text-[14px]">3,000</b>
+                            <b className="text-[14px]">{budget}</b>
                         </span>
                     </div>
                 </div>
@@ -30,7 +31,7 @@ export const ExpenseSumary = (
                         <span className="shrink-0">
                             <span>฿
                             </span>
-                            <b className="text-[14px]">2,500</b>
+                            <b className="text-[14px]">{spend}</b>
                         </span>
                     </div>
                 </div>
@@ -51,7 +52,7 @@ export const ExpenseSumary = (
                         <div className="shrink-0 flex flex-col text-end">
                             <span className="shrink-0">
                                 <span>฿ </span>
-                                <b className="text-[14px]">500</b>
+                                <b className="text-[14px]">{total }</b>
                             </span>
                         </div>
                     </div>

@@ -24,7 +24,7 @@ const getBlog = async (blogId: string) => {
     const res = await GetBlogMongoDb(blogId)
     console.log(res.blog)
 }
-export const BlogContent = ({ blogId, stDate, imgUrl }: BlogContentProps) => {
+export const xBlogContent = ({ blogId, stDate, imgUrl }: BlogContentProps) => {
 
     const updateMyPresence = useUpdateMyPresence();
 

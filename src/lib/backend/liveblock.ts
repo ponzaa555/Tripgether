@@ -82,7 +82,11 @@ export async function GetBlogMongoDb(roomId: string) {
         describtion = describtionLayer.describtion;
       } else if (storageId === "Album") {
         listAlbum = data[storageId];
-      } else {
+      }  
+      else if (storageId === "ExpenseList"){
+        
+      }
+      else {
         const dayLayer = data[storageId].data;
         listDate.push(dayLayer);
       }
