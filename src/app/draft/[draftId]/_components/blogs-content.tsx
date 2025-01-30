@@ -5,6 +5,11 @@ import { CoverImage } from "./cover-img"
 import { ExpensePreview } from "./expense-preview"
 import TripPlan from "./trip-plan"
 import { Button } from "@/src/components/UI/Button"
+import { useCanRedo, useCanUndo, useHistory, useMutation, useMyPresence, useOthers, useOthersMapped, useUpdateMyPresence } from "@liveblocks/react"
+import { useMemo } from "react"
+import { connectionIdToColor } from "@/src/lib/utils"
+import Cursor from "./Cursor"
+import Selection from "./Selection"
 
 
 
@@ -19,7 +24,10 @@ const getBlog = async (blogId: string) => {
     const res = await GetBlogMongoDb(blogId)
     console.log(res.blog)
 }
-export const BlogContent = ({ blogId, stDate ,imgUrl }: BlogContentProps) => {
+export const BlogContent = ({ blogId, stDate, imgUrl }: BlogContentProps) => {
+
+    const updateMyPresence = useUpdateMyPresence();
+
     return (
         <main className=" w-full ">
             <CoverImage blogId={blogId} imgUrl={imgUrl} />
@@ -33,3 +41,4 @@ export const BlogContent = ({ blogId, stDate ,imgUrl }: BlogContentProps) => {
         </main>
     )
 }
+
