@@ -1,6 +1,6 @@
 import { DayTrips, Destination, TripContentType } from "@/src/models/components/Blog"
 import { faL } from "@fortawesome/free-solid-svg-icons"
-import { useMutation, useStorage } from "@liveblocks/react"
+import { useMutation, useStorage, useUpdateMyPresence } from "@liveblocks/react"
 import { ChevronDown, GripVertical, MapPin, MapPinPlus } from "lucide-react"
 import { useMemo, useRef, useState } from "react"
 import { InputDate } from "./date-input"
@@ -9,6 +9,7 @@ import { Button } from "@/src/components/UI/Button"
 import { Input } from "@/src/components/UI/input"
 import { AddTripInput } from "./input-add-trpi"
 import { MoreAction } from "./more-action"
+import { Selections } from "../_components/Selection"
 
 
 
@@ -38,7 +39,7 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
 
     const DeleteDatePlan = useMutation((
         { storage },
-        id: string 
+        id: string
     ) => {
         const layerIds = storage.get("layerIds")
         const layers = storage.get("layers")
@@ -49,21 +50,21 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
 
 
     const DeltePlace = useMutation((
-        {storage},
-        index : number,
+        { storage },
+        index: number,
     ) => {
         const layer = storage.get("layers").get(id)
-        const {ListDestination} = layer?.toObject()
-        console.log("ListDes",ListDestination)
+        const { ListDestination } = layer?.toObject()
+        console.log("ListDes", ListDestination)
         let newListDestiantion;
         // ลบตัวท้ายสุด 
-        if(index + 1 === ListDestination.lenght){
-            newListDestiantion = ListDestination.slice(0,index)
-        }else{
-            newListDestiantion = [...ListDestination.slice(0,index),...ListDestination.slice(index+1)]
+        if (index + 1 === ListDestination.lenght) {
+            newListDestiantion = ListDestination.slice(0, index)
+        } else {
+            newListDestiantion = [...ListDestination.slice(0, index), ...ListDestination.slice(index + 1)]
         }
-        layer?.set("ListDestination",newListDestiantion)
-    },[])
+        layer?.set("ListDestination", newListDestiantion)
+    }, [])
 
 
     const handleAddDestination = () => {
@@ -99,7 +100,8 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
             </div>
         )
     }
-    const { day, date, ListDestination , conclusionDay }: DayTrips = layer
+    const updateMyPresence = useUpdateMyPresence();
+    const { day, date, ListDestination, conclusionDay }: DayTrips = layer
     return (
         <div>
             {/* Header */}
@@ -114,24 +116,33 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
                     <h3 className=" font-bold">{day}</h3>
                 </div>
                 <div className=" flex">
-                    <InputDate date={date}/>
-                    <MoreAction lable="Delete Date" deleteHandle={DeleteDatePlan} typeAction="Date" index={id} />
+                    <InputDate date={date} />
+                    <MoreAction lable="Delete Date" deleteHandle={DeleteDatePlan(id)} typeAction="Date" index={id} />
                 </div>
             </div>
+
             <div ref={contentRef}
                 className={` overflow-hidden w-full  mt-5  rounded-md font-light transition-all duration-500 ease-in-out 
-                    ${isOpenTrip ? ' max-h-full opacity-100 ' : 'max-h-0  opacity-0'}
+                   relative ${isOpenTrip ? ' max-h-full opacity-100 ' : 'max-h-0  opacity-0'}
                     `}
+                onFocus={(e) => {
+                    console.log(e.target.id)
+                    updateMyPresence({ focusedId: e.target.id })
+                }}
             >
+                <div className=" relative">
                 <textarea className=" w-full placeholder:text-gray-400   text-sm px-3 py-3 rounded-md 
                  hover:bg-slate-200 hover:outline-gray-500 focus: outline-gray-500 transition-all duration-500 ease-in-out  "
                     value={conclusionDay}
                     rows={2}
                     placeholder="Add description of the day"
+                    id="day-Description"
                 />
+                    <Selections id="day-Description" coverImg={ false} />
+                </div>
                 <div className=" mt-2">
                     {
-                        ListDestination?.map((destination ,index) => {
+                        ListDestination?.map((destination, index) => {
                             return (
                                 <DestinationPlan
                                     key={index}
@@ -140,7 +151,7 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
                                     noteList={destination.noteList}
                                     planIndex={index}
                                     deletePlace={DeltePlace}
-                                     />
+                                />
                             )
                         })
                     }

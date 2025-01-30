@@ -5,7 +5,7 @@ import { paginationOptsValidator } from "convex/server";
 export const create = mutation({
   args: {
     blogName: v.string(),
-    currentUserId: v.string(),
+    authorId: v.string(),
     teamMate: v.array(v.string()),
     stDate: v.string(),
     endDate: v.string(),
@@ -13,11 +13,12 @@ export const create = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.db
       .query("users")
-      .withIndex("by_userId", (q) => q.eq("userId", args.currentUserId))
+      .withIndex("by_userId", (q) => q.eq("userId", args.authorId))
       .unique();
     if (!identity) {
       throw new ConvexError("User not found");
     }
+    console.log({identity})
     const blogId = await ctx.db.insert("blog", {
       blogName: args.blogName,
       authorId: identity._id,

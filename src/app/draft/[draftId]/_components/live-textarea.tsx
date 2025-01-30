@@ -3,10 +3,11 @@
 import { Hint } from "@/src/components/hint"
 import { ChevronDown, CircleX, SmilePlus } from "lucide-react"
 import { UserAvatar } from "./user-avartar"
-import { useMutation, useOthers, useSelf, useStorage } from "@liveblocks/react"
+import { useMutation, useMyPresence, useOthers, useSelf, useStorage, useUpdateMyPresence } from "@liveblocks/react"
 import React, { useEffect, useRef, useState } from "react"
 import LoadingComponent from "@/src/components/UI/Loading"
 import { ListHastag } from "@/src/models/components/Blog"
+import Selection from "./Selection"
 
 
 
@@ -33,37 +34,46 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
         const hastagList = layer.get("Hastag")?.set("HastagList", newHastag)
     }, [])
 
-    const selectHastagDropdown = (hastag:string) => {
-        const newListHastag = [...HastagList , hastag ]
+    const selectHastagDropdown = (hastag: string) => {
+        console.log("selectHastagDropdown ")
+        // const newListHastag = [...HastagList, hastag]
+        let newListHastag
+        if(HastagList === null){
+            newListHastag = [hastag]
+        }else{
+            newListHastag = [...HastagList , hastag]
+        }
         updateHastagList(newListHastag);
         setIsHastagDropDown(false)
     }
-    const deleteHastagDropdown = (hastagIndex : number) => {
+    const deleteHastagDropdown = (hastagIndex: number) => {
         let newListHastag = []
         // ลบตัวท้าย
-        if(hastagIndex+1 === HastagList.length){
-            newListHastag = HastagList.splice(0,hastagIndex)
-        }else{            
-            newListHastag = [...HastagList.slice(0,hastagIndex) , ...HastagList.slice(hastagIndex +1 , HastagList.length)]
+        if (hastagIndex + 1 === HastagList.length) {
+            newListHastag = HastagList.splice(0, hastagIndex)
+        } else {
+            newListHastag = [...HastagList.slice(0, hastagIndex), ...HastagList.slice(hastagIndex + 1, HastagList.length)]
         }
         updateHastagList(newListHastag);
     }
-    const filterHastag = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const filterHastag = (e: React.ChangeEvent<HTMLInputElement>) => {
         setHastagDropDown(ListHastag.filter(hastag => hastag.toLowerCase().includes(e.target.value.toLocaleLowerCase())))
     }
 
-    const handleClickOutside = (event : React.MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent) => {
         // Check if the click is outside the dropdown component
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsHastagDropDown(false); // Close dropdown
+        const target = event.target as Node | null;
+
+        if (dropdownRef.current) {
+            setIsHastagDropDown(false); // Close dropdown
         }
-      };
+    };
 
 
 
     const [descriptionopen, setDescriptionOpen] = useState(false)
     const [isHastag, setIsHastag] = useState(false)
-    const [hastagDropDown , setHastagDropDown] = useState(ListHastag)
+    const [hastagDropDown, setHastagDropDown] = useState(ListHastag)
     const [isHastagDropDown, setIsHastagDropDown] = useState(false);
 
     const users = useOthers()
@@ -73,17 +83,17 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
 
     const content = useStorage((content) => content.layers.get("Describtion"))
     const listHastag = useStorage((hastag) => hastag.layers.get("Hastag"))
-    
 
 
-    useEffect(() => {
-        // Add event listener for clicks
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-          // Cleanup event listener on component unmount
-          document.removeEventListener("mousedown", handleClickOutside);
-        };
-      }, []);
+
+    // useEffect(() => {
+    //     // Add event listener for clicks
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     return () => {
+    //         // Cleanup event listener on component unmount
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    // }, []);
 
     if (!content) {
         return (
@@ -93,8 +103,9 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
         )
     }
     const { type, describtion } = content
-    const { HastagList } = listHastag
+    const HastagList = listHastag!["HastagList"]
 
+    const updateMyPresence = useUpdateMyPresence();
     return (
         <div >
             <div className=" flex justify-between">
@@ -137,33 +148,43 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
                     </div>
                 </div>
             </div>
-            <div >
+            <div className=" relative">
                 <div
                     ref={contentRef}
-                    className={` overflow-hidden  w-full  bg-gray-50 mt-10  rounded-md font-light transition-all duration-500 ease-in-out ${descriptionopen ? ' max-h-full ' : ' max-h-0'}`}
-                    // style={{ height: descriptionopen ? `${contentRef?.current?.scrollHeight}px` : '0' }}
-                    >
-                    {/* <div className=" p-4">
+                    className={` 
+                        overflow-hidden w-full relative  bg-gray-50 mt-10  rounded-md font-light transition-all duration-500 ease-in-out ${descriptionopen ? ' max-h-full opacity-100 ' : ' max-h-0 opacity-0'}`}
+                    onFocus={
+                        (e) => {
+                            updateMyPresence({ focusedId: e.target.id })
+                        }
+                    }
+                    onBlur={() => updateMyPresence({ focusedId: null })}
+                    id="Describtion"
+                // style={{ height: descriptionopen ? `${contentRef?.current?.scrollHeight}px` : '0' }}
+                >
+                    <div className=" p-4">
                         <span>Normal</span>
                         <span> B</span>
                         <span> I</span>
                         <span> U</span>
-                    </div> */}
+                    </div>
                     <textarea
-                        className=" bg-transparent w-full text-sm  outline-none pl-4"
+                        className=" bg-transparent w-full text-sm  outline-none pl-4 "
                         rows={8}
+                        id="Text-area"
                         placeholder="What's on your mind?"
                         value={describtion}
                         onChange={(e) => updateDescribtion(e.target.value)}
                     />
                 </div>
+                <Selections id="Text-area" />
             </div>
             <div className=" w-full  mt-5 ">
                 {/* map Hastage Selection */}
                 {/* TODO Responsive */}
                 <div className=" flex w-full relative">
                     <div className="  flex  gap-x-1 ">
-                        {HastagList.map((content : string , index : number) => {
+                        {HastagList!.map((content: string, index: number) => {
                             return (
                                 <div className=" flex bg-teal-100 rounded-full px-3 text-xs items-center font-light  "
                                     key={content}>
@@ -173,26 +194,30 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
                             )
                         })}
                     </div >
-                    <div className=" relative">
-                        <div className="relative text-[#646B7D] text-[14px]">
-                            <input className={`focus:outline-0 w-[200px] ${HastagList.length === 5 ? "hidden" : "block"}`} 
-                            placeholder="Add #hashtag" 
-                            onClick={() => setIsHastagDropDown(!isHastagDropDown)} 
-                            onChange={(e) => filterHastag(e)}/>
+                    <div className=" relative "
+                        onFocus={(e) => updateMyPresence({ focusedId: e.target.id })}
+                        onBlur={(e) => updateMyPresence({ focusedId: null })}>
+                        <div className="relative text-[#646B7D] text-[14px] ">
+                            <input className={`focus:outline-0 w-[200px] ${HastagList!.length === 5 ? "hidden" : "block"}`}
+                                id="Hastag"
+                                placeholder="Add #hashtag"
+                                onClick={() => setIsHastagDropDown(!isHastagDropDown)}
+                                onChange={(e) => filterHastag(e)} />
                         </div>
-                        { isHastagDropDown && (
+                        {isHastagDropDown && (
                             <ul className="max-h-60 absolute bg-white overflow-y-auto z-10 mt-1 shadow border rounded-md w-[200px] py-1" ref={dropdownRef}>
                                 {hastagDropDown.map((hastage) => {
-                                    return(
+                                    return (
                                         <li className="flex gap-2 items-center text-sm font-medium py-2 px-4 duration-300 hover:bg-gray-100 cursor-pointer Mui-focused"
                                             key={hastage}
-                                        onClick={(e) => selectHastagDropdown(e.currentTarget.innerText)}>
+                                            onClick={(e) => selectHastagDropdown(e.currentTarget.innerText)}>
                                             {hastage}
                                         </li>
                                     )
                                 })}
                             </ul>
                         )}
+                        <Selections id="Hastag" />
                     </div>
                     <p className="  ml-2 absolute items-center text-wrap right-0 font-bold text-sm bottom-2 text-orange-400"> {HastagList.length} / 5</p>
                 </div>
@@ -205,3 +230,42 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
 export default LiveTextArea
 
 
+function Selections({ id }: { id: string }) {
+    const COLORS = [
+        "#E57373",
+        "#9575CD",
+        "#4FC3F7",
+        "#81C784",
+        "#FFF176",
+        "#FF8A65",
+        "#F06292",
+        "#7986CB",
+    ];
+
+    const users = useOthers();
+    const [myPresence] = useMyPresence();
+
+    return (
+        <>
+            {users.map(({ connectionId, info, presence }) => {
+                if (presence?.focusedId === id) {
+                    return (
+                        <Selection
+                            key={connectionId}
+                            name={info?.name || `User ${connectionId}`}
+                            color={COLORS[connectionId % COLORS.length]}
+                        />
+                    );
+                }
+                return null;
+            })}
+            {myPresence?.focusedId === id && (
+                <Selection
+                    key="me"
+                    name="You"
+                    color="#000000" // Color for current user
+                />
+            )}
+        </>
+    );
+}
