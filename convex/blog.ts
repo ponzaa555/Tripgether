@@ -18,7 +18,7 @@ export const create = mutation({
     if (!identity) {
       throw new ConvexError("User not found");
     }
-    console.log({identity})
+    console.log({ identity });
     const blogId = await ctx.db.insert("blog", {
       blogName: args.blogName,
       authorId: identity._id,
@@ -90,5 +90,18 @@ export const infiniteScrollAndSearch = query({
       ...data,
       page: blogWithUserData,
     };
+  },
+});
+
+export const getByIdQuery = query({
+  args: {
+    blogId: v.id("blog"),
+  },
+  handler: async (ctx, args) => {
+    const blog = await ctx.db
+      .query("blog")
+      .withIndex("by_id", (q) => q.eq("_id", args.blogId))
+      .first();
+    return blog;
   },
 });

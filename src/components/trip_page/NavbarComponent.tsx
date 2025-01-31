@@ -6,15 +6,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { FaRegCreditCard } from "react-icons/fa6";
 
-const images = [
-  "https://cdn.pixabay.com/photo/2024/03/04/10/20/ai-generated-8612174_1280.png",
-  "https://cdn.pixabay.com/photo/2024/05/07/06/19/ai-generated-8744916_1280.jpg",
-  "https://cdn.pixabay.com/photo/2024/04/04/12/26/ai-generated-8675021_1280.png",
-  "https://cdn.pixabay.com/photo/2024/03/08/09/47/ai-generated-8620359_1280.png",
-  "https://cdn.pixabay.com/photo/2024/08/03/09/15/ai-generated-8941612_1280.jpg",
-];
+type NavbarComponentProps = {
+  images: string[];
+};
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ images }: NavbarComponentProps) => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -39,7 +35,7 @@ const NavbarComponent = () => {
   };
 
   return (
-    <div className="flex flex-col py-8 px-4 items-center gap-10 h-full border-r border-gray-300">
+    <div className="flex flex-col py-8 px-4 items-center gap-10 h-full border-r border-gray-300 pt-20">
       {selectedImageIndex !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
           <button
