@@ -1,65 +1,76 @@
 "use client";
+import { UploadFile } from "antd";
 import Image from "next/image";
 import { useState } from "react";
 
-const images = [
-  "https://cdn.pixabay.com/photo/2024/03/04/10/20/ai-generated-8612174_1280.png",
-  "https://cdn.pixabay.com/photo/2024/05/07/06/19/ai-generated-8744916_1280.jpg",
-  "https://cdn.pixabay.com/photo/2024/04/04/12/26/ai-generated-8675021_1280.png",
-  "https://cdn.pixabay.com/photo/2024/03/08/09/47/ai-generated-8620359_1280.png",
-  "https://cdn.pixabay.com/photo/2024/08/03/09/15/ai-generated-8941612_1280.jpg",
-];
+type ImageComponentProps = {
+  images?: UploadFile<any>[];
+  listUrl?: string[];
+};
 
-const ImageComponent = () => {
+const ImageComponent = ({ images, listUrl }: ImageComponentProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
 
+  const imageUrls = images
+    ? images
+        .map((image) => image.url)
+        .filter((url): url is string => url !== undefined)
+    : listUrl || [];
+
   const showPreviousImage = () => {
     setSelectedImageIndex((prevIndex) =>
-      prevIndex !== null && prevIndex > 0 ? prevIndex - 1 : images.length - 1
+      prevIndex !== null && prevIndex > 0 ? prevIndex - 1 : imageUrls.length - 1
     );
   };
 
   const showNextImage = () => {
     setSelectedImageIndex((prevIndex) =>
-      prevIndex !== null && prevIndex < images.length - 1 ? prevIndex + 1 : 0
+      prevIndex !== null && prevIndex < imageUrls.length - 1 ? prevIndex + 1 : 0
     );
   };
 
   return (
     <div className="flex flex-row">
-      <div className="grid grid-cols-4 gap-4 p-4">
-        {images.slice(0, 4).map((src, index) => {
-          if (index === 3 && images.length > 4) {
+      <div className="grid grid-cols-4 gap-2 pl-5 w-full">
+        {imageUrls.slice(0, 4).map((src, index) => {
+          if (index === 3 && imageUrls.length > 4) {
             return (
-              <div key={index} className="relative">
+              <div
+                key={index}
+                className="relative aspect-square overflow-hidden rounded-lg cursor-pointer"
+              >
                 <Image
                   src={src}
                   alt={`Thumbnail ${index}`}
-                  className="w-full h-24 object-cover cursor-pointer rounded-lg"
+                  className="w-full h-full object-cover"
                   width={500}
                   height={500}
                 />
                 <div
-                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-xs font-bold rounded-lg text-center"
+                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-xs font-bold rounded-lg"
                   onClick={() => setSelectedImageIndex(index)}
                 >
-                  + {images.length - 4} More
+                  + {imageUrls.length - 4} More
                 </div>
               </div>
             );
           }
           return (
-            <Image
+            <div
               key={index}
-              src={src}
-              alt={`Thumbnail ${index}`}
-              className="w-full h-24 object-cover cursor-pointer rounded-lg"
-              onClick={() => setSelectedImageIndex(index)}
-              width={500}
-              height={500}
-            />
+              className="relative aspect-square overflow-hidden rounded-lg cursor-pointer"
+            >
+              <Image
+                src={src}
+                alt={`Thumbnail ${index}`}
+                className="w-full h-full object-cover"
+                onClick={() => setSelectedImageIndex(index)}
+                width={500}
+                height={500}
+              />
+            </div>
           );
         })}
       </div>
@@ -79,7 +90,7 @@ const ImageComponent = () => {
           </button>
           {selectedImageIndex !== null && (
             <Image
-              src={images[selectedImageIndex]}
+              src={imageUrls[selectedImageIndex]}
               alt="Selected"
               className="max-w-full max-h-full mx-4"
               width={500}

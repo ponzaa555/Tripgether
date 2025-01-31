@@ -49,7 +49,7 @@ export async function GetBlogMongoDb(roomId: string) {
         roomId: roomId,
       },
     });
-    // console.log({respose})
+    // console.log(JSON.stringify(respose, null, 2));
     const blog = respose?.layers;
     // console.log(blog)
     const { layers, layerIds } = blog.blog;
@@ -58,18 +58,15 @@ export async function GetBlogMongoDb(roomId: string) {
     // console.log(listId)
     // console.log({layers})
     const data = layers.data;
-    let coverImage , hastagList , describtion 
-    let listAlbum : Album ={
-        name:"",
-        describtion : "",
-        listUrl : []
-    };
-    const listDate : DayTrips[] = [];
+    let coverImage, hastagList, describtion;
+    let listAlbum: Album[] = [];
+    const listDate: DayTrips[] = [];
 
-    // console.log(data)
+    // console.log(data);
     console.log("==================================");
+    listAlbum = data["Album"];
     listId.map((storageId: string) => {
-      // console.log(data[storageId])
+      console.log(storageId);
       if (storageId === "CoverImg") {
         const coverImagelayer = data[storageId].data;
         console.log(coverImagelayer);
@@ -80,23 +77,20 @@ export async function GetBlogMongoDb(roomId: string) {
       } else if (storageId === "Describtion") {
         const describtionLayer = data[storageId].data;
         describtion = describtionLayer.describtion;
-      } else if (storageId === "Album") {
-        listAlbum = data[storageId];
-      }  
-      else if (storageId === "ExpenseList"){
-        
-      }
-      else {
+      } else if (storageId === "ExpenseList") {
+      } else {
         const dayLayer = data[storageId].data;
         listDate.push(dayLayer);
       }
     });
+
+    // console.log(listAlbum);
     const PlanInfo = {
       coverImage: coverImage,
-      hastagList : hastagList,
-      describtion : describtion,
-      listAlbum : listAlbum,
-      listDate : listDate,
+      hastagList: hastagList,
+      describtion: describtion,
+      listAlbum: listAlbum,
+      listDate: listDate,
     };
     return { status: 200, blog: PlanInfo };
   } catch (error) {

@@ -5,18 +5,28 @@ import {
   AccordionTrigger,
 } from "@/src/components/UI/accordion";
 import GalleryContentComponent from "./GalleryContentComponent";
+import { Album } from "@/src/models/components/Blog";
 
-const ListGalleryComponent = () => {
+type ListGalleryComponentProps = {
+  album: Album[] | undefined;
+};
+
+const ListGalleryComponent = ({ album }: ListGalleryComponentProps) => {
   return (
     <Accordion type="multiple" className="w-full">
-      <AccordionItem value="item-1">
-        <AccordionTrigger className="text-lg font-black decoration-transparent w-full">
-          <p>{"Title of that Album"} </p>
-        </AccordionTrigger>
-        <AccordionContent>
-          <GalleryContentComponent />
-        </AccordionContent>
-      </AccordionItem>
+      {album?.map((data, index) => (
+        <AccordionItem value={index.toString()} key={index}>
+          <AccordionTrigger className="text-lg font-black decoration-transparent w-full">
+            <p>
+              {data.name}{" "}
+              <span className="text-sm text-slate-400">{data.describtion}</span>
+            </p>
+          </AccordionTrigger>
+          <AccordionContent>
+            <GalleryContentComponent listUrl={data.listUrl} />
+          </AccordionContent>
+        </AccordionItem>
+      ))}
     </Accordion>
   );
 };

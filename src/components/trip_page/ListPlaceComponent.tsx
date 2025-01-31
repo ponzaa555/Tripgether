@@ -1,10 +1,14 @@
 import { Button } from "@/src/components/UI/Button";
 import { HiLocationMarker } from "react-icons/hi";
-import ExpensesComponent from "./ExpensesComponent";
-import { FaCarSide } from "react-icons/fa";
-import ImageComponent from "./ImageComponent";
+import NoteListComponent from "@/src/components/trip_page/NoteListComponent";
+import { Destination } from "@/src/models/components/Blog";
 
-const ListPlaceComponent = () => {
+type Props = {
+  listDestination: Destination[];
+  title: string | undefined;
+};
+
+const ListPlaceComponent = ({ listDestination, title }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="pl-10 flex flex-col gap-5">
@@ -12,27 +16,18 @@ const ListPlaceComponent = () => {
           <HiLocationMarker />
           Get direction
         </Button>
-        <p>
-          {
-            "คำอธิบายของวันที่ 1 เทสว่ายาวได้มากแค่ไหนถ้าพิมยาวขึ้นอีกแค่ไหนลองพิมให้ยาวที่สุดดู"
-          }
-        </p>
+        <p>{title}</p>
       </div>
       <div className="border-[1px] my-2"></div>
-      <div className="flex flex-row items-center">
-        <div className="border-2 p-2 rounded-full">1</div>
-        <p className="pl-3">
-          {"Title น้ำตกแม่นางรองทางเหนืออเมริกาใต้ที่ค่อนขางจะยาวเล็กน้อย"}
-        </p>
-      </div>
-      <ExpensesComponent />
-      <div className="flex flex-row">
-        <FaCarSide size={20} className="ml-2" />
-        <p className="pl-5 text-xs font-light text-slate-400">
-          {100} km ({"เวลาการเดินทาง"})
-        </p>
-      </div>
-      <ImageComponent />
+      {listDestination.map((destination, index) => (
+        <div key={index} className="py-5 flex flex-col gap-3">
+          <div className="flex flex-row items-center">
+            <div className="border-2 p-2 rounded-full">{destination.order}</div>
+            <p className="pl-3 text-lg font-black">{destination.place}</p>
+          </div>
+          <NoteListComponent noteList={destination.noteList} />
+        </div>
+      ))}
     </div>
   );
 };

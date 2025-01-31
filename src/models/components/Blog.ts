@@ -9,7 +9,7 @@ export type BlogDb = {
   authorId: string;
   teamMate: string[];
   stDate: string;
-  coverImgUrl: string ;
+  coverImgUrl: string;
   endDate: string;
 };
 
@@ -81,19 +81,25 @@ export type Describtion = {
 export type Hastag = {
   type: TripContentType.Hastag;
   HastagList: string[];
-}& LsonObject;
+} & LsonObject;
 
 export type CoveImg = {
   type: TripContentType.CoveImg;
   imgUrl: string | null;
-}& LsonObject;
+} & LsonObject;
 
 export type ExpenseNoteList = {
   type: TripContentType.ExpensList;
   expenseList: Expense[];
-}& LsonObject;
+} & LsonObject;
 
-export type PlanTrip = Describtion | Hastag | CoveImg | DayTrips | ExpenseNoteList | AlbumList;
+export type PlanTrip =
+  | Describtion
+  | Hastag
+  | CoveImg
+  | DayTrips
+  | ExpenseNoteList
+  | AlbumList;
 
 export type DropDownListType = {
   title: string;
@@ -108,7 +114,7 @@ export type DropDownItemType = {
 export type AlbumList = {
   type: TripContentType.Album;
   albumList: Album[];
-}& LsonObject;
+} & LsonObject;
 
 export type Album = {
   name: string | undefined;

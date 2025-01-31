@@ -16,7 +16,7 @@ const FriendsPage = ({ userId }: FriendsPageProps) => {
   });
 
   return (
-    <>
+    <div className="pt-14">
       <SidebarWrapper userId={userId}>
         <ItemList title="Friends" action={<AddFriendDialog userId={userId} />}>
           {requests ? (
@@ -44,7 +44,7 @@ const FriendsPage = ({ userId }: FriendsPageProps) => {
         </ItemList>
         <ConvarsationFallback />
       </SidebarWrapper>
-    </>
+    </div>
   );
 };
 

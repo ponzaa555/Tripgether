@@ -5,9 +5,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/src/components/UI/accordion";
-import ListPlaceComponent from "./ListPlaceComponent";
+import ListPlaceComponent from "@/src/components/trip_page/ListPlaceComponent";
+import { DayTrips } from "@/src/models/components/Blog";
 
-const ListDayComponent = () => {
+type Props = {
+  listDate: DayTrips[];
+};
+
+const ListDayComponent = ({ listDate }: Props) => {
   return (
     <div>
       <Image
@@ -18,28 +23,23 @@ const ListDayComponent = () => {
         className="w-28 h-full"
       />
       <Accordion type="multiple" className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger className="text-lg font-black decoration-transparent w-full">
-            <p>
-              Day {1}{" "}
-              <span className="text-slate-400 text-sm">(25 Aug 2023)</span>
-            </p>
-          </AccordionTrigger>
-          <AccordionContent>
-            <ListPlaceComponent />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger className="text-lg font-black decoration-transparent w-full">
-            <p>
-              Day {1}{" "}
-              <span className="text-slate-400 text-sm">(25 Aug 2023)</span>
-            </p>
-          </AccordionTrigger>
-          <AccordionContent>
-            <ListPlaceComponent />
-          </AccordionContent>
-        </AccordionItem>
+        {listDate.map((data, index) => (
+          <AccordionItem value={data.day} key={index}>
+            <AccordionTrigger className="text-lg font-black decoration-transparent w-full">
+              <p>
+                {data.day}
+                {" - "}
+                <span className="text-slate-400 text-sm">({data.date})</span>
+              </p>
+            </AccordionTrigger>
+            <AccordionContent>
+              <ListPlaceComponent
+                listDestination={data.ListDestination}
+                title={data.title}
+              />
+            </AccordionContent>
+          </AccordionItem>
+        ))}
       </Accordion>
     </div>
   );
