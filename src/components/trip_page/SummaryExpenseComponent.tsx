@@ -1,6 +1,6 @@
 import { AllNote, DayTrips } from "@/src/models/components/Blog";
-import ListSummaryExpenseComponent from "./ListSummaryExpenseComponent";
-import TotalSummaryExpenseComponent from "./TotalSummaryExpenseComponent";
+import ListSummaryExpenseComponent from "@/src/components/trip_page/ListSummaryExpenseComponent";
+import TotalSummaryExpenseComponent from "@/src/components/trip_page/TotalSummaryExpenseComponent";
 import { format } from "date-fns";
 
 type Props = {

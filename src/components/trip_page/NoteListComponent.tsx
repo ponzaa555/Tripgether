@@ -10,7 +10,7 @@ import {
   TrainFront,
   Utensils,
 } from "lucide-react";
-import ImageComponent from "./ImageComponent";
+import ImageComponent from "@/src/components/trip_page/ImageComponent";
 
 type Props = { noteList: NoteType[] };
 

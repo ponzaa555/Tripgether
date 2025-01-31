@@ -1,4 +1,4 @@
-import ImageComponent from "./ImageComponent";
+import ImageComponent from "@/src/components/trip_page/ImageComponent";
 
 type GalleryContentComponentProps = {
   listUrl: string[];

@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { Input } from "@/src/components/UI/input";
-import { Button } from "@/src/components/UI/Button";
 
 type SearchInputProps = {
   onSearch: (query: string) => void;

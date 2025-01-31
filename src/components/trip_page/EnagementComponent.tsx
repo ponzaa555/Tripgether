@@ -2,8 +2,8 @@
 import { FaBookmark, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { CiShare2, CiBookmark } from "react-icons/ci";
 import { IoIosHeart } from "react-icons/io";
-import CommentComponent from "./CommentComponent";
-import ListShowCommentComponent from "./ListShowCommentComponent";
+import CommentComponent from "@/src/components/trip_page/CommentComponent";
+import ListShowCommentComponent from "@/src/components/trip_page/ListShowCommentComponent";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
