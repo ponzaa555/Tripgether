@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/src/components/UI/accordion";
-import GalleryContentComponent from "./GalleryContentComponent";
+import GalleryContentComponent from "@/src/components/trip_page/GalleryContentComponent";
 import { Album } from "@/src/models/components/Blog";
 
 type ListGalleryComponentProps = {

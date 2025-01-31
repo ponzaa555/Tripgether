@@ -14,7 +14,7 @@ import { Button } from "@/src/components/UI/Button";
 import { Trash2, User } from "lucide-react";
 import { Id } from "@/convex/_generated/dataModel";
 import { formatDistanceToNow } from "date-fns";
-import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
+import ConfirmDeleteDialog from "@/src/components/trip_page/ConfirmDeleteDialog";
 import { useState } from "react";
 
 type User = {

@@ -1,5 +1,5 @@
 import { Album } from "@/src/models/components/Blog";
-import ListGalleryComponent from "./ListGalleryComponent";
+import ListGalleryComponent from "@/src/components/trip_page/ListGalleryComponent";
 
 type GalleryComponentProps = {
   album: Album[] | undefined;
