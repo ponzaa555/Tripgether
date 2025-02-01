@@ -89,10 +89,16 @@ const BigScreen = ({ tripId, userId, blog }: Props) => {
     }
   }, []);
 
+  const hasExpenseNote = blog?.listDate.some((day) =>
+    day.ListDestination.flatMap((destination) => destination.noteList).some(
+      (note) => note.noteType === AllNote.Expens
+    )
+  );
+
   return (
     <div className="flex w-full h-screen overflow-hidden">
       <div className="flex-[0.1]">
-        <NavbarComponent images={combinedLinks} />
+        <NavbarComponent images={combinedLinks} hasExpense={hasExpenseNote} />
       </div>
       <div className="flex-1 h-full overflow-y-auto pb-10">
         <div id="overview" className="pt-14">
@@ -116,17 +122,21 @@ const BigScreen = ({ tripId, userId, blog }: Props) => {
               <div id="tripgether">
                 <ListDayComponent listDate={blog?.listDate || []} />
               </div>
-              <div id="expense">
-                <SummaryExpenseComponent
-                  days={blog?.listDate.length ?? 0}
-                  listDate={blog?.listDate || []}
-                  startDate={tripData?.stDate}
-                  endDate={tripData?.endDate}
-                />
-              </div>
-              <div id="gallery">
-                <GalleryComponent album={blog?.listAlbum} />
-              </div>
+              {hasExpenseNote && (
+                <div id="expense">
+                  <SummaryExpenseComponent
+                    days={blog?.listDate.length ?? 0}
+                    listDate={blog?.listDate || []}
+                    startDate={tripData?.stDate}
+                    endDate={tripData?.endDate}
+                  />
+                </div>
+              )}
+              {blog?.listAlbum.length !== 0 && (
+                <div id="gallery">
+                  <GalleryComponent album={blog?.listAlbum} />
+                </div>
+              )}
             </EnagementComponent>
           </div>
         </div>

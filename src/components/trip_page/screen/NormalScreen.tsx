@@ -7,7 +7,7 @@ import IntroComponent from "@/src/components/trip_page/IntroComponent";
 import ListDayComponent from "@/src/components/trip_page/ListDayComponent";
 import SummaryExpenseComponent from "@/src/components/trip_page/SummaryExpenseComponent";
 import GalleryComponent from "@/src/components/trip_page/GalleryComponent";
-import { Album, DayTrips } from "@/src/models/components/Blog";
+import { Album, AllNote, DayTrips } from "@/src/models/components/Blog";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
@@ -26,6 +26,11 @@ type Props = { tripId: Id<"blog">; userId: string | null; blog: BlogProps };
 
 const NormalScreen = ({ tripId, userId, blog }: Props) => {
   const tripData = useQuery(api.blog.getByIdQuery, { blogId: tripId });
+  const hasExpenseNote = blog?.listDate.some((day) =>
+    day.ListDestination.flatMap((destination) => destination.noteList).some(
+      (note) => note.noteType === AllNote.Expens
+    )
+  );
 
   const calculateVisitPlaces = (listDate: DayTrips[]) => {
     if (!listDate) return 0;
@@ -66,13 +71,17 @@ const NormalScreen = ({ tripId, userId, blog }: Props) => {
         />
         <EnagementComponent tripId={tripId} userId={userId}>
           <ListDayComponent listDate={blog?.listDate || []} />
-          <SummaryExpenseComponent
-            days={blog?.listDate.length ?? 0}
-            listDate={blog?.listDate || []}
-            startDate={tripData?.stDate}
-            endDate={tripData?.endDate}
-          />
-          <GalleryComponent album={blog?.listAlbum} />
+          {hasExpenseNote && (
+            <SummaryExpenseComponent
+              days={blog?.listDate.length ?? 0}
+              listDate={blog?.listDate || []}
+              startDate={tripData?.stDate}
+              endDate={tripData?.endDate}
+            />
+          )}
+          {blog?.listAlbum.length !== 0 && (
+            <GalleryComponent album={blog?.listAlbum} />
+          )}
         </EnagementComponent>
       </div>
     </div>

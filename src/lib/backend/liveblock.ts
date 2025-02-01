@@ -62,9 +62,9 @@ export async function GetBlogMongoDb(roomId: string) {
     let listAlbum: Album[] = [];
     const listDate: DayTrips[] = [];
 
-    // console.log(data);
+    // console.log(JSON.stringify(data, null, 2));
     console.log("==================================");
-    listAlbum = data["Album"];
+    listAlbum = data["Album"] || [];
     listId.map((storageId: string) => {
       console.log(storageId);
       if (storageId === "CoverImg") {
