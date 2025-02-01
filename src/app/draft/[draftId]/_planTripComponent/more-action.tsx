@@ -15,7 +15,7 @@ interface MoreActionProps {
 
 export const MoreAction = ({ lable , deleteHandle , index ,typeAction}: MoreActionProps) => {
     return (
-        <DropdownMenu >
+        <DropdownMenu  >
             <DropdownMenuTrigger className=" outline-none">
                 <Hint label={lable} side="bottom" sideOffset={3}>
                     <button className=" rounded-full hover:bg-gray-100 duration-500 transition-all ease-in-out p-1">
@@ -24,7 +24,7 @@ export const MoreAction = ({ lable , deleteHandle , index ,typeAction}: MoreActi
                 </Hint>
             </DropdownMenuTrigger>
             <DropdownMenuContent side="left" sideOffset={3}  className=" bg-white rounded-lg  py-1 items-center  mt-3 space-y-3
-            shadow-[0px_-4px_6px_rgba(0,0,0,0.1),4px_0px_6px_rgba(0,0,0,0.1),0px_4px_6px_rgba(0,0,0,0.1)] text-sm">
+            shadow-[0px_-4px_6px_rgba(0,0,0,0.1),4px_0px_6px_rgba(0,0,0,0.1),0px_4px_6px_rgba(0,0,0,0.1)] text-sm z-50">
             {
                 typeAction === "Place" ? (
                 <DropdownMenuItem className=" outline-none cursor-pointer hover:bg-slate-200 px-3 py-2">

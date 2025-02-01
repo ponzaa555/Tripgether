@@ -3,6 +3,7 @@
 import { useMutation } from "@liveblocks/react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { CarFront, Footprints, Plane, TrainFront } from "lucide-react"
+import { Selections } from "../_components/Selection"
 
 
 interface TransportNoteProps {
@@ -11,9 +12,10 @@ interface TransportNoteProps {
     describtion: string
     planIndex : number
     noteListIndex :number
+    updateMyPresence: (patch: Partial<{ focusedId: string | null }>, options?: { addToHistory: boolean }) => void;
 }
 
-export const TransportNote = ({ planId,transportType, describtion ,planIndex , noteListIndex}: TransportNoteProps) => {
+export const TransportNote = ({ planId,transportType, describtion ,planIndex , noteListIndex,updateMyPresence}: TransportNoteProps) => {
     const ListIcon = [
     <Footprints strokeWidth={1.5} color="#051094" key={"Footprints"}  />, 
     <CarFront strokeWidth={1.5} color="#051094"  key={"CarFront"}/>, 
@@ -33,20 +35,30 @@ export const TransportNote = ({ planId,transportType, describtion ,planIndex , n
         layer?.set("ListDestination" , listDestination)
     },[])
     return (
-        <div className=" w-full flex items-center gap-x-4 pl-6">
+        <div className=" w-full flex items-center gap-x-4 pl-6 relative
+        ">
             <DropdownMenu>
-                <DropdownMenuTrigger className=" flex items-center">
-                    <TransportIcon iconNumber={transportType} />
+                <DropdownMenuTrigger className=" flex items-center " 
+                    onFocus={(e) =>  {
+                        console.log(e.target)
+                        updateMyPresence({focusedId:e.target.id})
+                    }}
+                     id={`transportNote${planId}${noteListIndex}`}
+                     onBlur={(e) =>updateMyPresence({focusedId:null})}
+                   >
+                    <TransportIcon iconNumber={transportType}  />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent side="right" sideOffset={3}>
-                    <DropdownMenuItem className=" flex items-center border-dashed border gap-x-2 bg-white p-1 rounded-md outline-none border-[#051094] ">
+                <DropdownMenuContent side="right" sideOffset={3} >
+                    <DropdownMenuItem className=" flex items-center border-dashed border gap-x-2 bg-white p-1 rounded-md outline-none border-[#051094]  "
+                        >
                         {
                             ListIcon.map((Icon: JSX.Element, index: number) => {
                                 return (
                                     <button 
                                     key={Icon.key}
                                     className= { ` bg-blue-100 rounded-md p-1  ${index ===transportType ? ' border-yellow-400 border-2' : ''}`}
-                                    onClick={() => updateIcon(index)}>
+                                    onClick={() => updateIcon(index)}
+                                    >
                                         {Icon}
                                     </button>
                                 )
@@ -56,6 +68,7 @@ export const TransportNote = ({ planId,transportType, describtion ,planIndex , n
                 </DropdownMenuContent>
             </DropdownMenu>
             <p className=" text-sm  font-light">{describtion}</p>
+            <Selections id={`transportNote${planId}${noteListIndex}`}/>
         </div>
     )
 }

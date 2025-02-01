@@ -3,9 +3,10 @@
 import MyDialog from "@/src/components/UI/MyDialog"
 import { CountryName } from "@/src/lib/frontend/mock-input-add-plan"
 import { Destination, TripContentType } from "@/src/models/components/Blog"
-import { useMutation } from "@liveblocks/react"
+import { useMutation, useUpdateMyPresence } from "@liveblocks/react"
 import { ChevronDown, Map, X } from "lucide-react"
 import React, { useState } from "react"
+import { Selections } from "../_components/Selection"
 
 interface AddDestinationProps {
     dayId: string,
@@ -17,6 +18,7 @@ export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) =>
     const [cleanInput, setCleanInput] = useState(false)
     const [inputValue, setInputValue] = useState<string>();
     const [fillter, setFillter] = useState(CountryName)
+    const updateMyPresence = useUpdateMyPresence()
     const inputValuehandle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value)
     }
@@ -48,8 +50,10 @@ export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) =>
         AddDestination(newDayTrips)
     }
     return (
-        <div className="w-full ">
-            <div className=" w-full bg-[#F4F8FB] flex justify-between rounded-md p-2 text-sm items-center">
+        <div className="w-full relative">
+            <div className=" w-full bg-[#F4F8FB] flex justify-between rounded-md p-2 text-sm items-center"
+            onFocus={(e) => updateMyPresence({focusedId : e.target.id})}
+            onBlur={(e) => updateMyPresence({focusedId:null})}>
                 <input
                     className=" w-full flex-grow-0 bg-transparent outline-none text-sm"
                     placeholder="Add place"
@@ -60,6 +64,7 @@ export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) =>
                         filterInput(e)
                         }
                     }
+                    id={`addtrip${dayId}`}
                 />
                 <div className=" flex items-center">
                     <div className=" flex items-center mr-5 gap-x-1">
@@ -90,6 +95,7 @@ export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) =>
                     </ul>
                 )
             }
+            <Selections id={`addtrip${dayId}`}/>
         </div>
     )
 }

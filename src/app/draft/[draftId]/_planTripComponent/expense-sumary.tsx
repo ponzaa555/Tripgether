@@ -1,14 +1,39 @@
 "use client"
 
+import LoadingComponent from "@/src/components/UI/Loading"
+import { AllNote, Destination, NoteType, PlanTrip } from "@/src/models/components/Blog"
+import { LiveMap, LiveObject } from "@liveblocks/client"
+import { useMutation } from "@liveblocks/react"
+
 interface ExpenseSumaryProps {
     budget: number
-    spend: number
+    layerIds: string[],
 }
 
 export const ExpenseSumary = (
-    { budget, spend }: ExpenseSumaryProps
+    { budget, layerIds }: ExpenseSumaryProps
 ) => {
-    const total = budget - spend
+    if (!layerIds) return <LoadingComponent />
+    const sumCost = useMutation(({ storage }) => {
+        let cost = 0;
+        layerIds?.forEach((dayId: string) => {
+            const layers = storage.get("layers")
+            const layer = layers.get(dayId)
+
+            const {ListDestination} = layer?.toObject()
+            ListDestination.forEach((value: Destination) => {
+                value.noteList.forEach((note: NoteType) => {
+                    if (note.noteType === AllNote.Expens) {
+                        cost += Number(note.cost);
+                    }
+                });
+            });
+        });
+        return cost
+    }, [layerIds]
+    );
+    const spendTrips = sumCost()
+    const total = budget - spendTrips
     return (
         <div className=" bg-[#f4f8fb] p-[22px] rounded-lg max-w-4xl">
             <h3 className="text-[16px]">Expenses Summary</h3>
@@ -31,32 +56,32 @@ export const ExpenseSumary = (
                         <span className="shrink-0">
                             <span>฿
                             </span>
-                            <b className="text-[14px]">{spend}</b>
+                            <b className="text-[14px]">{spendTrips}</b>
                         </span>
                     </div>
                 </div>
             </div>
-                <div className="bg-white px-6 py-4 rounded-lg">
-                    <div className="flex justify-between items-center- font-medium text-[12px]">
-                        <div className="flex gap-4">
-                            <span>Total balance</span>
-                            <div className="self-start flex items-center gap-2 font-semibold">
-                                <span>
-                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="face-smile" className="svg-inline--fa fa-face-smile " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" color="#fdba58">
-                                        <path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM164.1 325.5C182 346.2 212.6 368 256 368s74-21.8 91.9-42.5c5.8-6.7 15.9-7.4 22.6-1.6s7.4 15.9 1.6 22.6C349.8 372.1 311.1 400 256 400s-93.8-27.9-116.1-53.5c-5.8-6.7-5.1-16.8 1.6-22.6s16.8-5.1 22.6 1.6zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
-                                    </svg>
-                                </span>
-                                <span className=" text-green-600">Nice</span>
-                            </div>
-                        </div>
-                        <div className="shrink-0 flex flex-col text-end">
-                            <span className="shrink-0">
-                                <span>฿ </span>
-                                <b className="text-[14px]">{total }</b>
+            <div className="bg-white px-6 py-4 rounded-lg">
+                <div className="flex justify-between items-center- font-medium text-[12px]">
+                    <div className="flex gap-4">
+                        <span>Total balance</span>
+                        <div className="self-start flex items-center gap-2 font-semibold">
+                            <span>
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="face-smile" className="svg-inline--fa fa-face-smile " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" color="#fdba58">
+                                    <path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM164.1 325.5C182 346.2 212.6 368 256 368s74-21.8 91.9-42.5c5.8-6.7 15.9-7.4 22.6-1.6s7.4 15.9 1.6 22.6C349.8 372.1 311.1 400 256 400s-93.8-27.9-116.1-53.5c-5.8-6.7-5.1-16.8 1.6-22.6s16.8-5.1 22.6 1.6zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
+                                </svg>
                             </span>
+                            <span className=" text-green-600">Nice</span>
                         </div>
                     </div>
+                    <div className="shrink-0 flex flex-col text-end">
+                        <span className="shrink-0">
+                            <span>฿ </span>
+                            <b className="text-[14px]">{total}</b>
+                        </span>
+                    </div>
                 </div>
+            </div>
         </div>
     )
 }

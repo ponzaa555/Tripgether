@@ -99,7 +99,7 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
     const updateMyPresence = useUpdateMyPresence();
     const { day, date, ListDestination, title}: DayTrips = layer
     return (
-        <div id={`Day${day}`} >
+        <div id={`Day${day}`}  >
             {/* Header */}
             <div className=" flex justify-between items-center w-full">
                 <div className="flex gap-x-4 items-center">
@@ -118,24 +118,26 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
             </div>
 
             <div ref={contentRef}
-                className={` overflow-hidden w-full  mt-5  rounded-md font-light transition-all duration-500 ease-in-out 
+                className={`  w-full  mt-5  rounded-md font-light transition-all duration-500 ease-in-out 
                    relative ${isOpenTrip ? ' max-h-full opacity-100 ' : 'max-h-0  opacity-0'}
                     `}
                 onFocus={(e) => {
-                    console.log(e.target.id)
-                    updateMyPresence({ focusedId: e.target.id })
+                    updateMyPresence({ focusedId: e.target.id })         
                 }}
+                onBlur={(e) => updateMyPresence({ focusedId: null})}
             >
-                <div className=" relative">
+                <div className=" relative  ">
                 <textarea className=" w-full placeholder:text-gray-400   text-sm px-3 py-3 rounded-md 
-                 hover:bg-slate-200 hover:outline-gray-500 focus: outline-gray-500 transition-all duration-500 ease-in-out  "
+                 hover:bg-slate-200 hover:outline-gray-500  transition-all duration-500 ease-in-out  "
                     value={title}
                     rows={2}
                     onChange={(e) => updateTitleOfDay(e.target.value)}
                     placeholder="Add description of the day"
-                    id="day-Description"
-                />
-                    <Selections id="day-Description" coverImg={ false} />
+                    id={`day-Description${day}`}
+                >
+                  
+                </textarea>
+                <Selections id={`day-Description${day}`} coverImg={ false} />
                 </div>
                 <div className=" mt-2">
                     {

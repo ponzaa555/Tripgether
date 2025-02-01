@@ -5,7 +5,7 @@ import type { GetProp, UploadFile, UploadProps } from 'antd';
 import { Button } from '@/src/components/UI/Button';
 import { UploadCloundinary } from '@/src/lib/backend/uploadCloundinary';
 import { url } from 'inspector';
-import { useMutation } from '@liveblocks/react';
+import { useMutation, useUpdateMyPresence } from '@liveblocks/react';
 import { UploadChangeParam } from 'antd/es/upload';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -20,9 +20,9 @@ const getBase64 = (file: FileType): Promise<string> =>
 
 
 interface UploadAddNotePhotoProps {
-  dateId: string,
-  placeIndex: number,
-  noteIndex: number,
+  dateId?: string,
+  placeIndex?: number,
+  noteIndex?: number,
   listImage: UploadFile[]
 
 }
@@ -31,6 +31,7 @@ const UploadAddNotePhoto = ({ dateId, placeIndex, noteIndex, listImage }: Upload
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState(false);
+  const updateMyPresence = useUpdateMyPresence();
 
   const UpdateListImage = useMutation((
     { storage },
@@ -41,9 +42,9 @@ const UploadAddNotePhoto = ({ dateId, placeIndex, noteIndex, listImage }: Upload
 
     const listDestination = layer?.get("ListDestination")
     const { noteList } = listDestination[placeIndex]
-    noteList[noteIndex]["listImage"] =  fileList
+    noteList[noteIndex]["listImage"] = fileList
 
-    layer?.set("ListDestination" , listDestination);
+    layer?.set("ListDestination", listDestination);
 
   }, [])
 
@@ -57,27 +58,27 @@ const UploadAddNotePhoto = ({ dateId, placeIndex, noteIndex, listImage }: Upload
     setPreviewOpen(true);
   };
 
-  const handleChange = async (event : UploadChangeParam<UploadFile<any>>) => {
+  const handleChange = async (event: UploadChangeParam<UploadFile<any>>) => {
     setLoading(true)
-    if (event.file.status === "uploading"){
+    if (event.file.status === "uploading") {
       //Upload Image
       const newFile = event.file.originFileObj as File
-      const { id, url } = await UploadCloundinary(newFile , newFile.uid)
-      const newImage : UploadFile = {
-        uid : id,
-        name : id ,
-        url : url
+      const { id, url } = await UploadCloundinary(newFile, newFile.uid)
+      const newImage: UploadFile = {
+        uid: id,
+        name: id,
+        url: url
       }
       let newList;
-      if(listImage === null){
+      if (listImage === null) {
         newList = [newImage]
       }
-      else{
-        newList = [...listImage,newImage]  
+      else {
+        newList = [...listImage, newImage]
       }
       //add to liveblock
       UpdateListImage(newList);
-    }else{
+    } else {
       const afterRemove = listImage.filter(img => img.uid !== event.file.uid);
       UpdateListImage(afterRemove);
     }
@@ -85,21 +86,25 @@ const UploadAddNotePhoto = ({ dateId, placeIndex, noteIndex, listImage }: Upload
     setLoading(false);
   }
   const uploadButton = (
-    <div>
+    <div
+      onClick={(e) => updateMyPresence({focusedId : e.target.id})}
+    >
       {loading ? (
-        <div style={{ textAlign: 'center' }}>
-          <PlusOutlined />
-          <div style={{ marginTop: 8 }}>Uploading...</div>
+        <div style={{ textAlign: 'center' }} id={`Image${dateId}${noteIndex}`}
+        onBlur={(e) => updateMyPresence({focusedId:null})}>
+          <PlusOutlined id={`Image${dateId}${noteIndex}`}/>
+          <div style={{ marginTop: 8 }} id={`Image${dateId}${noteIndex}`}>Uploading...</div>
         </div>
       ) : (
-        <div>
-          <PlusOutlined />
-          <div style={{ marginTop: 8 }}>Upload</div>
+        <div id={`Image${dateId}${noteIndex}`}>
+          <PlusOutlined id={`Image${dateId}${noteIndex}`} />
+          <div style={{ marginTop: 8 }} id={`Image${dateId}${noteIndex}`}>Upload</div>
         </div>
       )}
     </div>
   );
   return (
+
     <>
       <Upload
         listType="picture-card"
@@ -110,8 +115,8 @@ const UploadAddNotePhoto = ({ dateId, placeIndex, noteIndex, listImage }: Upload
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>
       {/* <Button onClick={UpdateListImage}>
-        Reset listImage
-      </Button> */}
+  Reset listImage
+</Button> */}
       {previewImage && (
         <Image
           wrapperStyle={{ display: 'none' }}
@@ -123,7 +128,9 @@ const UploadAddNotePhoto = ({ dateId, placeIndex, noteIndex, listImage }: Upload
           src={previewImage}
         />
       )}
+
     </>
+
   );
 };
 
