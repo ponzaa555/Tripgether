@@ -93,13 +93,11 @@ export type ExpenseNoteList = {
   expenseList: Expense[];
 } & LsonObject;
 
-export type PlanTrip =
-  | Describtion
-  | Hastag
-  | CoveImg
-  | DayTrips
-  | ExpenseNoteList
-  | AlbumList;
+export type Spend = {
+  cost : number
+}& LsonObject;
+
+export type PlanTrip = Describtion | Hastag | CoveImg | DayTrips | ExpenseNoteList | AlbumList | Spend;
 
 export type DropDownListType = {
   title: string;
@@ -119,7 +117,7 @@ export type AlbumList = {
 export type Album = {
   name: string | undefined;
   describtion: string;
-  listUrl: string[];
+  listUrl: UploadFile[];
 };
 
 // export type DayPlans = {

@@ -6,6 +6,7 @@ import { Bitcoin, Bus, Coffee, Coins, Utensils } from "lucide-react"
 import { DataInput } from "./data-input-note"
 import { useMutation } from "@liveblocks/react"
 import {AllNote, Expense} from "@/src/models/components/Blog"
+import { Selections } from "../_components/Selection"
 
 
 interface ExpenseNoteProps {
@@ -15,6 +16,7 @@ interface ExpenseNoteProps {
     value: string |undefined,
     cost : number | undefined,
     iconType: number,
+    updateMyPresence: (patch: Partial<{ focusedId: string | null }>, options?: { addToHistory: boolean }) => void;
 }
 
 export const ExpenseNote = ({
@@ -24,6 +26,7 @@ export const ExpenseNote = ({
     value,
     iconType,
     cost,
+    updateMyPresence
 }: ExpenseNoteProps) => {
 
     const updateExpenseIcon = useMutation((
@@ -47,9 +50,11 @@ export const ExpenseNote = ({
         { icon: <Bus strokeWidth={1} fill="#ffe082" />, title: "Public Transport" }
     ]
     return (
-        <div className=" w-full flex items-center gap-x-4 pl-6">
+        <div className=" w-full flex items-center gap-x-4 pl-6 relative">
             <DropdownMenu>
-                <DropdownMenuTrigger className=" flex items-center">
+                <DropdownMenuTrigger className=" flex items-center" id={`expenseIcon${dateId}${noteIndex}`}
+                    onFocus={(e) => updateMyPresence({focusedId:e.target.value})}
+                    onBlur={(e) => updateMyPresence({focusedId:null})}>
                     <ExpenseIcon iconNumber={iconType} expensIcon={expensIcon} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="right" sideOffset={3}>
@@ -72,11 +77,12 @@ export const ExpenseNote = ({
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-            <DataInput placeIndex={placeIndex} dateId={dateId} noteIndex={noteIndex} value={value} placeholder="Add expense description" type="text" jsonKey="describtion" noteType={AllNote.Expens} />
+            <DataInput placeIndex={placeIndex} dateId={dateId} noteIndex={noteIndex} value={value} placeholder="Add expense description" type="text" jsonKey="describtion" noteType={AllNote.Expens}  id={`expenseIcon${dateId}${noteIndex}`}/>
             <Bitcoin strokeWidth={3} scale={1} />
             <div className=" w-1/5">
-                <DataInput placeIndex={placeIndex} dateId={dateId} noteIndex={noteIndex} value={cost} placeholder="amount" type="number" jsonKey="cost" noteType={AllNote.Expens}></DataInput>
+                <DataInput placeIndex={placeIndex} dateId={dateId} noteIndex={noteIndex} value={cost} placeholder="amount" type="number" jsonKey="cost" noteType={AllNote.Expens} id={`expenseIcon${dateId}${noteIndex}`}></DataInput>
             </div>
+            <Selections id={`expenseIcon${dateId}${noteIndex}`}/>
         </div>
     )
 }

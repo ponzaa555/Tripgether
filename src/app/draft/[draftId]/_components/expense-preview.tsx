@@ -3,13 +3,14 @@
 import { ChevronDown } from "lucide-react"
 import { InputDate } from "../_planTripComponent/date-input"
 import { MoreAction } from "../_planTripComponent/more-action"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { BudgetPlan } from "../_planTripComponent/budget-plan"
 import { useMutation, useStorage } from "@liveblocks/react"
 import { ExpenseListNoteBudget } from "../_planTripComponent/expense-list-notebudget"
 import { ExpenseSumary } from "../_planTripComponent/expense-sumary"
 import { AllNote, Destination, NoteType } from "@/src/models/components/Blog"
 import { layer } from "@fortawesome/fontawesome-svg-core"
+import LoadingComponent from "@/src/components/UI/Loading"
 
 
 interface ExpensePreviewProps {
@@ -17,35 +18,14 @@ interface ExpensePreviewProps {
 }
 
 export const ExpensePreview = ({ }: ExpensePreviewProps) => {
-
-    const sumCost = useMutation((
-        
-    ) => {
-        let cost = 0
-        layerIds?.map((dayId:string , index :number) => {
-            const layer = layers?.get(dayId)
-            const listDestination: Destination[] = layer["ListDestination"];
-            const listNoteAndIndex = listDestination.map((value: Destination, index: number) => ({
-                listNote: value.noteList,
-                destinationIndex: index,
-            }));
-            listNoteAndIndex.map((destination, destinationIndex) => (
-                destination.listNote.map((note: NoteType, noteListIndex: number) => {
-                    if (note.noteType === AllNote.Expens) {
-                        cost += Number(note.cost)
-                    }
-                    return null; // Return null for non-expense notes
-                })
-            ))
-        })
-        return cost
-    },[])
     const layerIds = useStorage((root) => root.layerIds)?.slice(4,);
     const layers = useStorage((root) => root.layers);
     const [isOpenTrip, setIsOpenTrip] = useState(true);
     const [isOpenExpenseNote, setIsOpenExpenseNote] = useState(true)
     const contentRef = useRef(null)
-    const cost = sumCost()
+    if (!layerIds) {
+        return <LoadingComponent />
+    }
     return (
         <div className="py-10 rounded-none mobile:px-4  px-[5.7rem] ">
 
@@ -95,16 +75,19 @@ export const ExpensePreview = ({ }: ExpensePreviewProps) => {
                         >
                             {/* map expense */}
                             {
-                                layerIds?.map((layerIds : string) => {
-                                    return(
-                                        <ExpenseListNoteBudget dayId={layerIds} key={layerIds}/>
+                                layerIds?.map((layerIds: string) => {
+                                    return (
+                                        <ExpenseListNoteBudget dayId={layerIds} key={layerIds} />
                                     )
                                 })
                             }
                         </div>
                     </div>
                 </div>
-                <ExpenseSumary budget={5000} spend={cost}/>
+                {
+                    layerIds &&
+                      <ExpenseSumary budget={5000}  layerIds={layerIds} />
+                }
             </div>
         </div>
     )

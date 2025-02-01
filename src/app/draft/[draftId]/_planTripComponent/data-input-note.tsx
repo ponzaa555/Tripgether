@@ -1,6 +1,7 @@
 "use client"
 
 import { AllNote, Expense, NoteType } from "@/src/models/components/Blog"
+import { LiveObject } from "@liveblocks/client"
 import { useMutation } from "@liveblocks/react"
 import { MessageSquareText, MessagesSquare } from "lucide-react"
 import { useState } from "react"
@@ -14,9 +15,10 @@ interface DataInputProps {
     type: string,
     jsonKey: string,
     noteType: AllNote,
+    id? :string
 }
 
-export const DataInput = ({ dateId, placeIndex, noteIndex, value, placeholder, type, jsonKey, noteType }: DataInputProps) => {
+export const DataInput = ({ dateId, placeIndex, noteIndex, value, placeholder, type, jsonKey, noteType ,id}: DataInputProps) => {
 
     const updateInput = useMutation((
         { storage },
@@ -43,6 +45,17 @@ export const DataInput = ({ dateId, placeIndex, noteIndex, value, placeholder, t
         const layers = storage.get("layers")
         const layer = layers.get("ExpenseList")
         const list : Expense[] = layer?.get("expenseList")
+        if(type === "number"){
+            const spendLayer = layer?.get("Spend")
+            if(spendLayer === undefined) {
+                layers.set("Spend",new LiveObject({
+                    cost : Number({newValue})
+                }))
+            }else{
+                const lastCost = spendLayer.cost 
+                layer?.set("Spend" , lastCost + Number(newValue) - Number(value))
+            }
+        }
 
         let expense = list.find(expen => expen.id === expenseId)
         expense = newValue
@@ -61,6 +74,7 @@ export const DataInput = ({ dateId, placeIndex, noteIndex, value, placeholder, t
                             value={value}
                             rows={2}
                             onChange={(e) => updateInput(e.target.value)}
+                            id={`noteIndex${dateId}${noteIndex}`}
                         />
                     </div>
                 </div>
@@ -75,6 +89,7 @@ export const DataInput = ({ dateId, placeIndex, noteIndex, value, placeholder, t
                         value={value}
                         type={type}
                         onChange={(e) => updateInput(e.target.value)}
+                        id={id}
                     />
                 </>
 
