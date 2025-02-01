@@ -8,9 +8,10 @@ import { FaRegCreditCard } from "react-icons/fa6";
 
 type NavbarComponentProps = {
   images: string[];
+  hasExpense: boolean | undefined;
 };
 
-const NavbarComponent = ({ images }: NavbarComponentProps) => {
+const NavbarComponent = ({ images, hasExpense }: NavbarComponentProps) => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -81,20 +82,30 @@ const NavbarComponent = ({ images }: NavbarComponentProps) => {
         <BiTrip size={30} color="white" />
         <p className="font-black text-white text-xs">Tripgether</p>
       </div>
-      <div
-        className="flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl bg-teal-500 border-transparent cursor-pointer"
+      <button
+        className={`flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl border-transparent ${
+          hasExpense
+            ? "bg-teal-500 text-white cursor-pointer"
+            : "bg-gray-300 text-white cursor-not-allowed"
+        }`}
         onClick={() => scrollToSection("expense")}
+        disabled={!hasExpense}
       >
         <FaRegCreditCard size={30} color="white" />
-        <p className="font-black text-white text-xs">Expense</p>
-      </div>
-      <div
-        className="flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl bg-orange-500 border-transparent cursor-pointer"
+        <p className="font-black text-xs">Expense</p>
+      </button>
+      <button
+        className={`flex flex-col gap-2 w-full justify-center items-center p-2 rounded-2xl border-transparent ${
+          images.length !== 0
+            ? "bg-orange-500 text-white cursor-pointer"
+            : "bg-gray-300 text-white cursor-not-allowed"
+        }`}
         onClick={() => setSelectedImageIndex(0)}
+        disabled={images.length === 0}
       >
         <SlPicture size={30} color="white" />
-        <p className="font-black text-white text-xs">Media</p>
-      </div>
+        <p className="font-black text-xs">Media</p>
+      </button>
     </div>
   );
 };
