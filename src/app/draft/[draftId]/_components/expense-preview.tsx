@@ -22,10 +22,13 @@ export const ExpensePreview = ({ }: ExpensePreviewProps) => {
     const layers = useStorage((root) => root.layers);
     const [isOpenTrip, setIsOpenTrip] = useState(true);
     const [isOpenExpenseNote, setIsOpenExpenseNote] = useState(true)
+
     const contentRef = useRef(null)
     if (!layerIds) {
         return <LoadingComponent />
     }
+    const budget = layers?.get("Budget")?.budget
+    // console.log({budget})
     return (
         <div className="py-10 rounded-none mobile:px-4  px-[5.7rem] ">
 
@@ -50,7 +53,7 @@ export const ExpensePreview = ({ }: ExpensePreviewProps) => {
             >
                 <div className=" mt-2">
                     {/* BudgetPlan */}
-                    <BudgetPlan day="3" money={5000} stDate="2025-01-01" endDate="2025-01-09" />
+                    <BudgetPlan day={(layerIds.length ).toString()} money={budget ? budget : 0} stDate="2025-01-01" endDate="2025-01-09" />
                 </div>
                 <div>
                     {/* head List expense */}
@@ -86,7 +89,7 @@ export const ExpensePreview = ({ }: ExpensePreviewProps) => {
                 </div>
                 {
                     layerIds &&
-                      <ExpenseSumary budget={5000}  layerIds={layerIds} />
+                      <ExpenseSumary budget={budget ? budget : 0}  layerIds={layerIds} />
                 }
             </div>
         </div>

@@ -53,7 +53,7 @@ export enum TripContentType {
   Hastag,
   Destination,
   CoveImg,
-  ExpensList,
+  Budget,
   Album,
 }
 
@@ -88,16 +88,16 @@ export type CoveImg = {
   imgUrl: string | null;
 } & LsonObject;
 
-export type ExpenseNoteList = {
-  type: TripContentType.ExpensList;
-  expenseList: Expense[];
+export type Budget = {
+  type: TripContentType.Budget;
+  stDate : string,
+  endDate : string,
+  budget : number
+
 } & LsonObject;
 
-export type Spend = {
-  cost : number
-}& LsonObject;
 
-export type PlanTrip = Describtion | Hastag | CoveImg | DayTrips | ExpenseNoteList | AlbumList | Spend;
+export type PlanTrip = Describtion | Hastag | CoveImg | DayTrips | Budget | AlbumList ;
 
 export type DropDownListType = {
   title: string;

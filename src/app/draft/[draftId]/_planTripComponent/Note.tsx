@@ -1,6 +1,6 @@
 "use client"
 
-import { MessagesSquare } from "lucide-react"
+import { MessagesSquare, X } from "lucide-react"
 import { DataInput } from "./data-input-note"
 import { AllNote} from "@/src/models/components/Blog"
 import { Selections } from "../_components/Selection";
@@ -11,15 +11,15 @@ interface NoteProps {
     noteIndex: number,
     value: string | number | undefined,
     updateMyPresence: (patch: Partial<{ focusedId: string | null }>, options?: { addToHistory: boolean }) => void;
-
-      
+    deleteNote : () => void      
 }
 export const Note = ({ 
     dateId , 
     placeIndex ,
     noteIndex,
     value,
-    updateMyPresence
+    updateMyPresence,
+    deleteNote
 }: NoteProps) => {
     return (
         // <div className=" w-full flex items-center gap-x-2 pl-4">
@@ -34,10 +34,11 @@ export const Note = ({
             console.log(e.target)
             updateMyPresence({focusedId:e.target.id})
         }}
-        className=" relative">
+        className=" relative flex justify-between items-center gap-x-2">
             <DataInput dateId={dateId} placeIndex={placeIndex} noteIndex={noteIndex} placeholder="Add note here" value={value} type="string" jsonKey="describtion" 
                     noteType={AllNote.Note}  />
             <Selections id={`noteIndex${dateId}${noteIndex}`}/>
+            <X size={15} onClick={deleteNote} className=" cursor-pointer"/>
         </div>
     )
 }

@@ -2,7 +2,7 @@
 
 import { icon } from "@fortawesome/fontawesome-svg-core"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
-import { Bitcoin, Bus, Coffee, Coins, Utensils } from "lucide-react"
+import { Bitcoin, Bus, Coffee, Coins, Utensils, X } from "lucide-react"
 import { DataInput } from "./data-input-note"
 import { useMutation } from "@liveblocks/react"
 import {AllNote, Expense} from "@/src/models/components/Blog"
@@ -17,6 +17,7 @@ interface ExpenseNoteProps {
     cost : number | undefined,
     iconType: number,
     updateMyPresence: (patch: Partial<{ focusedId: string | null }>, options?: { addToHistory: boolean }) => void;
+    deleteNote : () => void
 }
 
 export const ExpenseNote = ({
@@ -26,7 +27,8 @@ export const ExpenseNote = ({
     value,
     iconType,
     cost,
-    updateMyPresence
+    updateMyPresence,
+    deleteNote
 }: ExpenseNoteProps) => {
 
     const updateExpenseIcon = useMutation((
@@ -79,8 +81,9 @@ export const ExpenseNote = ({
             </DropdownMenu>
             <DataInput placeIndex={placeIndex} dateId={dateId} noteIndex={noteIndex} value={value} placeholder="Add expense description" type="text" jsonKey="describtion" noteType={AllNote.Expens}  id={`expenseIcon${dateId}${noteIndex}`}/>
             <Bitcoin strokeWidth={3} scale={1} />
-            <div className=" w-1/5">
+            <div className=" flex items-center">
                 <DataInput placeIndex={placeIndex} dateId={dateId} noteIndex={noteIndex} value={cost} placeholder="amount" type="number" jsonKey="cost" noteType={AllNote.Expens} id={`expenseIcon${dateId}${noteIndex}`}></DataInput>
+                <X  onClick={deleteNote} className=" cursor-pointer" size={15}/>
             </div>
             <Selections id={`expenseIcon${dateId}${noteIndex}`}/>
         </div>

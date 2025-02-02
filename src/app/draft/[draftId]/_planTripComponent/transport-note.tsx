@@ -2,7 +2,7 @@
 
 import { useMutation } from "@liveblocks/react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
-import { CarFront, Footprints, Plane, TrainFront } from "lucide-react"
+import { CarFront, Footprints, Plane, TrainFront, X } from "lucide-react"
 import { Selections } from "../_components/Selection"
 
 
@@ -13,9 +13,10 @@ interface TransportNoteProps {
     planIndex : number
     noteListIndex :number
     updateMyPresence: (patch: Partial<{ focusedId: string | null }>, options?: { addToHistory: boolean }) => void;
+    deleteNote : () => void
 }
 
-export const TransportNote = ({ planId,transportType, describtion ,planIndex , noteListIndex,updateMyPresence}: TransportNoteProps) => {
+export const TransportNote = ({ planId,transportType, describtion ,planIndex , noteListIndex,updateMyPresence ,deleteNote}: TransportNoteProps) => {
     const ListIcon = [
     <Footprints strokeWidth={1.5} color="#051094" key={"Footprints"}  />, 
     <CarFront strokeWidth={1.5} color="#051094"  key={"CarFront"}/>, 
@@ -67,8 +68,10 @@ export const TransportNote = ({ planId,transportType, describtion ,planIndex , n
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-            <p className=" text-sm  font-light">{describtion}</p>
+            <p className=" text-sm  font-light w-full">{describtion}</p>
+            <X size={15} className=" flex right-0 cursor-pointer" onClick={deleteNote} />
             <Selections id={`transportNote${planId}${noteListIndex}`}/>
+
         </div>
     )
 }
