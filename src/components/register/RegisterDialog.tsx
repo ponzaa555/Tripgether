@@ -20,6 +20,8 @@ import { Button } from "@/src/components/UI/Button";
 import { useModal } from "@/src/context/ModalContext";
 import { toast } from "sonner";
 import { RegisterDialogProps } from "@/src/models/components/registerDialog";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const formSchema = z
   .object({
@@ -40,6 +42,7 @@ const formSchema = z
   );
 
 const RegisterDialog = ({ isOpen, setIsOpen }: RegisterDialogProps) => {
+  const createUser = useMutation(api.user.createOrUpdateUser);
   const { openLoginModal } = useModal();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,6 +52,15 @@ const RegisterDialog = ({ isOpen, setIsOpen }: RegisterDialogProps) => {
       confirmPassword: "",
     },
   });
+
+  // email: string;
+  // password: string | null;
+  // id: string;
+  // name: string | null;
+  // createdAt: Date;
+  // image: string | null;
+  // emailVerified: JsonValue | null;
+  // updatedAt: Date;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const result = await fetch("/api/auth/Myauth/Register", {
@@ -60,6 +72,14 @@ const RegisterDialog = ({ isOpen, setIsOpen }: RegisterDialogProps) => {
     if (result.status != 201) {
       toast.error(resultBody.message as string);
     } else {
+      await createUser({
+        userId: resultBody.id,
+        username: resultBody.name ?? "Unknown",
+        imageUrl:
+          resultBody.imageUrl ??
+          "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg",
+        email: resultBody.email,
+      });
       toast.success("Register Success");
       setIsOpen(false);
     }

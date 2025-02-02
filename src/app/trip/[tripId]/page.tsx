@@ -13,9 +13,9 @@ const TripId = async ({
   };
 }) => {
   const session = await getServerSession(authOption);
-  const res = await GetBlogMongoDb("k17fnkb25n6nthxv0qwxkfaz7n79fz9y");
+  const res = await GetBlogMongoDb("k1778zddzydmq3e6pf7nr95phs79dsn0");
   // Print the entire structure of the response
-  console.log(JSON.stringify(res, null, 2));
+  // console.log(JSON.stringify(res, null, 2));
 
   return (
     <div>

@@ -38,6 +38,8 @@ import {
 import { IdentityFormProps } from "@/src/models/user/profile";
 import { api } from "@/convex/_generated/api";
 import { useMutation } from "convex/react";
+import { UploadCloundinary } from "@/src/lib/backend/uploadCloundinary";
+import { useSession } from "next-auth/react";
 
 export const formSchema = z.object({
   firstName: z.string().min(1, {
@@ -85,9 +87,11 @@ const IdentityForm = ({
   birthDate,
   aboutMe,
   userId,
+  profileImg,
 }: IdentityFormProps) => {
   const updateUser = useMutation(api.user.createOrUpdateUser);
   const router = useRouter();
+  const { data: session, update } = useSession();
   const [submitting, setSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -103,21 +107,36 @@ const IdentityForm = ({
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setSubmitting(true);
-    const res = await updateProfileData(values);
-    if (res) {
-      toast.success("Profile updated successfully.");
-      setSubmitting(false);
-      await updateUser({
-        userId: userId,
-        username: values.firstName,
-        email: values.email,
-        imageUrl:
-          "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg",
+
+    if (profileImg) {
+      const imageUpload = await UploadCloundinary(profileImg);
+      const res = await updateProfileData({
+        ...values,
+        imageUrl: imageUpload?.url,
       });
-      router.back();
-    } else {
-      toast.error("Failed to update profile. Please try again later.");
-      setSubmitting(false);
+      if (res) {
+        toast.success("Profile updated successfully.");
+        setSubmitting(false);
+        await updateUser({
+          userId: userId,
+          username: values.firstName,
+          email: values.email,
+          imageUrl: imageUpload?.url,
+        });
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            name: `${values.firstName} ${values.lastName}`,
+            email: values.email,
+            image: imageUpload?.url,
+          },
+        });
+        router.back();
+      } else {
+        toast.error("Failed to update profile. Please try again later.");
+        setSubmitting(false);
+      }
     }
   };
 

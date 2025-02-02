@@ -5,6 +5,10 @@ export type ProfileProps = {
   phoneNumber?: string;
   birthDate?: Date;
   aboutMe?: string;
+  imageUrl?: string;
 };
 
-export type IdentityFormProps = { userId: string } & ProfileProps;
+export type IdentityFormProps = {
+  userId: string;
+  profileImg: File | null;
+} & ProfileProps;
