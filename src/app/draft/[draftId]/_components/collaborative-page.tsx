@@ -52,7 +52,7 @@ export const CollaborativePage = ({ blogId }: CollaborativeProps) => {
                 <SideBar />
                 {/* Blogs Plan  */}
                 {/* Map */}
-                <EditBlog blogId={blogId} coverImg={blogInfo.coverImgUrl} stDate={blogInfo.stDate}/>
+                <EditBlog blogId={blogId} coverImg={blogInfo.coverImgUrl} stDate={blogInfo.stDate} endDate={blogInfo.endDate} />
             </div>
             {/* <div>There are {userCount} other user(s) online</div>;  */}
         </main>

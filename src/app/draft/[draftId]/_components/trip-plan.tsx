@@ -8,11 +8,12 @@ import { addDays, format, parse } from "date-fns";
 
 interface TripPlanProps {
     startDate: string
+    endDate : string
 }
 
 
 
-const TripPlan = ({ startDate }: TripPlanProps) => {
+const TripPlan = ({ startDate  , endDate}: TripPlanProps) => {
 
     // get layer from database
     

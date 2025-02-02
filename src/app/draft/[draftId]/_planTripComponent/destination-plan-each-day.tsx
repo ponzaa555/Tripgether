@@ -45,11 +45,9 @@ export const DestinationPlan = ({
                     {/* map note */}
                     {
                         noteList.map((note: NoteType, index: number) => (
-
                             <div className=" flex-row w-full  items-center " key={index}>
                                 <NoteListPreview key={index} noteType={note} noteListIndex={index} planIndex={planIndex} planId={id} />
                             </div>
-
                         ))
                     }
                 </div>

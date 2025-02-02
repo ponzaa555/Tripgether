@@ -16,7 +16,8 @@ import Selection from "./Selection"
 interface BlogContentProps {
     imgUrl: string,
     blogId: string,
-    stDate: string
+    stDate: string,
+    endDate:string
 }
 
 const getBlog = async (blogId: string) => {
@@ -24,7 +25,7 @@ const getBlog = async (blogId: string) => {
     const res = await GetBlogMongoDb(blogId)
     console.log(res.blog)
 }
-export const BlogContent = ({ blogId, stDate, imgUrl }: BlogContentProps) => {
+export const BlogContent = ({ blogId, stDate, imgUrl , endDate }: BlogContentProps) => {
 
     const updateMyPresence = useUpdateMyPresence();
 
@@ -32,7 +33,7 @@ export const BlogContent = ({ blogId, stDate, imgUrl }: BlogContentProps) => {
         <main className=" w-full ">
             <CoverImage blogId={blogId} imgUrl={imgUrl} />
             <Description />
-            <TripPlan startDate={stDate} />
+            <TripPlan startDate={stDate}  endDate={endDate}/>
             <ExpensePreview />
             <PreviewGallery />
         </main>

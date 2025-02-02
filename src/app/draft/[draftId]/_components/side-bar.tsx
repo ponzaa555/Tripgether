@@ -19,7 +19,7 @@ export const SideBar = ({
     const [expense, setExpense] = useState(false);
     const [gallery, setGallery] = useState(false);
     return (
-        <section className=" hidden sm:block h-[calc(100vh-60px)] bg-white  items-center w-[240px] shrink-0 border-r-2 border-[#F4F8FB]">
+        <section className=" hidden sm:block h-[calc(100vh)] bg-white  items-center w-[240px] shrink-0 border-r-2 border-[#F4F8FB]">
             <div className="h-full desktop:border-r flex flex-col divide-y divide-[#E5E5E5]">
                 {/* Button */}
                 <button className="shrink-0 py-8 pl-10 flex w-full gap-3 font-medium text-sm items-center hover:bg-[#F4F5F8]">
