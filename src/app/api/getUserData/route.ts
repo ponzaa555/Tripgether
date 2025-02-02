@@ -21,6 +21,7 @@ export async function POST(req: NextRequest) {
     phoneNumber: info.phoneNumber,
     birthDate: info.birthDate,
     aboutMe: info.aboutMe,
+    imageUrl: info.imageUrl,
   };
   const res = await UpsertProfile(profileMap, userId);
   return NextResponse.json({ profile: res }, { status: 201 });

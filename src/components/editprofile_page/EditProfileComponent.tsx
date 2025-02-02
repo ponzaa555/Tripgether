@@ -31,7 +31,6 @@ export default function EditProfileComponent({ userId }: UserIdProps) {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file = event.target.files[0];
-      console.log(file);
       setImage(file);
     }
   };
@@ -61,6 +60,13 @@ export default function EditProfileComponent({ userId }: UserIdProps) {
             <Avatar className="cursor-pointer w-28 h-28">
               <AvatarImage src={URL.createObjectURL(image)} />
             </Avatar>
+          ) : fetchedData.imageUrl ? (
+            <Avatar className="cursor-pointer w-28 h-28">
+              <AvatarImage
+                src={fetchedData.imageUrl}
+                onClick={handleImageUpload}
+              />
+            </Avatar>
           ) : (
             <UserRound color="orange" size={100} />
           )}
@@ -77,7 +83,13 @@ export default function EditProfileComponent({ userId }: UserIdProps) {
                   <AvatarImage
                     src={URL.createObjectURL(image)}
                     onClick={handleImageUpload}
-                    style={{ objectFit: "cover" }}
+                  />
+                </Avatar>
+              ) : fetchedData.imageUrl ? (
+                <Avatar className="cursor-pointer w-28 h-28">
+                  <AvatarImage
+                    src={fetchedData.imageUrl}
+                    onClick={handleImageUpload}
                   />
                 </Avatar>
               ) : (
@@ -101,7 +113,11 @@ export default function EditProfileComponent({ userId }: UserIdProps) {
             </DialogTitle>
           </DialogContent>
         </Dialog>
-        <IdentityForm {...fetchedData} userId={userId} />
+        <IdentityForm
+          {...fetchedData}
+          userId={userId}
+          profileImg={image ?? null}
+        />
       </div>
     </div>
   );

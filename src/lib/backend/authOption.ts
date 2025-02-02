@@ -70,17 +70,23 @@ const authOption: AuthOptions = {
     async redirect({ baseUrl }) {
       return baseUrl;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, session, trigger }) {
       // Add user.id to token on initial sign-in
       if (user) {
-        token.id = user.id; // No type error now
+        token.id = user.id;
+        token.name = user.name;
+      }
+
+      if (trigger === "update") {
+        return { ...token, ...session.user, picture: session.user.image };
       }
       return token;
     },
     async session({ session, token }) {
       // Ensure session.user exists before setting properties
       if (session?.user) {
-        session.user.id = token.id as string; // Use the id from token
+        session.user.id = token.id as string;
+        session.user.name = token.name as string;
       }
       return session;
     },

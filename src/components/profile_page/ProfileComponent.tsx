@@ -13,7 +13,7 @@ import LoadingComponent from "@/src/components/UI/Loading";
 import { useFetch } from "@/src/hooks/useFetch";
 import { fetchProfileData } from "@/src/lib/frontend/http";
 import { mapProfileData } from "@/src/lib/utils";
-import { BoomBox, Loader2, UserPen } from "lucide-react";
+import { BoomBox, UserPen } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const ProfileComponent = () => {
@@ -36,7 +36,12 @@ const ProfileComponent = () => {
     <div className="bg-slate-200 w-full h-full pt-16">
       <div className="flex flex-col items-center justify-center gap-5 py-5 lg:hidden">
         <Avatar className="w-28 h-28 sm:w-36 sm:h-36">
-          <AvatarImage />
+          <AvatarImage
+            src={
+              fetchedData.imageUrl ||
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
+            }
+          />
           <AvatarFallback></AvatarFallback>
         </Avatar>
         <div className="bg-orange-500 rounded-sm">
@@ -74,7 +79,12 @@ const ProfileComponent = () => {
       <div className="lg:grid lg:grid-cols-[1fr_2fr] lg:w-full lg:justify-center lg:gap-5 lg:py-10 lg:px-40 hidden">
         <div className="grid-rows-3 flex flex-col items-center gap-5">
           <Avatar className="w-36 h-36">
-            <AvatarImage />
+            <AvatarImage
+              src={
+                fetchedData.imageUrl ||
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
+              }
+            />
             <AvatarFallback></AvatarFallback>
           </Avatar>
           <div className="bg-orange-500 rounded-sm">

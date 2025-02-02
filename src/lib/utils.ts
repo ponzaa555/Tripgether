@@ -14,6 +14,7 @@ export function mapProfileData(data: any): ProfileProps {
     phoneNumber: data.phoneNumber,
     birthDate: data.birthDate ? new Date(data.birthDate) : undefined,
     aboutMe: data.aboutMe,
+    imageUrl: data.imageUrl,
   };
 }
 
@@ -38,19 +39,29 @@ export function calDateDuration(stDate: string, endDate: string) {
   let remaining = diffInMs;
 
   const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
-  return days
+  return days;
 }
 
-export const handleScroll = (id : string) => {
+export const handleScroll = (id: string) => {
   const element = document.getElementById(id);
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 };
 
-const COLORS = ["#f4a261", "#2a9d8f", "#e76f51", "#264653", "#e9c46a", "#d62828", "#023e8a", "#0077b6", "#0096c7", "#00b4d8"]
+const COLORS = [
+  "#f4a261",
+  "#2a9d8f",
+  "#e76f51",
+  "#264653",
+  "#e9c46a",
+  "#d62828",
+  "#023e8a",
+  "#0077b6",
+  "#0096c7",
+  "#00b4d8",
+];
 
-
-export function connectionIdToColor(connectionId : number) : string{
-  return COLORS[connectionId % COLORS.length]
+export function connectionIdToColor(connectionId: number): string {
+  return COLORS[connectionId % COLORS.length];
 }

@@ -29,15 +29,15 @@ export const UploadCloundinaryCover = async (file: File, blogId: string) => {
   return;
 };
 
-export const UploadCloundinary = async (file: File , uid?:string) => {
+export const UploadCloundinary = async (file: File, uid?: string) => {
   try {
     const id = nanoid();
     const formData = new FormData();
     formData.append("file", file);
     //Add note Photo
-    if(uid) {
+    if (uid) {
       formData.append("public_id", uid);
-    }else{
+    } else {
       formData.append("public_id", id);
     }
     formData.append("upload_preset", "Tripgather");

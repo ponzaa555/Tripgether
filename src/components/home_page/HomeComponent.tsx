@@ -8,9 +8,10 @@ import ShowRecommandComponent from "./blog_content/ShowRecommandComponent";
 import { Button } from "@/src/components/UI/Button";
 import { MdOutlineExplore } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { Session } from "next-auth";
 
 type HomeComponentProps = {
-  session: any;
+  session: Session | null;
 };
 
 const HomeComponent = ({ session }: HomeComponentProps) => {

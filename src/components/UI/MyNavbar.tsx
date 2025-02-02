@@ -9,7 +9,7 @@ import {
   AiOutlineFacebook,
   AiOutlineTwitter,
 } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { link } from "@/src/lib/frontend/data";
 import { signOut, useSession } from "next-auth/react";
@@ -36,6 +36,7 @@ export default function MynavBar() {
   const handleNav = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   return (
     <nav className="fixed w-full h-14 shadow-xl bg-white z-[50]">
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
@@ -107,7 +108,6 @@ export default function MynavBar() {
                   <Avatar>
                     <AvatarImage
                       src={
-                        session.user.image ??
                         "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"
                       }
                     />
