@@ -10,7 +10,7 @@ const MediaComponent = ({ userId }: any) => {
   })?.filter((blog) => blog !== null);
 
   return (
-    <div className="bg-white w-full h-80 p-5 py-10 flex flex-col gap-5 sm:h-96 sm:gap-7 lg:h-[30rem]">
+    <div className="bg-white w-full h-auto p-5 py-10 flex flex-col gap-5 sm:h-96 sm:gap-7 lg:h-[30rem]">
       <p className="flex justify-center sm:text-4xl font-black">
         Bookmarks ({blogs?.length})
       </p>

@@ -17,7 +17,7 @@ const AllTripComponent = ({ userId }: any) => {
         <Image src="/logo.png" alt="logo" width={100} height={100} />
       </div>
       <h3 className="flex justify-center sm:text-4xl font-black">
-        Trip plan ({0})
+        Trip plan ({blogs?.length})
       </h3>
 
       {blogs?.length === 0 ? (
