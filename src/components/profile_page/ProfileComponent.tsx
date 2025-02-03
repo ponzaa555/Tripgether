@@ -14,11 +14,9 @@ import { useFetch } from "@/src/hooks/useFetch";
 import { fetchProfileData } from "@/src/lib/frontend/http";
 import { mapProfileData } from "@/src/lib/utils";
 import { BoomBox, UserPen } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const ProfileComponent = () => {
-  const { data: session } = useSession();
+const ProfileComponent = ({ userId }: any) => {
   const router = useRouter();
 
   const { isFetching, error, fetchedData } = useFetch(
@@ -112,9 +110,9 @@ const ProfileComponent = () => {
           </p>
         </div>
       </div>
-      <MediaComponent userId={session?.user.id} />
-      <DraftComponent userId={session?.user.id} />
-      <AllTripComponent userId={session?.user.id} />
+      <MediaComponent userId={userId} />
+      <DraftComponent userId={userId} />
+      <AllTripComponent userId={userId} />
     </div>
   );
 };
