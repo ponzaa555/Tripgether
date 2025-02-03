@@ -21,14 +21,14 @@ export const ExpenseListNoteBudget = ({ dayId }: ExpenseListNoteBudgetProps) => 
     const date = layer["date"];
     const listDestination: Destination[] = layer["ListDestination"];
 
-    const listNoteAndIndex = listDestination.map((value: Destination, index: number) => ({
+    const listNoteAndIndex = listDestination?.map((value: Destination, index: number) => ({
         listNote: value.noteList,
         destinationIndex: index,
     }));
 
     return (
         <>
-            {listNoteAndIndex.map((destination, destinationIndex) => (
+            {listNoteAndIndex?.map((destination, destinationIndex) => (
                 destination.listNote.map((note: NoteType, noteListIndex: number) => {
                     if (note.noteType === AllNote.Expens) {
                         return (

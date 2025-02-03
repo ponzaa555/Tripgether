@@ -20,7 +20,7 @@ export const ExpenseSumary = (
             const layer = layers.get(dayId)
 
             const {ListDestination} = layer?.toObject()
-            ListDestination.forEach((value: Destination) => {
+            ListDestination?.forEach((value: Destination) => {
                 value.noteList.forEach((note: NoteType) => {
                     if (note.noteType === AllNote.Expens) {
                         cost += Number(note.cost);
