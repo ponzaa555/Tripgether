@@ -4,6 +4,8 @@ import { prisma } from "./prisma";
 import { Album, CoveImg, DayTrips } from "@/src/models/components/Blog";
 import { date } from "zod";
 
+import { nanoid } from "nanoid";
+
 export const GetRoomStorage = async (roomId: string) => {
   try {
     const LIVEBLOCKS_SECRET_KEY =
@@ -60,7 +62,7 @@ export async function GetBlogMongoDb(roomId: string) {
     // console.log({layers})
     const data = layers.data;
     // console.log({data})
-    let coverImage, hastagList, describtion , budget;
+    let coverImage, hastagList, describtion , budget ;
     let listAlbum: Album[] = [];
     const listDate: DayTrips[] = [];
 
@@ -104,3 +106,14 @@ export async function GetBlogMongoDb(roomId: string) {
     return { status: 400, error: error };
   }
 }
+
+// export async function CopyRoom(roomId:string) 
+// {
+//   const liveblocks = useLiveblocks();
+//   const roomData = await liveblocks.getRoomData(roomId);
+
+//   const newRoomId = nanoid();
+//   await liveblocks.createRoom({ ...roomData, id: newRoomId });
+
+//   return newRoomId
+// }

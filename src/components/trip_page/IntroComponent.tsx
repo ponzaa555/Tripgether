@@ -11,6 +11,9 @@ import { useQuery } from "convex/react";
 import { IoMdTime } from "react-icons/io";
 import { BiWorld } from "react-icons/bi";
 import { format } from "date-fns";
+import { useEffect } from "react";
+import { nanoid } from "nanoid";
+import { CopyRoom } from "@/src/lib/backend/liveblock";
 
 type Props = {
   userId: string | null;
@@ -20,12 +23,14 @@ type Props = {
 };
 
 const IntroComponent = ({ userId, title, createAt, description }: Props) => {
+
   const userData = useQuery(api.user.getUserData, { userId: userId || "" });
   const timestamp = Math.floor(createAt);
   const date = new Date(timestamp);
   if (isNaN(date.getTime())) {
     return <div>Invalid date</div>;
   }
+
   const formattedDate = format(date, "d MMM yyyy");
   return (
     <div className="flex flex-col gap-5">
