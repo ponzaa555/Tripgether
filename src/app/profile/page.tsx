@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 const Profile = async () => {
   const session = await getServerSession(authOption);
   if (session?.user.id != null) {
-    return <ProfileComponent />;
+    return <ProfileComponent userId={session.user.id} />;
   } else {
     <LoadingComponent />;
   }
