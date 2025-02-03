@@ -20,6 +20,7 @@ import { BlogDb } from "@/src/models/components/Blog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation"
 import { id } from "date-fns/locale";
+import { nanoid } from "nanoid";
 
 interface TripDialogProps {
     isOpen: boolean;
@@ -55,6 +56,7 @@ export const TripDialog = ({
         const startDate = formData.get("startDate") as string;
         const endDate = formData.get("endDate") as string;
 
+        const roomId = await nanoid()
         const body: BlogDb = {
             blogName: location ,
             authorId:userId,
@@ -62,6 +64,7 @@ export const TripDialog = ({
             teamMate:[userId],
             stDate:startDate,
             endDate:endDate,
+            roomId : roomId
         };
         // console.log(body)
         mutate({
@@ -70,9 +73,10 @@ export const TripDialog = ({
             teamMate:[userId],
             stDate:startDate,
             endDate:endDate,
+            roomId : roomId
         }).then((blogId) => {
             toast.success("Create Plans")
-            router.push(`/draft/${blogId}`)
+            router.push(`/draft/${roomId}`)
         }).catch((error) => {
             console.log({error})
             toast.error("Faild to create trips")

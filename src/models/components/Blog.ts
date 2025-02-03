@@ -1,3 +1,4 @@
+import { Id } from "@/convex/_generated/dataModel";
 import { LsonObject } from "@liveblocks/client";
 import { UploadFile } from "antd";
 import { v } from "convex/values";
@@ -11,7 +12,17 @@ export type BlogDb = {
   stDate: string;
   coverImgUrl: string;
   endDate: string;
+  roomId : string
 };
+
+export type draftDb = {
+  blogName: string;
+  member: Id<"draft">;
+  coverImgUrl: string
+  stDate: string;
+  endDate: string;
+  liveBlockId : string
+}
 
 export enum AllNote {
   Booking,
@@ -93,7 +104,6 @@ export type Budget = {
   stDate : string,
   endDate : string,
   budget : number
-
 } & LsonObject;
 
 
@@ -120,24 +130,3 @@ export type Album = {
   listUrl: UploadFile[];
 };
 
-// export type DayPlans = {
-//   [Dayid: string]: {
-//     describetion: string;
-//     datePlan: string;
-//   };
-// };
-
-// export type PlaceVisite = {
-//   [placeId: string]: {
-//     dayPlanId: string;
-//     placeName: string;
-//   };
-// };
-// export type NotePlaceVisite = {
-//   [noteId: string]: {
-//     placeVisiteId: string;
-//     Note: Note | Transport | Expense | Photo;
-//   };
-// };
-
-// export type PlanTrip = DayPlans[] | PlaceVisite[] | NotePlaceVisite[] | Describtion | Hastag | CoveImg;

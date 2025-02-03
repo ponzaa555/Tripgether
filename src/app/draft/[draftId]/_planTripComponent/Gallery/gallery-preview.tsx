@@ -87,7 +87,7 @@ export const PreviewGallery = () => {
                                     {/* {albumLayer.map(())} */}
                                     {albumLayer.map((element, index) => {
                                         return (
-                                            <AlbumPreview album={element} index={index} />
+                                            <AlbumPreview album={element} index={index} key={index}/>
                                         )
                                     })}
                                 </div>
