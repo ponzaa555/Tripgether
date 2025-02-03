@@ -76,7 +76,7 @@ export const TripDialog = ({
             roomId : roomId
         }).then((blogId) => {
             toast.success("Create Plans")
-            router.push(`/draft/${roomId}`)
+            router.push(`/draft/${blogId}`)
         }).catch((error) => {
             console.log({error})
             toast.error("Faild to create trips")

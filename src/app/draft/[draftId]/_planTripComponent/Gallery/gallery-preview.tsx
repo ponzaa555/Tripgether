@@ -72,7 +72,7 @@ export const PreviewGallery = () => {
                 <div className="MuiCollapse-wrapper MuiCollapse-vertical css-hboir5">
                     <div className="MuiCollapse-wrapperInner MuiCollapse-vertical css-8atqhb">
                         <div className="grow  items-center justify-between gap-x-10 mobile:flex-col mobile:items-start gap-y-4">
-                            {albumLayer.length === 0 ? (
+                            {albumLayer?.length === 0 ? (
                                 <div className=" flex items-center justify-between w-full">
                                         <div className="flex py-4 px-6 gap-6 mt-4"><div className="w-[70px] flex shrink-0 items-start">
                                             <img src="/uoload-Image.webp" alt="booking" className="object-contain w-full" />
@@ -85,7 +85,7 @@ export const PreviewGallery = () => {
                             ) : (
                                 <div>
                                     {/* {albumLayer.map(())} */}
-                                    {albumLayer.map((element, index) => {
+                                    {albumLayer?.map((element, index) => {
                                         return (
                                             <AlbumPreview album={element} index={index} key={index}/>
                                         )
