@@ -1,8 +1,10 @@
+import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import BigScreen from "@/src/components/trip_page/screen/BigScreen";
 import NormalScreen from "@/src/components/trip_page/screen/NormalScreen";
 import authOption from "@/src/lib/backend/authOption";
 import { GetBlogMongoDb } from "@/src/lib/backend/liveblock";
+import { fetchQuery } from "convex/nextjs";
 import { getServerSession } from "next-auth";
 
 const TripId = async ({
@@ -13,7 +15,10 @@ const TripId = async ({
   };
 }) => {
   const session = await getServerSession(authOption);
-  const res = await GetBlogMongoDb("k178f85bfmvs5gckx2h2e2dje979m609");
+  const blog = await fetchQuery(api.blog.getByIdQuery , {
+    blogId : tripId
+  })
+  const res = await GetBlogMongoDb(blog?.roomId);
   // Print the entire structure of the response
   // console.log(JSON.stringify(res, null, 2));
   return (
