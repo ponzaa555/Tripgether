@@ -12,74 +12,7 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import type { Marker } from "@googlemaps/markerclusterer";
 
 type Poi = { key: string; location: google.maps.LatLngLiteral; color: string };
-const getRandomColor = () => {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
-
-const locations: Poi[] = [
-  {
-    key: "operaHouse",
-    location: { lat: -33.8567844, lng: 151.213108 },
-    color: getRandomColor(),
-  },
-  {
-    key: "tarongaZoo",
-    location: { lat: -33.8472767, lng: 151.2188164 },
-    color: getRandomColor(),
-  },
-  {
-    key: "manlyBeach",
-    location: { lat: -33.8209738, lng: 151.2563253 },
-    color: getRandomColor(),
-  },
-  {
-    key: "hyderPark",
-    location: { lat: -33.8690081, lng: 151.2052393 },
-    color: getRandomColor(),
-  },
-  {
-    key: "theRocks",
-    location: { lat: -33.8587568, lng: 151.2058246 },
-    color: getRandomColor(),
-  },
-  {
-    key: "circularQuay",
-    location: { lat: -33.858761, lng: 151.2055688 },
-    color: getRandomColor(),
-  },
-  {
-    key: "harbourBridge",
-    location: { lat: -33.852228, lng: 151.2038374 },
-    color: getRandomColor(),
-  },
-  {
-    key: "kingsCross",
-    location: { lat: -33.8737375, lng: 151.222569 },
-    color: getRandomColor(),
-  },
-  {
-    key: "botanicGardens",
-    location: { lat: -33.864167, lng: 151.216387 },
-    color: getRandomColor(),
-  },
-  {
-    key: "museumOfSydney",
-    location: { lat: -33.8636005, lng: 151.2092542 },
-    color: getRandomColor(),
-  },
-  {
-    key: "AAAAAAAAA",
-    location: { lat: -36.8636005, lng: 151.2092542 },
-    color: "#fff",
-  },
-];
-
-const GoogleMapComponent = () => {
+const GoogleMapComponent = ({ poi }: { poi: Poi[] }) => {
   return (
     <APIProvider
       apiKey={process.env.NEXT_PUBLIC_MAPS_API_KEY as string}
@@ -100,7 +33,7 @@ const GoogleMapComponent = () => {
           )
         }
       >
-        <PoiMarkers pois={locations} />
+        <PoiMarkers pois={poi} />
       </Map>
     </APIProvider>
   );
@@ -140,7 +73,7 @@ const PoiMarkers = (props: { pois: Poi[] }) => {
 
   return (
     <>
-      {props.pois.map((poi: Poi) => (
+      {props.pois?.map((poi: Poi) => (
         <AdvancedMarker
           key={poi.key}
           position={poi.location}
