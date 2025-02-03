@@ -19,8 +19,9 @@ import LoadingComponent from "@/src/components/UI/Loading"
 interface TripPreviewProps {
     key: string,
     id: string,
+    dayIndex : number
 }
-const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
+const TripPlanPreview = ({ key, id, dayIndex}: TripPreviewProps) => {
     const layer = useStorage((storage) => storage.layers.get(id))
 
     const AddDestination = useMutation((
@@ -161,7 +162,7 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
                     ${isOpenTrip ? ' max-h-screen opacity-100 ' : 'max-h-0 opacity-0'} `} ref={contentRef}
                 >
                     <MapPin fill="#DEDFE4" size={40} stroke="#fff" />
-                    <AddTripInput dayId={id} listDestination={ListDestination} />
+                    <AddTripInput dayId={id} listDestination={ListDestination} dayIndex = {dayIndex} />
                 </div>
             </div>
         </div>

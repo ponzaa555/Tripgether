@@ -4,7 +4,23 @@ import { UploadFile } from "antd";
 import { v } from "convex/values";
 
 export const ListHastag = ["#Beach", "#Mountain", "#City", "#Sea"];
-
+export const ColorMark = [
+  "#FF0000",  // Red
+  "#0000FF",  // Blue
+  "#008000",  // Green
+  "#FFFF00",  // Yellow
+  "#FFA500",  // Orange
+  "#800080",  // Purple
+  "#FFC0CB",  // Pink
+  "#A52A2A",  // Brown
+  "#808080",  // Gray
+  "#000000",  // Black
+  "#FFFFFF",  // White
+  "#00FFFF",  // Cyan
+  "#FF00FF",  // Magenta
+  "#00FF00",  // Lime
+  "#4B0082"   // Indigo
+]
 export type BlogDb = {
   blogName: string;
   authorId: string;
@@ -67,6 +83,7 @@ export enum TripContentType {
   CoveImg,
   Budget,
   Album,
+  GoogleMark,
 }
 
 export type Destination = {
@@ -107,8 +124,12 @@ export type Budget = {
   budget : number
 } & LsonObject;
 
+export type GoogleMark = {
+  type : TripContentType.GoogleMark,
+  ListMark : Poi[]
+}& LsonObject;
 
-export type PlanTrip = Describtion | Hastag | CoveImg | DayTrips | Budget | AlbumList ;
+export type PlanTrip = Describtion | Hastag | CoveImg | DayTrips | Budget | AlbumList | GoogleMark ;
 
 export type DropDownListType = {
   title: string;
@@ -131,3 +152,4 @@ export type Album = {
   listUrl: UploadFile[];
 };
 
+export type Poi = { key: string; location: google.maps.LatLngLiteral; color: string };

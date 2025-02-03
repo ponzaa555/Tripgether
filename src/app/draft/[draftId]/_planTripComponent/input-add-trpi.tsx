@@ -2,19 +2,21 @@
 
 import MyDialog from "@/src/components/UI/MyDialog"
 import { CountryName } from "@/src/lib/frontend/mock-input-add-plan"
-import { Destination, TripContentType } from "@/src/models/components/Blog"
+import { ColorMark, Destination, Poi, TripContentType } from "@/src/models/components/Blog"
 import { useMutation, useUpdateMyPresence } from "@liveblocks/react"
 import { ChevronDown, Map, X } from "lucide-react"
 import React, { useState } from "react"
 import { Selections } from "../_components/Selection"
+import { Button } from "@/src/components/UI/Button"
 
 interface AddDestinationProps {
     dayId: string,
-    listDestination: Destination[]
+    listDestination: Destination[],
+    dayIndex : number
 }
 
 
-export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) => {
+export const AddTripInput = ({ listDestination, dayId ,dayIndex}: AddDestinationProps) => {
     const [cleanInput, setCleanInput] = useState(false)
     const [inputValue, setInputValue] = useState<string>();
     const [fillter, setFillter] = useState(CountryName)
@@ -24,7 +26,7 @@ export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) =>
     }
 
     const filterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFillter(CountryName.filter(Country => Country.toLowerCase().includes(e.target.value.toLocaleLowerCase())))
+        setFillter(CountryName.filter(Country => Country.key.toLowerCase().includes(e.target.value.toLocaleLowerCase())))
     }
     const AddDestination = useMutation((
         { storage },
@@ -33,12 +35,31 @@ export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) =>
         const layer = storage.get("layers")
         const dayTrips = layer.get(dayId)?.set("ListDestination", destination)
     }, [])
-
-    const handleAddDestination = (place: string) => {
+    const AddMark = useMutation((
+        {storage},
+        mark:{key : string , location : { lat : number , lng : number}}
+    ) => {
+        const layers = storage.get("layers")
+        const googleMarkLayer = layers.get("GoogleMark")
+        let ListMark = googleMarkLayer?.get("ListMark")
+        console.log({googleMarkLayer})
+        console.log({ListMark})
+        const newMark : Poi = {
+            key : mark.key,
+            location : mark.location,
+            color : ColorMark[dayIndex]
+        }
+        if(ListMark.length === 0){
+            googleMarkLayer?.set("ListMark",[newMark])
+        }else{
+            googleMarkLayer?.set("ListMark",[...ListMark,newMark])
+        }
+    },[])
+    const handleAddDestination = (mark : {key : string , location : { lat : number , lng : number}}) => {
         const destination: Destination = {
             type: TripContentType.Destination,
             order: listDestination == null ? 1 : listDestination.length+1,
-            place: place,
+            place: mark.key,
             noteList: []
         }
         let newDayTrips;
@@ -48,6 +69,7 @@ export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) =>
             newDayTrips = [...listDestination, destination]
         }
         AddDestination(newDayTrips)
+        AddMark(mark)
     }
     return (
         <div className="w-full relative">
@@ -87,8 +109,8 @@ export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) =>
                                         setInputValue("")
                                         handleAddDestination(country)
                                     }}
-                                    key={country}>
-                                    {country}
+                                    key={country.key}>
+                                    {country.key}
                                 </li>
                             )
                         })}
@@ -96,6 +118,9 @@ export const AddTripInput = ({ listDestination, dayId }: AddDestinationProps) =>
                 )
             }
             <Selections id={`addtrip${dayId}`}/>
+            {/* <Button onClick={() => AddMark()}>
+                Google Mark
+            </Button> */}
         </div>
     )
 }
