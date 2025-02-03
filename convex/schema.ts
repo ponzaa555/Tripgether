@@ -49,7 +49,7 @@ export default defineSchema({
     content: v.array(v.string()),
   }).index("by_conversationId", ["conversationId"]),
 
-  blogs: defineTable({
+  blog: defineTable({
     blogName: v.string(),
     authorId: v.id("users"),
     coverImgUrl: v.optional(v.string()),
