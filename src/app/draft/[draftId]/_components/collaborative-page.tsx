@@ -21,6 +21,7 @@ export const CollaborativePage = ({ blogId }: CollaborativeProps) => {
     const [blogInfo, setBlogInfo] = useState<BlogDb>();
     // แก้ให้เรียกครั้งเดียว
     useEffect(() => {
+        console.log(blogId)
         const blogsInfo = mutate({
             blogId: blogId
         }).then((blog) => {
