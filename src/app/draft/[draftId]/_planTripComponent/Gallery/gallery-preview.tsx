@@ -47,7 +47,7 @@ export const PreviewGallery = () => {
             </div>
         )
     }
-    const albumLayer = layers.get("Album")
+    const albumLayer = layers.get("Album")["albumList"]
     console.log({ albumLayer })
     return (
         <div className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 py-10 mobile:px-4 tablet:px-10 px-[5.7rem] rounded-none css-4e39zc">
