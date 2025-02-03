@@ -8,7 +8,6 @@ const liveblocks = new Liveblocks({
 });
 
 export async function POST(req: NextRequest) {
-  console.log("============== app/api/liveblock-auth ==========");
   const { userId, roomId } = await req.json();
 
   const user = await fetchMutation(api.user.getUserById, {
