@@ -31,11 +31,11 @@ export const PreviewGallery = () => {
             listUrl: [
             ]
         }
-        if (albumLayer.length === 0) {
+        if (albumLayer?.get("albumList").lenght === 0) {
             // ไมม่ album
-            layers.set("Album", [newAlbum])
+            albumLayer.set("albumList" , [newAlbum])
         } else {
-            layers.set("Album", [...albumLayer, newAlbum])
+            albumLayer.set("albumList", [...albumLayer?.get("albumList"), newAlbum])
         }
         setLoadingButton(true)
     }, [])

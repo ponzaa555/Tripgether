@@ -2,6 +2,7 @@
 import { UploadFile } from "antd";
 import Image from "next/image";
 import { useState } from "react";
+import { Button } from "../UI/Button";
 
 type ImageComponentProps = {
   images?: UploadFile<any>[];
@@ -12,7 +13,6 @@ const ImageComponent = ({ images, listUrl }: ImageComponentProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
-
   const imageUrls = images
     ? images
         .map((image) => image.url)

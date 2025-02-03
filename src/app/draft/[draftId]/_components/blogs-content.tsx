@@ -14,31 +14,32 @@ interface BlogContentProps {
     imgUrl: string,
     blogId: string,
     stDate: string,
-    endDate: string
+    endDate: string,
+    draftId : string
 }
 
-// const getBlog = async (blogId: string) => {
-//     console.log(blogId)
-//     const res = await GetBlogMongoDb(blogId)
-// }
+const getBlog = async (blogId: string) => {
+    console.log(blogId)
+    const res = await GetBlogMongoDb(blogId)
+}
 
-export const BlogContent = ({ blogId, stDate, imgUrl, endDate }: BlogContentProps) => {
+export const BlogContent = ({ blogId, stDate, imgUrl, endDate , draftId }: BlogContentProps) => {
 
     const updateMyPresence = useUpdateMyPresence();
 
     return (
         <main className=" w-full ">
-            <CoverImage blogId={blogId} imgUrl={imgUrl} />
+            <CoverImage blogId={blogId} imgUrl={imgUrl} draftId={draftId}/>
             <Description />
             <TripPlan startDate={stDate} endDate={endDate} />
             <ExpensePreview />
             <PreviewGallery />
-            {/* <div>
+            <div>
                 <Button
                     onClick={() => getBlog(blogId)}>
                     GetBLog
                 </Button>
-            </div> */}
+            </div>
         </main>
     )
 }

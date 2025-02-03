@@ -26,6 +26,7 @@ export const CollaborativePage = ({ liveBlockId , userId}: CollaborativeProps) =
             {
                 liveBlockId: liveBlockId
             }).then((draft) => {
+                console.log({draft})
                 const draftMap: draftDb = {
                     id : draft._id,
                     member: draft.memberId,
@@ -36,6 +37,7 @@ export const CollaborativePage = ({ liveBlockId , userId}: CollaborativeProps) =
                     liveBlockId: draft.liveBlockId
                 }
                 setdraftInfo(draftMap)
+                console.log({draftInfo})
             }).catch(() => {
                 console.log("Error get blog by blogId")
             })
@@ -55,7 +57,7 @@ export const CollaborativePage = ({ liveBlockId , userId}: CollaborativeProps) =
                 <SideBar />
                 {/* Blogs Plan  */}
                 {/* Map */}
-                <EditBlog blogId={draftInfo.id} coverImg={draftInfo.coverImgUrl} stDate={draftInfo.stDate} endDate={draftInfo.endDate} />
+                <EditBlog blogId={draftInfo.liveBlockId} coverImg={draftInfo.coverImgUrl} stDate={draftInfo.stDate} endDate={draftInfo.endDate} draftId={draftInfo.id}/>
             </div>
             {/* <div>There are {userCount} other user(s) online</div>;  */}
         </main>

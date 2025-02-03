@@ -37,12 +37,14 @@ export const AlbumPreview = ({ album, index }: AlbumPreviewProps) => {
         key : string
     ) => {
         const layers = storage.get("layers")
-        const listAlbum = layers.get("Album")
-
+        const albumLayer = layers.get("Album")
+        const listAlbum = albumLayer?.get("albumList")
         const album = listAlbum[index]
+
+
         album[key] = newValue
 
-        layers.set("Album", listAlbum)
+        albumLayer?.set("albumList" , listAlbum)
     }, [])
 
     const deletAlbum = useMutation((
@@ -51,9 +53,12 @@ export const AlbumPreview = ({ album, index }: AlbumPreviewProps) => {
     ) => {
         const layes = storage.get("layers")
         const albumLayer = layes.get("Album")
+        let listAlbum = albumLayer?.get("albumList")
 
-        const newAlbumList = albumLayer.filter((e,i) => i !== index)
-        layes.set("Album" , newAlbumList)
+        console.log(listAlbum)
+         listAlbum = listAlbum.filter((e,i) => i !== index)
+
+        albumLayer?.set("albumList" , listAlbum)
     },[])
     return (
         
