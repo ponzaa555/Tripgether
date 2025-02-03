@@ -9,6 +9,7 @@ export const create = mutation({
     stDate: v.string(),
     endDate: v.string(),
     roomId: v.string(),
+    coverImgUrl : v.optional(v.string())
   },
   handler: async (ctx, args) => {
     const identity = await ctx.db
@@ -22,7 +23,7 @@ export const create = mutation({
     const blogId = await ctx.db.insert("blog", {
       blogName: args.blogName,
       authorId: identity._id,
-      coverImgUrl: undefined,
+      coverImgUrl: args.coverImgUrl,
       stDate: args.stDate,
       endDate: args.endDate,
       roomId: args.roomId,
@@ -46,12 +47,12 @@ export const getById = mutation({
 
 export const upSetImageCover = mutation({
   args: {
-    blogId: v.id("blog"),
+    draftId: v.id("draft"),
     imgUrl: v.string(),
   },
   handler: async (ctx, args) => {
-    const { blogId } = args;
-    await ctx.db.patch(blogId, { coverImgUrl: args.imgUrl });
+    const { draftId } = args;
+    await ctx.db.patch(draftId, { coverImgUrl: args.imgUrl });
     return args.imgUrl;
   },
 });

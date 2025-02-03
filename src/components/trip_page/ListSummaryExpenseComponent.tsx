@@ -19,7 +19,7 @@ const expensIconType = [
 
 const ListSummaryExpenseComponent = ({ listDate }: Props) => {
   const expenses = listDate.flatMap((day) =>
-    day.ListDestination.flatMap((destination) =>
+    day.ListDestination?.flatMap((destination) =>
       destination.noteList
         .filter((note) => note.noteType === AllNote.Expens)
         .map((note) => ({
@@ -40,20 +40,20 @@ const ListSummaryExpenseComponent = ({ listDate }: Props) => {
         >
           <div className="flex flex-row gap-1 justify-center items-center">
             <div className="border-2 p-2 rounded-full bg-slate-200 border-slate-50">
-              {expensIconType[expense.expenseType].icon}
+              {expensIconType[expense?.expenseType]?.icon}
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-xs text-slate-400">
-                {expense.date} - {expensIconType[expense.expenseType].title}
+                {expense?.date} - {expensIconType[expense?.expenseType]?.title}
               </p>
-              <p className="text-sm font-black">{expense.description}</p>
+              <p className="text-sm font-black">{expense?.description}</p>
             </div>
           </div>
           <div>
             <p className="text-sm font-black">
               ฿{" "}
-              {expense.cost !== undefined
-                ? new Intl.NumberFormat().format(expense.cost)
+              {expense?.cost !== undefined
+                ? new Intl.NumberFormat().format(expense?.cost)
                 : "N/A"}
             </p>
           </div>

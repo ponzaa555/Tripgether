@@ -7,12 +7,13 @@ import { NavInput } from "./nav-input";
 import { Button } from "@/src/components/UI/Button";
 import { Hint } from "@/src/components/hint";
 import { calDateDuration } from "@/src/lib/utils";
-import { LiveblocksProvider } from "@liveblocks/react";
+import { LiveblocksProvider, useStorage } from "@liveblocks/react";
 import { GetRoomStorage, PostRoomStorageMongo } from "@/src/lib/backend/liveblock";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useMutationState } from "@/src/hooks/useMutation";
 import { api } from "@/convex/_generated/api";
+import { root } from "postcss";
 
 interface NavbarProps {
   blogName: string;
@@ -26,7 +27,6 @@ export const Navbar = ({ blogName, startDate, endDate , blogId , authorId }: Nav
   const [isLoading , setIsLoading] = useState(false)
   const duration = calDateDuration(startDate,endDate);
   const { mutate, pending } = useMutationState(api.blog.create)
-
   const handlePostBlog = async( blogId : string) => {
     setIsLoading(true)
     console.log({
@@ -35,12 +35,14 @@ export const Navbar = ({ blogName, startDate, endDate , blogId , authorId }: Nav
     })
     try{
     const  room = await GetRoomStorage( blogId)
+    // console.log(room.storage.data.layers.data.CoverImg.data.imgUrl)
     mutate({
       blogName : blogName,
       authorId : authorId,
       stDate : startDate,
       endDate : endDate,
-      roomId :  blogId
+      roomId :  blogId,
+      coverImgUrl : room.storage.data.layers.data.CoverImg.data.imgUrl
     })
     const response = await PostRoomStorageMongo(blogId , room.storage.data)
     if(response.status === 200){

@@ -5,7 +5,7 @@ import axios from "axios";
 import { useMutation } from "convex/react";
 import { nanoid } from "nanoid";
 
-export const UploadCloundinaryCover = async (file: File, blogId: string) => {
+export const UploadCloundinaryCover = async (file: File, draftId: string) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
@@ -19,7 +19,7 @@ export const UploadCloundinaryCover = async (file: File, blogId: string) => {
     );
     const image = await response.json();
     const res = await fetchMutation(api.blog.upSetImageCover, {
-      blogId: blogId as Id<"Blog">,
+      draftId: draftId as Id<"draft">,
       imgUrl: image.secure_url,
     });
     return image.secure_url;

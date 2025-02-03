@@ -19,8 +19,9 @@ const TripId = async ({
     blogId : tripId
   })
   const res = await GetBlogMongoDb(blog?.roomId);
+
   // Print the entire structure of the response
-  // console.log(JSON.stringify(res, null, 2));
+  console.log(JSON.stringify(res, null, 2));
   return (
     <div>
       <div className="lg:hidden">

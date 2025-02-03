@@ -17,12 +17,12 @@ const getBase64 = (file: FileType): Promise<string> =>
   });
 
 
-interface UploadAlbumImage{
-    listImage : UploadFile[],
-    index : number
+interface UploadAlbumImage {
+  listImage: UploadFile[],
+  index: number
 }
 
-const UploadAlbumImage = ({listImage , index}:UploadAlbumImage) => {
+const UploadAlbumImage = ({ listImage, index }: UploadAlbumImage) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -33,12 +33,13 @@ const UploadAlbumImage = ({listImage , index}:UploadAlbumImage) => {
     fileList: UploadFile[]
   ) => {
     const layers = storage.get("layers")
-    const layer = layers.get("Album")
+    const albumLayer = layers.get("Album")
+    const listAlbum = albumLayer?.get("albumList")
+    const album = listAlbum[index]
 
-    const album = layer[index]
     album.listUrl = fileList
 
-    layers.set("Album" , layer)
+    albumLayer?.set("albumList" , listAlbum)
 
 
   }, [])
@@ -55,48 +56,48 @@ const UploadAlbumImage = ({listImage , index}:UploadAlbumImage) => {
 
   const handleChange = async (event: UploadChangeParam<UploadFile<any>>) => {
     setLoading(true)
-  if (event.file.status === "uploading") {
-    //Upload Image
-    const newFile = event.file.originFileObj as File
-    const { id, url } = await UploadCloundinary(newFile, newFile.uid)
-    const newImage: UploadFile = {
-      uid: id,
-      name: id,
-      url: url
+    if (event.file.status === "uploading") {
+      //Upload Image
+      const newFile = event.file.originFileObj as File
+      const { id, url } = await UploadCloundinary(newFile, newFile.uid)
+      const newImage: UploadFile = {
+        uid: id,
+        name: id,
+        url: url
+      }
+      let newList;
+      if (listImage === null) {
+        newList = [newImage]
+      }
+      else {
+        newList = [...listImage, newImage]
+      }
+      //add to liveblock
+      UpdateListImage(newList);
+    } else {
+      const urlIndex = listImage.findIndex(img => img.url === event.file.url)
+      const afterRemove = listImage.filter((e, i) => i !== urlIndex);
+      UpdateListImage(afterRemove);
     }
-    let newList;
-    if (listImage === null) {
-      newList = [newImage]
-    }
-    else {
-      newList = [...listImage, newImage]
-    }
-    //add to liveblock
-    UpdateListImage(newList);
-  } else {
-    const urlIndex = listImage.findIndex( img => img.url === event.file.url)
-    const afterRemove = listImage.filter((e, i ) => i !== urlIndex);
-    UpdateListImage(afterRemove);
+
+    setLoading(false);
   }
 
-  setLoading(false);
-}
-
-const uploadButton = (
-  <div>
-    {loading ? (
-      <div style={{ textAlign: 'center' }} >
-        <PlusOutlined />
-        <div style={{ marginTop: 8 }} >Uploading...</div>
-      </div>
-    ) : (
-      <div >
-        <PlusOutlined  />
-        <div style={{ marginTop: 8 }} >Upload</div>
-      </div>
-    )}
-  </div>
-);
+  const uploadButton = (
+    <div>
+      {loading ? (
+        <div style={{ textAlign: 'center' }} >
+          <PlusOutlined />
+          <div style={{ marginTop: 8 }} >Uploading...</div>
+        </div>
+      ) : (
+        <div >
+          <PlusOutlined />
+          <div style={{ marginTop: 8 }} >Upload</div>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <>

@@ -83,7 +83,10 @@ export async function GetBlogMongoDb(roomId: string) {
       else if (storageId === "Budget") {
 
          budget = data[storageId].data
-      } 
+      }else if (storageId === "Album"){
+        const album = data[storageId].data
+        listAlbum = album.albumList
+      }
       else {
         const dayLayer = data[storageId].data;
         listDate.push(dayLayer);

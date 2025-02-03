@@ -14,25 +14,26 @@ import { Selections } from "./Selection"
 interface CoverImageProps {
     imgUrl: string
     blogId: string
+    draftId : string
 }
 
 export const CoverImage = ({
     blogId,
+    draftId
 }: CoverImageProps) => {
 
     const updateMyPresence = useUpdateMyPresence();
 
-    const mutation = useMutation(api.blog.getById)
+    const mutation = useMutation(api.draft.queryDraftByRoomId)
     const [uploadImgDialog, setUploadImgDialog] = useState(false)
     const [loading, setLoading] = useState(false)
     const handleUploadPhoto = useLiveblocksMutation(async (
         { storage },
         file: File,
-        blogId: string
     ) => {
         setUploadImgDialog(false)
         setLoading(true);
-        const urlImg = await UploadCloundinaryCover(file, blogId)
+        const urlImg = await UploadCloundinaryCover(file, draftId)
         const layer = storage.get("layers")
         const coverImg = await layer.get("CoverImg")?.set("imgUrl", urlImg);
         setLoading(false)
