@@ -36,71 +36,47 @@ const expensIconType = [
 const NoteListComponent = ({ noteList }: Props) => {
   return (
     <div className="flex flex-col">
-      {!!noteList.find((note) => note.noteType === AllNote.Note) && (
-        <div className="flex flex-col gap-3 mb-3">
-          <p>--Caption--</p>
-          {noteList.map((note, index) => {
-            if (note.noteType === AllNote.Note) {
-              return (
-                <div key={index} className="flex flex-row items-center pl-8">
-                  <MessageCircle />
-                  <p className="pl-2">{note.describtion}</p>
-                </div>
-              );
-            }
-          })}
-        </div>
-      )}
-      {!!noteList.find((note) => note.noteType === AllNote.Expens) && (
-        <div className="flex flex-col gap-3 mb-3">
-          <p>--Expenses--</p>
-          {noteList.map((note, index) => {
-            if (note.noteType === AllNote.Expens) {
-              return (
-                <div key={index} className="flex flex-row items-center gap-3">
-                  <p className="p-1 rounded-full border-[1] bg-amber-100">
-                    {expensIconType[note.expenseType].icon}
-                  </p>
-                  <p className="text-sm">
-                    {expensIconType[note.expenseType].title}
-                  </p>
-                  <p>
-                    ฿{" "}
-                    {note.cost !== undefined
-                      ? new Intl.NumberFormat().format(note.cost)
-                      : "N/A"}
-                  </p>
-                </div>
-              );
-            }
-          })}
-        </div>
-      )}
-      {!!noteList.find((note) => note.noteType === AllNote.Transport) && (
-        <div className="flex flex-col gap-3 mb-3">
-          <p>--Transport--</p>
-          {noteList.map((note, index) => {
-            if (note.noteType === AllNote.Transport) {
-              return (
-                <div key={index} className="flex flex-row items-center gap-3">
-                  <p className="">{ListIcon[note.transportType]}</p>
-                  <p className="text-xs text-slate-500">{note.describtion}</p>
-                </div>
-              );
-            }
-          })}
-        </div>
-      )}
-      {!!noteList.find((note) => note.noteType === AllNote.Photo) && (
-        <div className="flex flex-col gap-3">
-          <p>--Photo--</p>
-          {noteList.map((note, index) => {
-            if (note.noteType === AllNote.Photo) {
-              return <ImageComponent key={index} images={note.listImage} />;
-            }
-          })}
-        </div>
-      )}
+      <div className="flex flex-col gap-3 mb-3">
+        {noteList.map((note, index) => {
+          if (note.noteType === AllNote.Note) {
+            return (
+              <div key={index} className="flex flex-row items-center pl-8">
+                <MessageCircle />
+                <p className="pl-2">{note.describtion}</p>
+              </div>
+            );
+          }
+          if (note.noteType === AllNote.Expens) {
+            return (
+              <div key={index} className="flex flex-row items-center gap-3">
+                <p className="p-1 rounded-full border-[1] bg-amber-100">
+                  {expensIconType[note.expenseType].icon}
+                </p>
+                <p className="text-sm">
+                  {expensIconType[note.expenseType].title}
+                </p>
+                <p>
+                  ฿{" "}
+                  {note.cost !== undefined
+                    ? new Intl.NumberFormat().format(note.cost)
+                    : "N/A"}
+                </p>
+              </div>
+            );
+          }
+          if (note.noteType === AllNote.Transport) {
+            return (
+              <div key={index} className="flex flex-row items-center gap-3">
+                <p className="">{ListIcon[note.transportType]}</p>
+                <p className="text-xs text-slate-500">{note.describtion}</p>
+              </div>
+            );
+          }
+          if (note.noteType === AllNote.Photo) {
+            return <ImageComponent key={index} images={note.listImage} />;
+          }
+        })}
+      </div>
     </div>
   );
 };
