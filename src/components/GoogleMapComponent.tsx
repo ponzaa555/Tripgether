@@ -12,6 +12,7 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import type { Marker } from "@googlemaps/markerclusterer";
 
 type Poi = { key: string; location: google.maps.LatLngLiteral; color: string };
+
 const GoogleMapComponent = ({ poi }: { poi: Poi[] }) => {
   return (
     <APIProvider
@@ -78,6 +79,11 @@ const PoiMarkers = (props: { pois: Poi[] }) => {
           key={poi.key}
           position={poi.location}
           ref={(marker) => setMarkerRef(marker, poi.key)}
+          onClick={() => {
+            const { lat, lng } = poi.location;
+            const googleMapUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+            window.open(googleMapUrl, "_blank");
+          }}
         >
           <Pin
             background={poi.color}
