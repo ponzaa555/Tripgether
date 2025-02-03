@@ -1,7 +1,6 @@
 import { ConvexError, v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { paginationOptsValidator } from "convex/server";
-
 export const create = mutation({
   args: {
     blogName: v.string(),
@@ -9,7 +8,7 @@ export const create = mutation({
     stDate: v.string(),
     endDate: v.string(),
     roomId: v.string(),
-    coverImgUrl : v.optional(v.string())
+    coverImgUrl: v.optional(v.string()),  // coverImgUrl is optional
   },
   handler: async (ctx, args) => {
     const identity = await ctx.db
@@ -20,17 +19,26 @@ export const create = mutation({
       throw new ConvexError("User not found");
     }
     console.log({ identity });
-    const blogId = await ctx.db.insert("blog", {
+
+    const blogData: any = {
       blogName: args.blogName,
       authorId: identity._id,
-      coverImgUrl: args.coverImgUrl,
       stDate: args.stDate,
       endDate: args.endDate,
       roomId: args.roomId,
-    });
+    };
+
+    // Only add coverImgUrl if it's defined (not null or undefined)
+    if (args.coverImgUrl !== undefined && args.coverImgUrl !== null) {
+      blogData.coverImgUrl = args.coverImgUrl;
+    }
+
+    const blogId = await ctx.db.insert("blog", blogData);
     return blogId;
   },
 });
+
+
 
 export const getById = mutation({
   args: {

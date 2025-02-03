@@ -81,9 +81,17 @@ export function Room({ children , roomId , fallback , userId}:RoomProps) {
           new LiveObject({
             type :  TripContentType.Album,
             albumList: [],
-          })],
+          })
+        ],
+        [
+          "GoogleMark",
+          new LiveObject({
+            type : TripContentType.GoogleMark,
+            ListMark : [],
+          }),
+        ],
       ]),
-        layerIds: new LiveList(["Describtion","Hastag","CoverImg","Budget","Album"])
+        layerIds: new LiveList(["Describtion","Hastag","CoverImg","Budget","Album","GoogleMark"])
       }}
       >
         <ClientSideSuspense fallback={<div>Loading…</div>}>

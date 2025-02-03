@@ -34,12 +34,6 @@ export const BlogContent = ({ blogId, stDate, imgUrl, endDate , draftId }: BlogC
             <TripPlan startDate={stDate} endDate={endDate} />
             <ExpensePreview />
             <PreviewGallery />
-            <div>
-                <Button
-                    onClick={() => getBlog(blogId)}>
-                    GetBLog
-                </Button>
-            </div>
         </main>
     )
 }

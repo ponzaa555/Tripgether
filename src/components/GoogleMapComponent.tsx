@@ -89,7 +89,7 @@ const PoiMarkers = (props: { pois: Poi[] }) => {
             background={poi.color}
             glyphColor={"#000"}
             borderColor={"#000"}
-            glyph={"1"}
+            // glyph={"1"}
           />
         </AdvancedMarker>
       ))}
