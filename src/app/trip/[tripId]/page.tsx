@@ -15,9 +15,9 @@ const TripId = async ({
   };
 }) => {
   const session = await getServerSession(authOption);
-  const blog = await fetchQuery(api.blog.getByIdQuery , {
-    blogId : tripId
-  })
+  const blog = await fetchQuery(api.blog.getByIdQuery, {
+    blogId: tripId,
+  });
   const res = await GetBlogMongoDb(blog?.roomId);
 
   // Print the entire structure of the response

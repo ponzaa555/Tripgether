@@ -14,7 +14,7 @@ import { api } from "@/convex/_generated/api";
 import { Album, AllNote, DayTrips } from "@/src/models/components/Blog";
 import { UploadFile } from "antd";
 import { useEffect } from "react";
-import GoogleMapComponent from "../../GoogleMapComponent";
+import GoogleMapComponent from "@/src/components/GoogleMapComponent";
 
 type BlogProps =
   | {
