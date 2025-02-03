@@ -24,6 +24,7 @@ type BlogProps =
       listAlbum: Album[];
       listDate: DayTrips[];
       error?: string;
+      budget?: any;
     }
   | undefined;
 
@@ -36,8 +37,8 @@ const BigScreen = ({ tripId, userId, blog }: Props) => {
     let links: string[] = [];
     listDate.forEach((day) => {
       if (day.ListDestination) {
-        day.ListDestination.forEach((destination) => {
-          destination.noteList.forEach((note) => {
+        day.ListDestination?.forEach((destination) => {
+          destination.noteList?.forEach((note) => {
             if (note.noteType === AllNote.Photo) {
               links = [
                 ...links,
@@ -91,7 +92,7 @@ const BigScreen = ({ tripId, userId, blog }: Props) => {
   }, []);
 
   const hasExpenseNote = blog?.listDate.some((day) =>
-    day.ListDestination.flatMap((destination) => destination.noteList).some(
+    day.ListDestination?.flatMap((destination) => destination.noteList)?.some(
       (note) => note.noteType === AllNote.Expens
     )
   );
@@ -126,6 +127,7 @@ const BigScreen = ({ tripId, userId, blog }: Props) => {
               {hasExpenseNote && (
                 <div id="expense">
                   <SummaryExpenseComponent
+                    budget={blog?.budget?.budget}
                     days={blog?.listDate.length ?? 0}
                     listDate={blog?.listDate || []}
                     startDate={tripData?.stDate}
@@ -133,11 +135,12 @@ const BigScreen = ({ tripId, userId, blog }: Props) => {
                   />
                 </div>
               )}
-              {blog?.listAlbum.length !== 0 && (
-                <div id="gallery">
-                  <GalleryComponent album={blog?.listAlbum} />
-                </div>
-              )}
+              {blog?.listAlbum !== undefined &&
+                blog?.listAlbum.length !== 0 && (
+                  <div id="gallery">
+                    <GalleryComponent album={blog?.listAlbum} />
+                  </div>
+                )}
             </EnagementComponent>
           </div>
         </div>

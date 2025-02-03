@@ -186,3 +186,38 @@ export const getBookmarksByBlog = query({
     return bookmarkWithUser;
   },
 });
+
+export const getBlogFromBookmark = query({
+  args: {
+    currentUserId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.db
+      .query("users")
+      .withIndex("by_userId", (q) => q.eq("userId", args.currentUserId))
+      .unique();
+    if (!identity) {
+      throw new ConvexError("User not found");
+    }
+    const bookmarks = await ctx.db
+      .query("bookmark")
+      .withIndex("by_userId", (q) => q.eq("userId", identity._id))
+      .collect();
+
+    const blogs = await Promise.all(
+      bookmarks.map(async (bookmark) => {
+        const blog = await ctx.db.get(bookmark.blogId);
+        if (blog) {
+          const user = await ctx.db.get(blog.authorId);
+          return {
+            ...blog,
+            user,
+          };
+        }
+        return null;
+      })
+    );
+
+    return blogs;
+  },
+});

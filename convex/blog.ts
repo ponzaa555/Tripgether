@@ -8,7 +8,7 @@ export const create = mutation({
     authorId: v.string(),
     stDate: v.string(),
     endDate: v.string(),
-    roomId : v.string(),
+    roomId: v.string(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.db
@@ -25,7 +25,7 @@ export const create = mutation({
       coverImgUrl: undefined,
       stDate: args.stDate,
       endDate: args.endDate,
-      roomId : args.roomId
+      roomId: args.roomId,
     });
     return blogId;
   },
@@ -103,5 +103,25 @@ export const getByIdQuery = query({
       .withIndex("by_id", (q) => q.eq("_id", args.blogId))
       .first();
     return blog;
+  },
+});
+
+export const getBlogsbyUserId = query({
+  args: {
+    authorId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.db
+      .query("users")
+      .withIndex("by_userId", (q) => q.eq("userId", args.authorId))
+      .unique();
+    if (!identity) {
+      throw new ConvexError("User not found");
+    }
+    const blogs = await ctx.db
+      .query("blog")
+      .withIndex("by_authorId", (q) => q.eq("authorId", identity._id))
+      .collect();
+    return blogs;
   },
 });

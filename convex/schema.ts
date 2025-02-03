@@ -55,11 +55,10 @@ export default defineSchema({
     coverImgUrl: v.optional(v.string()),
     stDate: v.string(),
     endDate: v.string(),
-    roomId : v.string(),
+    roomId: v.string(),
   })
     .index("by_blogName", ["blogName"])
     .index("by_authorId", ["authorId"]),
-
 
   like: defineTable({
     blogId: v.id("blog"),
@@ -86,15 +85,15 @@ export default defineSchema({
     .index("by_blogId_userId", ["blogId", "userId"])
     .index("by_userId", ["userId"]),
 
-    draft: defineTable({
-      blogName: v.string(),
-      memberId: v.id("users"),
-      coverImgUrl: v.optional(v.string()),
-      stDate: v.string(),
-      endDate: v.string(),
-      liveBlockId : v.string()
-    })
-      .index("by_blogName", ["blogName"])
-      .index("by_memberId", ["memberId"])
-      .index("by_liveBlock", ["liveBlockId"]),    
+  draft: defineTable({
+    blogName: v.string(),
+    memberId: v.id("users"),
+    coverImgUrl: v.optional(v.string()),
+    stDate: v.string(),
+    endDate: v.string(),
+    liveBlockId: v.string(),
+  })
+    .index("by_blogName", ["blogName"])
+    .index("by_memberId", ["memberId"])
+    .index("by_liveBlock", ["liveBlockId"]),
 });
