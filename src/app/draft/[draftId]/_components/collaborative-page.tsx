@@ -6,55 +6,56 @@ import { SideBar } from "./side-bar"
 import { useMutationState } from "@/src/hooks/useMutation";
 import { api } from "@/convex/_generated/api";
 import { useEffect, useState } from "react";
-import { BlogDb, PlanTrip, TripContentType } from "@/src/models/components/Blog";
+import { BlogDb, draftDb, PlanTrip, TripContentType } from "@/src/models/components/Blog";
 import LoadingComponent from "@/src/components/UI/Loading";
 import { LiveObject } from "@liveblocks/client";
 import { nanoid } from "nanoid"
 
 interface CollaborativeProps {
-    blogId: string
+    liveBlockId: string
+    userId : string
 }
 
-export const CollaborativePage = ({ blogId }: CollaborativeProps) => {
-
-    const { mutate, pending } = useMutationState(api.blog.getById);
-    const [blogInfo, setBlogInfo] = useState<BlogDb>();
+export const CollaborativePage = ({ liveBlockId , userId}: CollaborativeProps) => {
+    const { mutate, pending } = useMutationState(api.draft.queryDraftByRoomId);
+    const [draftInfo, setdraftInfo] = useState<draftDb>();
     // แก้ให้เรียกครั้งเดียว
     useEffect(() => {
-        console.log(blogId)
-        const blogsInfo = mutate({
-            blogId: blogId
-        }).then((blog) => {
-            const blogMap : BlogDb = {
-                authorId : blog.authorId,
-                blogName: blog.blogName,
-                endDate: blog.endDate,
-                coverImgUrl: blog.coverImgUrl,
-                stDate : blog.stDate,
-                teamMate: blog.teamMate,
-                roomId : blog.roomId
-            }
-            setBlogInfo(blogMap)
-        }).catch(() => {
-            console.log("Error get blog by blogId")
-        })
+        console.log({liveBlockId})
+        const blogsInfo = mutate(
+            {
+                liveBlockId: liveBlockId
+            }).then((draft) => {
+                const draftMap: draftDb = {
+                    id : draft._id,
+                    member: draft.memberId,
+                    blogName: draft.blogName,
+                    endDate: draft.endDate,
+                    coverImgUrl: draft.coverImgUrl,
+                    stDate: draft.stDate,
+                    liveBlockId: draft.liveBlockId
+                }
+                setdraftInfo(draftMap)
+            }).catch(() => {
+                console.log("Error get blog by blogId")
+            })
         // add Description
-    },[])
-    console.log({ blogInfo });
-    if(!blogInfo){
-        return(
-            <LoadingComponent/>
+    }, [])
+    console.log({ draftInfo});
+    if (!draftInfo) {
+        return (
+            <LoadingComponent />
         )
     }
     return (
         <main>
-            <Navbar blogName={blogInfo!.blogName} startDate={blogInfo!.stDate} endDate={blogInfo!.endDate} blogId={blogId}  />
+            <Navbar blogName={draftInfo!.blogName} startDate={draftInfo!.stDate} endDate={draftInfo!.endDate} blogId={draftInfo.liveBlockId} authorId = {userId}/>
             <div className=" flex">
                 {/* side Bar */}
                 <SideBar />
                 {/* Blogs Plan  */}
                 {/* Map */}
-                <EditBlog blogId={blogId} coverImg={blogInfo.coverImgUrl} stDate={blogInfo.stDate} endDate={blogInfo.endDate} />
+                <EditBlog blogId={draftInfo.id} coverImg={draftInfo.coverImgUrl} stDate={draftInfo.stDate} endDate={draftInfo.endDate} />
             </div>
             {/* <div>There are {userCount} other user(s) online</div>;  */}
         </main>

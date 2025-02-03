@@ -11,28 +11,46 @@ import { LiveblocksProvider } from "@liveblocks/react";
 import { GetRoomStorage, PostRoomStorageMongo } from "@/src/lib/backend/liveblock";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useMutationState } from "@/src/hooks/useMutation";
+import { api } from "@/convex/_generated/api";
 
 interface NavbarProps {
   blogName: string;
   startDate: string;
   endDate: string;
-  blogId : string
+  blogId : string,
+  authorId : string
 }
 
-export const Navbar = ({ blogName, startDate, endDate , blogId }: NavbarProps) => {
+export const Navbar = ({ blogName, startDate, endDate , blogId , authorId }: NavbarProps) => {
   const [isLoading , setIsLoading] = useState(false)
   const duration = calDateDuration(startDate,endDate);
+  const { mutate, pending } = useMutationState(api.blog.create)
 
   const handlePostBlog = async( blogId : string) => {
     setIsLoading(true)
+    console.log({
+      blogName,
+      authorId,
+    })
+    try{
     const  room = await GetRoomStorage( blogId)
-    console.log({"storage.data" : room.storage.data})
+    mutate({
+      blogName : blogName,
+      authorId : authorId,
+      stDate : startDate,
+      endDate : endDate,
+      roomId :  blogId
+    })
     const response = await PostRoomStorageMongo(blogId , room.storage.data)
     if(response.status === 200){
-      console.log("toast")
       toast.success("Post sucesss")
     }
     console.log({response})
+  }catch(error){
+    console.log(error)
+    toast.error("Faild to Post Blog")
+  }
     setIsLoading(false)
   }
   

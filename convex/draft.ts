@@ -4,7 +4,7 @@ import { mutation, query } from "./_generated/server";
 export const create = mutation({
   args: {
     blogName: v.string(),
-    memberId: v.id("users"),
+    memberId: v.string(),
     coverImgUrl: v.optional(v.string()),
     stDate: v.string(),
     endDate: v.string(),
@@ -50,4 +50,18 @@ export const queryMember = query({
             user : userDataList
         }
     }
+})
+
+export const queryDraftByRoomId =  mutation({
+  args:{
+    liveBlockId : v.string(),
+  },
+  handler: async (ctx , args) => {
+    console.log(args)
+    const draft = await ctx.db
+                  .query("draft")
+                  .withIndex("by_liveBlock" , (q) => q.eq("liveBlockId" ,  args.liveBlockId))
+                  .first();
+    return draft
+  }
 })

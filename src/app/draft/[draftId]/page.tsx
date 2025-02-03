@@ -20,7 +20,7 @@ const BlogIdPage = async({ params }: BlogIdPageProps) => {
     }
     return (
         <Room roomId= {params.draftId} fallback ={<LoadingComponent/>} userId={user!.user.id}>
-            <CollaborativePage blogId={params.draftId}/>
+            <CollaborativePage liveBlockId={params.draftId} userId = {user.user.id}/>
         </Room>
     )
 }

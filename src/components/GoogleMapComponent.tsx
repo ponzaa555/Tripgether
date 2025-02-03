@@ -72,6 +72,11 @@ const locations: Poi[] = [
     location: { lat: -33.8636005, lng: 151.2092542 },
     color: getRandomColor(),
   },
+  {
+    key: "AAAAAAAAA",
+    location: { lat: -36.8636005, lng: 151.2092542 },
+    color: "#fff",
+  },
 ];
 
 const GoogleMapComponent = () => {

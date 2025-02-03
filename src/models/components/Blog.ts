@@ -16,8 +16,9 @@ export type BlogDb = {
 };
 
 export type draftDb = {
+  id : Id<"draft">
   blogName: string;
-  member: Id<"draft">;
+  member: string;
   coverImgUrl: string
   stDate: string;
   endDate: string;

@@ -6,7 +6,6 @@ export const create = mutation({
   args: {
     blogName: v.string(),
     authorId: v.string(),
-    teamMate: v.array(v.string()),
     stDate: v.string(),
     endDate: v.string(),
     roomId : v.string(),
@@ -23,7 +22,6 @@ export const create = mutation({
     const blogId = await ctx.db.insert("blog", {
       blogName: args.blogName,
       authorId: identity._id,
-      teamMate: args.teamMate,
       coverImgUrl: undefined,
       stDate: args.stDate,
       endDate: args.endDate,
