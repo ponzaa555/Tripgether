@@ -2,6 +2,7 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "./prisma";
 import { Album, CoveImg, DayTrips } from "@/src/models/components/Blog";
+import { date } from "zod";
 
 export const GetRoomStorage = async (roomId: string) => {
   try {
@@ -43,6 +44,7 @@ export async function PostRoomStorageMongo(
 }
 
 export async function GetBlogMongoDb(roomId: string) {
+  console.log({roomId:roomId})
   try {
     const respose = await prisma.blog.findFirst({
       where: {
@@ -55,21 +57,20 @@ export async function GetBlogMongoDb(roomId: string) {
     const { layers, layerIds } = blog.blog;
     // console.log({layerIds})
     const listId: string[] = layerIds.data;
-    // console.log(listId)
+    console.log(listId)
     // console.log({layers})
     const data = layers.data;
-    let coverImage, hastagList, describtion;
+    // console.log({data})
+    let coverImage, hastagList, describtion , budget;
     let listAlbum: Album[] = [];
     const listDate: DayTrips[] = [];
 
-    console.log(JSON.stringify(data, null, 2));
+    // console.log(JSON.stringify(data, null, 2)); 
     console.log("==================================");
-    listAlbum = data["Album"] || [];
     listId.map((storageId: string) => {
-      console.log(storageId);
+      console.log(storageId , data[storageId].data)
       if (storageId === "CoverImg") {
         const coverImagelayer = data[storageId].data;
-        console.log(coverImagelayer);
         coverImage = coverImagelayer.imgUrl;
       } else if (storageId === "Hastag") {
         const hastagLayer = data[storageId].data;
@@ -77,8 +78,12 @@ export async function GetBlogMongoDb(roomId: string) {
       } else if (storageId === "Describtion") {
         const describtionLayer = data[storageId].data;
         describtion = describtionLayer.describtion;
-      } else if (storageId === "ExpenseList") {
-      } else {
+      } 
+      else if (storageId === "Budget") {
+
+         budget = data[storageId].data
+      } 
+      else {
         const dayLayer = data[storageId].data;
         listDate.push(dayLayer);
       }
@@ -91,8 +96,11 @@ export async function GetBlogMongoDb(roomId: string) {
       describtion: describtion,
       listAlbum: listAlbum,
       listDate: listDate,
+      budget : budget,
     };
-    return { status: 200, blog: PlanInfo };
+    console.log("=============================")
+    console.log({PlanInfo})
+    return { status: 200, blog: PlanInfo};
   } catch (error) {
     return { status: 400, error: error };
   }
