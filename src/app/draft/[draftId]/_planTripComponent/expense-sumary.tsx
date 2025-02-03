@@ -13,7 +13,6 @@ interface ExpenseSumaryProps {
 export const ExpenseSumary = (
     { budget, layerIds }: ExpenseSumaryProps
 ) => {
-    if (!layerIds) return <LoadingComponent />
     const sumCost = useMutation(({ storage }) => {
         let cost = 0;
         layerIds?.forEach((dayId: string) => {
@@ -32,6 +31,7 @@ export const ExpenseSumary = (
         return cost
     }, [layerIds]
     );
+    if (!layerIds) return <LoadingComponent />
     const spendTrips = sumCost()
     const total = budget - spendTrips
     return (

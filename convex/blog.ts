@@ -9,6 +9,7 @@ export const create = mutation({
     teamMate: v.array(v.string()),
     stDate: v.string(),
     endDate: v.string(),
+    roomId : v.string(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.db
@@ -26,6 +27,7 @@ export const create = mutation({
       coverImgUrl: undefined,
       stDate: args.stDate,
       endDate: args.endDate,
+      roomId : args.roomId
     });
     return blogId;
   },

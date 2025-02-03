@@ -28,7 +28,6 @@ export const ExpensePreview = ({ }: ExpensePreviewProps) => {
         return <LoadingComponent />
     }
     const budget = layers?.get("Budget")?.budget
-    // console.log({budget})
     return (
         <div className="py-10 rounded-none mobile:px-4  px-[5.7rem] ">
 

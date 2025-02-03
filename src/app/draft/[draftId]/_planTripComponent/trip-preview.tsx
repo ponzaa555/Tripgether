@@ -10,6 +10,7 @@ import { Input } from "@/src/components/UI/input"
 import { AddTripInput } from "./input-add-trpi"
 import { MoreAction } from "./more-action"
 import { Selections } from "../_components/Selection"
+import LoadingComponent from "@/src/components/UI/Loading"
 
 
 
@@ -89,14 +90,12 @@ const TripPlanPreview = ({ key, id }: TripPreviewProps) => {
     const [isOpenTrip, setIsOpenTrip] = useState(true);
     const contentRef = useRef(null)
     // อยาก return skeleton ไปก่อน
+    const updateMyPresence = useUpdateMyPresence();
     if (!layer) {
         return (
-            <div>
-                Loading.....
-            </div>
+           <LoadingComponent/>
         )
     }
-    const updateMyPresence = useUpdateMyPresence();
     const { day, date, ListDestination, title}: DayTrips = layer
     return (
         <div id={`Day${day}`}  >

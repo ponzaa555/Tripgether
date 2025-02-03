@@ -16,7 +16,7 @@ interface LiveTextAreaProps {
 }
 
 const LiveTextArea = ({ }: LiveTextAreaProps) => {
-
+    const updateMyPresence = useUpdateMyPresence();
     const updateDescribtion = useMutation((
         { storage },
         newDescribtion: string
@@ -105,7 +105,6 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
     const { type, describtion } = content
     const HastagList = listHastag!["HastagList"]
 
-    const updateMyPresence = useUpdateMyPresence();
     return (
         <div >
             <div className=" flex justify-between">

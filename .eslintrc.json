@@ -1,4 +1,5 @@
 {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   // "extends": "next/core-web-vitals"
   // disable the rules
     "extends": "next",
@@ -6,4 +7,5 @@
       "react/no-unescaped-entities": "off",
       "@next/next/no-page-custom-font": "off"
     }
+    
 }

@@ -31,6 +31,7 @@ export const CollaborativePage = ({ blogId }: CollaborativeProps) => {
                 coverImgUrl: blog.coverImgUrl,
                 stDate : blog.stDate,
                 teamMate: blog.teamMate,
+                roomId : blog.roomId
             }
             setBlogInfo(blogMap)
         }).catch(() => {
