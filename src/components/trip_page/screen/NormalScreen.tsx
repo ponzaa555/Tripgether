@@ -22,6 +22,7 @@ type BlogProps =
       listAlbum: Album[];
       listDate: DayTrips[];
       error?: string;
+      budget?: any;
     }
   | undefined;
 
@@ -31,7 +32,7 @@ const NormalScreen = ({ tripId, userId, blog }: Props) => {
   const [showMap, setShowMap] = useState(false);
   const tripData = useQuery(api.blog.getByIdQuery, { blogId: tripId });
   const hasExpenseNote = blog?.listDate.some((day) =>
-    day.ListDestination.flatMap((destination) => destination.noteList).some(
+    day.ListDestination?.flatMap((destination) => destination.noteList)?.some(
       (note) => note.noteType === AllNote.Expens
     )
   );
@@ -40,9 +41,12 @@ const NormalScreen = ({ tripId, userId, blog }: Props) => {
     if (!listDate) return 0;
     let count = 0;
     listDate.forEach((day) => {
-      if (day.ListDestination) {
-        count += day.ListDestination.length;
+      if (!day.ListDestination) {
+        count += 0;
       }
+      day.ListDestination?.forEach((destination) => {
+        count += 1;
+      });
     });
     return count;
   };
@@ -77,13 +81,14 @@ const NormalScreen = ({ tripId, userId, blog }: Props) => {
           <ListDayComponent listDate={blog?.listDate || []} />
           {hasExpenseNote && (
             <SummaryExpenseComponent
+              budget={blog?.budget?.budget}
               days={blog?.listDate.length ?? 0}
               listDate={blog?.listDate || []}
               startDate={tripData?.stDate}
               endDate={tripData?.endDate}
             />
           )}
-          {blog?.listAlbum.length !== 0 && (
+          {blog?.listAlbum !== undefined && blog?.listAlbum.length !== 0 && (
             <GalleryComponent album={blog?.listAlbum} />
           )}
         </EnagementComponent>

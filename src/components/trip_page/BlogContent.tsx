@@ -7,24 +7,25 @@ import { useRouter } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
 import { format } from "date-fns";
 
-type BlogContentProps = {
-  user: {
-    _id: Id<"users">;
-    _creationTime: number;
-    username: string;
-    imageUrl: string;
-    userId: string;
-    email: string;
-  } | null;
-  _id: Id<"blog">;
-  _creationTime: number;
-  coverImgUrl?: string | undefined;
-  blogName: string;
-  authorId: Id<"users">;
-  teamMate: string[];
-  stDate: string;
-  endDate: string;
-}[];
+type BlogContentProps =
+  | {
+      user: {
+        _id: Id<"users">;
+        _creationTime: number;
+        username: string;
+        imageUrl: string;
+        userId: string;
+        email: string;
+      } | null;
+      _id: Id<"blog">;
+      _creationTime: number;
+      coverImgUrl?: string | undefined;
+      blogName: string;
+      authorId: Id<"users">;
+      stDate: string;
+      endDate: string;
+    }[]
+  | [];
 
 const BlogContent = ({ blogs }: { blogs: BlogContentProps }) => {
   const router = useRouter();

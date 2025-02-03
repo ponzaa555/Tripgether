@@ -7,6 +7,7 @@ type Props = {
   listDate: DayTrips[];
   startDate: string | undefined;
   endDate: string | undefined;
+  budget: number;
   days: number;
 };
 
@@ -15,6 +16,7 @@ const SummaryExpenseComponent = ({
   startDate,
   endDate,
   days,
+  budget,
 }: Props) => {
   const formattedStartDate = startDate
     ? format(new Date(startDate), "dd MMM yyyy")
@@ -51,11 +53,11 @@ const SummaryExpenseComponent = ({
           </p>
         </div>
 
-        <p className="text-base font-bold">฿ {10}</p>
+        <p className="text-base font-bold">฿ {budget}</p>
       </div>
       <ListSummaryExpenseComponent listDate={listDate} />
       <TotalSummaryExpenseComponent
-        budgetPlan={1000}
+        budgetPlan={budget}
         tripSpend={calculateTotalExpense(listDate)}
       />
     </div>

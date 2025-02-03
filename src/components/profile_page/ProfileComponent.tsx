@@ -14,9 +14,11 @@ import { useFetch } from "@/src/hooks/useFetch";
 import { fetchProfileData } from "@/src/lib/frontend/http";
 import { mapProfileData } from "@/src/lib/utils";
 import { BoomBox, UserPen } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const ProfileComponent = () => {
+  const { data: session } = useSession();
   const router = useRouter();
 
   const { isFetching, error, fetchedData } = useFetch(
@@ -61,11 +63,6 @@ const ProfileComponent = () => {
         <Button onClick={() => router.push("/profile/editprofile")}>
           <UserPen /> Edit profile
         </Button>
-        <p className="font-extralight text-sm text-slate-400 sm:text-base">
-          Trip plan <span className="text-black font-extrabold">{0} | </span>{" "}
-          Followers <span className="text-black">{1} | </span>
-          Following <span className="text-black">{2}</span>
-        </p>
         <div className="w-80">
           <p className="text-center font-extralight text-sm text-slate-700 sm:text-base">
             {fetchedData.aboutMe === null ||
@@ -106,11 +103,6 @@ const ProfileComponent = () => {
               </span>
             </p>
           )}
-          <p className="font-extralight text-sm text-slate-400 sm:text-base">
-            Trip plan <span className="text-black font-extrabold">{0} | </span>{" "}
-            Followers <span className="text-black">{1} | </span>
-            Following <span className="text-black">{2}</span>
-          </p>
           <p className="text-left font-extralight text-sm text-slate-700 sm:text-base">
             {fetchedData.aboutMe === null ||
             fetchedData.aboutMe === undefined ||
@@ -120,9 +112,9 @@ const ProfileComponent = () => {
           </p>
         </div>
       </div>
-      <MediaComponent />
-      <DraftComponent />
-      <AllTripComponent />
+      <MediaComponent userId={session?.user.id} />
+      <DraftComponent userId={session?.user.id} />
+      <AllTripComponent userId={session?.user.id} />
     </div>
   );
 };
