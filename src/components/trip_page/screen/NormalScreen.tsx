@@ -10,6 +10,9 @@ import GalleryComponent from "@/src/components/trip_page/GalleryComponent";
 import { Album, AllNote, DayTrips } from "@/src/models/components/Blog";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { useState } from "react";
+import { MapPin, X } from "lucide-react";
+import GoogleMapComponent from "@/src/components/GoogleMapComponent";
 
 type BlogProps =
   | {
@@ -25,6 +28,7 @@ type BlogProps =
 type Props = { tripId: Id<"blog">; userId: string | null; blog: BlogProps };
 
 const NormalScreen = ({ tripId, userId, blog }: Props) => {
+  const [showMap, setShowMap] = useState(false);
   const tripData = useQuery(api.blog.getByIdQuery, { blogId: tripId });
   const hasExpenseNote = blog?.listDate.some((day) =>
     day.ListDestination.flatMap((destination) => destination.noteList).some(
@@ -52,7 +56,7 @@ const NormalScreen = ({ tripId, userId, blog }: Props) => {
   const totalMedia = calculateVisitPlaces(blog?.listDate ?? []) + totalLength;
 
   return (
-    <div className="pt-14">
+    <div className="pt-14 relative">
       <ImageCarouselComponent coverImage={tripData?.coverImgUrl} />
       <div className="px-5 flex flex-col gap-10 mt-5">
         <div className="flex justify-center">
@@ -84,6 +88,25 @@ const NormalScreen = ({ tripId, userId, blog }: Props) => {
           )}
         </EnagementComponent>
       </div>
+      <button
+        onClick={() => setShowMap(true)}
+        className="fixed bottom-5 right-5 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition"
+      >
+        <MapPin size={24} />
+      </button>
+      {showMap && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="relative bg-white rounded-2xl shadow-xl w-11/12 h-5/6 overflow-hidden">
+            <button
+              onClick={() => setShowMap(false)}
+              className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition z-50"
+            >
+              <X size={20} />
+            </button>
+            <GoogleMapComponent />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

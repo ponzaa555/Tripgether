@@ -5,6 +5,7 @@ import { SlPicture } from "react-icons/sl";
 import { useState } from "react";
 import Image from "next/image";
 import { FaRegCreditCard } from "react-icons/fa6";
+import { UploadFile } from "antd";
 
 type NavbarComponentProps = {
   images: string[];
