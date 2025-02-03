@@ -1,5 +1,6 @@
 "use client"
 
+import GoogleMapComponent from "@/src/components/GoogleMapComponent"
 import { BlogContent } from "./blogs-content"
 
 interface EditBlogProps {
@@ -21,8 +22,7 @@ endDate
                 <BlogContent imgUrl={coverImg} blogId={blogId} stDate={stDate} endDate={endDate}/>
             </div>
             <div className=" hidden  lg:w-1/3 lg:flex justify-center h-full items-center ">
-                <img src="/map2.webp" className=" w-full  h-[calc(100vh)]
-                "/>
+                <GoogleMapComponent/>
             </div>
         </main>
     )

@@ -18,7 +18,6 @@ export const GetRoomStorage = async (roomId: string) => {
       }
     );
     const data = await response.json();
-    console.log({ data });
     return { status: response.status, storage: data };
   } catch (error) {
     console.log({ error });

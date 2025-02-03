@@ -52,15 +52,14 @@ export default defineSchema({
   blog: defineTable({
     blogName: v.string(),
     authorId: v.id("users"),
-    teamMate: v.array(v.string()),
     coverImgUrl: v.optional(v.string()),
     stDate: v.string(),
     endDate: v.string(),
     roomId : v.string(),
   })
     .index("by_blogName", ["blogName"])
-    .index("by_authorId", ["authorId"])
-    .index("by_teamMate", ["teamMate"]),
+    .index("by_authorId", ["authorId"]),
+
 
   like: defineTable({
     blogId: v.id("blog"),

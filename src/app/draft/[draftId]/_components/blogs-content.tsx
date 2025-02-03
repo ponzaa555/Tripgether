@@ -17,10 +17,11 @@ interface BlogContentProps {
     endDate: string
 }
 
-const getBlog = async (blogId: string) => {
-    console.log(blogId)
-    const res = await GetBlogMongoDb(blogId)
-}
+// const getBlog = async (blogId: string) => {
+//     console.log(blogId)
+//     const res = await GetBlogMongoDb(blogId)
+// }
+
 export const BlogContent = ({ blogId, stDate, imgUrl, endDate }: BlogContentProps) => {
 
     const updateMyPresence = useUpdateMyPresence();
@@ -32,12 +33,12 @@ export const BlogContent = ({ blogId, stDate, imgUrl, endDate }: BlogContentProp
             <TripPlan startDate={stDate} endDate={endDate} />
             <ExpensePreview />
             <PreviewGallery />
-            <div>
+            {/* <div>
                 <Button
                     onClick={() => getBlog(blogId)}>
                     GetBLog
                 </Button>
-            </div>
+            </div> */}
         </main>
     )
 }

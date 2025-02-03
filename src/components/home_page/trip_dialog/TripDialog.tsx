@@ -16,7 +16,7 @@ import { FormEventHandler, useEffect, useState } from "react";
 import { Button } from "../../UI/Button";
 import { useMutationState } from "@/src/hooks/useMutation";
 import { api } from "@/convex/_generated/api";
-import { BlogDb } from "@/src/models/components/Blog";
+import { BlogDb, draftDb } from "@/src/models/components/Blog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation"
 import { id } from "date-fns/locale";
@@ -25,7 +25,7 @@ import { nanoid } from "nanoid";
 interface TripDialogProps {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    userId:string;
+    userId: string;
 }
 
 const formSchema = z
@@ -41,50 +41,38 @@ export const TripDialog = ({
     setIsOpen,
     userId
 }: TripDialogProps) => {
-    const { mutate, pending } = useMutationState(api.blog.create);
+
+    const { mutate, pending } = useMutationState(api.draft.create)
 
     const [location, setLocation] = useState("")
     const router = useRouter()
 
-
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        // Make sure you add "name" to each input.
+
         const formData = new FormData(e.currentTarget);
 
         const location = formData.get("location") as string;
         const startDate = formData.get("startDate") as string;
         const endDate = formData.get("endDate") as string;
 
-        const roomId = await nanoid()
-        const body: BlogDb = {
-            blogName: location ,
-            authorId:userId,
-            coverImgUrl:"",
-            teamMate:[userId],
-            stDate:startDate,
-            endDate:endDate,
-            roomId : roomId
-        };
-        // console.log(body)
+        const liveBlockId = await nanoid()
         mutate({
-            blogName: location ,
-            authorId :userId ,
-            teamMate:[userId],
-            stDate:startDate,
-            endDate:endDate,
-            roomId : roomId
+            blogName: location,
+            memberId: userId,
+            coverImgUrl: undefined,
+            stDate: startDate,
+            endDate: endDate,
+            liveBlockId: liveBlockId
         }).then((blogId) => {
             toast.success("Create Plans")
-            router.push(`/draft/${blogId}`)
+            router.push(`/draft/${liveBlockId}`)
         }).catch((error) => {
             console.log({error})
             toast.error("Faild to create trips")
         })
         setIsOpen(false);
     }
-
-
     return (
         <MyDialog title="Create trip" setIsOpen={setIsOpen} isOpen={isOpen} >
             <form

@@ -17,7 +17,7 @@ const TripPlan = ({ startDate  , endDate}: TripPlanProps) => {
 
     // get layer from database
     
-    const layerIds = useStorage((root) => root.layerIds)?.slice(4,);
+    const layerIds = useStorage((root) => root.layerIds)?.slice(5,);
     const addDateToStorage = useMutation((
         { storage }
     ) => {
@@ -26,7 +26,7 @@ const TripPlan = ({ startDate  , endDate}: TripPlanProps) => {
         const layerIds = storage.get("layerIds")
         // ไม่มีวันเี่ยวเลย
         let newDateString;
-        if (layerIds.length === 4) {
+        if (layerIds.length === 5) {
             newDateString = startDate
         } else {
             const lastId = layerIds.toArray()[layerIds.length - 1]
@@ -39,7 +39,7 @@ const TripPlan = ({ startDate  , endDate}: TripPlanProps) => {
         }
 
         const layer = new LiveObject({
-            day: `Day${layerIds.length - 4 + 1}`,
+            day: `Day${layerIds.length - 5 + 1}`,
             date: newDateString,
             ListDestination: [],
             conclusionDay: undefined,
