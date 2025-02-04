@@ -44,13 +44,13 @@ export const Navbar = ({ blogName, startDate, endDate , blogId , authorId }: Nav
       roomId :  blogId,
       coverImgUrl : room.storage.data.layers.data.CoverImg.data.imgUrl
     })
-    mutatetion({
-      liveBlockId : blogId
-    })
+    // mutatetion({
+    //   liveBlockId : blogId
+    // })
     const response = await PostRoomStorageMongo(blogId , room.storage.data)
     if(response.status === 200){
       toast.success("Post sucesss")
-      route.push("/trip")
+      // route.push("/trip")
     }
     console.log({response})
   }catch(error){

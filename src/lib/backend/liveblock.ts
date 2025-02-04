@@ -68,7 +68,7 @@ export async function GetBlogMongoDb(roomId: string) {
     let listMark;
 
     listId.map((storageId: string) => {
-      console.log(storageId, data[storageId].data);
+      // console.log(storageId, data[storageId].data);
       if (storageId === "CoverImg") {
         const coverImagelayer = data[storageId].data;
         coverImage = coverImagelayer.imgUrl;
@@ -94,7 +94,7 @@ export async function GetBlogMongoDb(roomId: string) {
           })
         );
       } else if (storageId === "GoogleMark") {
-        listMark = data[storageId].data.istMark;
+        listMark =data[storageId].data.ListMark;
 
       } else {
         const dayLayer = data[storageId].data;
@@ -111,7 +111,6 @@ export async function GetBlogMongoDb(roomId: string) {
       budget: budget,
       listMark : listMark
     };
-    console.log({PlanInfo})
     return { status: 200, blog: PlanInfo };
   } catch (error) {
     return { status: 400, error: error };
