@@ -13,10 +13,6 @@ const ListPlaceComponent = ({ listDestination, title, color }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="pl-10 flex flex-col gap-5">
-        <Button className="w-min">
-          <HiLocationMarker />
-          Get direction
-        </Button>
         <p>{title}</p>
       </div>
       <div className="border-[1px] my-2"></div>
