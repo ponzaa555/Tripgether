@@ -18,11 +18,11 @@ interface BlogContentProps {
     draftId : string
 }
 
-const getBlog = async (blogId: string) => {
-    console.log(blogId)
-    const res = await GetBlogMongoDb(blogId)
+// const getBlog = async (blogId: string) => {
+//     console.log(blogId)
+//     const res = await GetBlogMongoDb(blogId)
 
-}
+// }
 
 export const BlogContent = ({ blogId, stDate, imgUrl, endDate , draftId }: BlogContentProps) => {
 
@@ -35,10 +35,6 @@ export const BlogContent = ({ blogId, stDate, imgUrl, endDate , draftId }: BlogC
             <TripPlan startDate={stDate} endDate={endDate} />
             <ExpensePreview />
             <PreviewGallery />
-            <Button
-                onClick={() => getBlog(blogId)}>
-                Click
-            </Button>
         </main>
     )
 }
