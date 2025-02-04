@@ -1,5 +1,3 @@
-import { Button } from "@/src/components/UI/Button";
-import { HiLocationMarker } from "react-icons/hi";
 import NoteListComponent from "@/src/components/trip_page/NoteListComponent";
 import { Destination } from "@/src/models/components/Blog";
 
