@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/src/components/UI/accordion";
 import ListPlaceComponent from "@/src/components/trip_page/ListPlaceComponent";
-import { DayTrips } from "@/src/models/components/Blog";
+import { ColorMark, DayTrips } from "@/src/models/components/Blog";
 
 type Props = {
   listDate: DayTrips[];
@@ -23,23 +23,27 @@ const ListDayComponent = ({ listDate }: Props) => {
         className="w-28 h-full"
       />
       <Accordion type="multiple" className="w-full">
-        {listDate.map((data, index) => (
-          <AccordionItem value={data.day} key={index}>
-            <AccordionTrigger className="text-lg font-black decoration-transparent w-full">
-              <p>
-                {data.day}
-                {" - "}
-                <span className="text-slate-400 text-sm">({data.date})</span>
-              </p>
-            </AccordionTrigger>
-            <AccordionContent>
-              <ListPlaceComponent
-                listDestination={data.ListDestination}
-                title={data.title}
-              />
-            </AccordionContent>
-          </AccordionItem>
-        ))}
+        {listDate.map((data, index) => {
+          const color = ColorMark[index];
+          return (
+            <AccordionItem value={data.day} key={index}>
+              <AccordionTrigger className="text-lg font-black decoration-transparent w-full">
+                <p>
+                  {data.day}
+                  {" - "}
+                  <span className="text-slate-400 text-sm">({data.date})</span>
+                </p>
+              </AccordionTrigger>
+              <AccordionContent>
+                <ListPlaceComponent
+                  color={color}
+                  listDestination={data.ListDestination}
+                  title={data.title}
+                />
+              </AccordionContent>
+            </AccordionItem>
+          );
+        })}
       </Accordion>
     </div>
   );

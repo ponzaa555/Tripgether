@@ -1,16 +1,24 @@
+"use client";
 import { LiaMapMarkerSolid } from "react-icons/lia";
 import { IoMdTime } from "react-icons/io";
 import { SlPicture } from "react-icons/sl";
 import { IoNavigateCircleOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
 
 type Props = {
   visitPlaces: number;
   days: number;
   media: number;
-  km: number;
 };
 
-const FloatBarComponent = ({ visitPlaces, days, media, km }: Props) => {
+const FloatBarComponent = ({ visitPlaces, days, media }: Props) => {
+  const [km, setKm] = useState(0);
+
+  useEffect(() => {
+    const randomKm = Math.floor(Math.random() * (120 - 50 + 1)) + 50;
+    setKm(randomKm);
+  }, []);
+
   return (
     <div className="grid grid-cols-4 w-full justify-evenly rounded-md py-2 shadow-xl sm:w-96">
       <div className="flex flex-col justify-center items-center border-r-2 border-dashed gap-2">

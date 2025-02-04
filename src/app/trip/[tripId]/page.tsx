@@ -19,6 +19,7 @@ const TripId = async ({
     blogId: tripId,
   });
   const res = await GetBlogMongoDb(blog?.roomId);
+  const poi = res.blog?.listMark;
 
   // Print the entire structure of the response
   console.log(JSON.stringify(res, null, 2));
@@ -26,6 +27,7 @@ const TripId = async ({
     <div>
       <div className="lg:hidden">
         <NormalScreen
+          poi={poi}
           blog={res.blog}
           tripId={tripId}
           userId={session?.user.id || null}
@@ -33,6 +35,7 @@ const TripId = async ({
       </div>
       <div className="hidden lg:block">
         <BigScreen
+          poi={poi}
           blog={res.blog}
           tripId={tripId}
           userId={session?.user.id || null}

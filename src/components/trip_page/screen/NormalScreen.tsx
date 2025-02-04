@@ -26,9 +26,14 @@ type BlogProps =
     }
   | undefined;
 
-type Props = { tripId: Id<"blog">; userId: string | null; blog: BlogProps };
+type Props = {
+  tripId: Id<"blog">;
+  userId: string | null;
+  blog: BlogProps;
+  poi: any;
+};
 
-const NormalScreen = ({ tripId, userId, blog }: Props) => {
+const NormalScreen = ({ tripId, userId, blog, poi }: Props) => {
   const [showMap, setShowMap] = useState(false);
   const tripData = useQuery(api.blog.getByIdQuery, { blogId: tripId });
   const hasExpenseNote = blog?.listDate.some((day) =>
@@ -66,7 +71,6 @@ const NormalScreen = ({ tripId, userId, blog }: Props) => {
         <div className="flex justify-center">
           <FloatBarComponent
             days={blog?.listDate.length ?? 0}
-            km={267}
             media={totalMedia}
             visitPlaces={calculateVisitPlaces(blog?.listDate ?? [])}
           />
@@ -108,7 +112,7 @@ const NormalScreen = ({ tripId, userId, blog }: Props) => {
             >
               <X size={20} />
             </button>
-            <GoogleMapComponent />
+            <GoogleMapComponent poi={poi} />
           </div>
         </div>
       )}
