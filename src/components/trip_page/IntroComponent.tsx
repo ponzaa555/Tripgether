@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { useEffect } from "react";
 import { nanoid } from "nanoid";
 import { CopyRoom } from "@/src/lib/backend/liveblock";
+import { useRouter } from "next/router";
 
 type Props = {
   userId: string | null;
@@ -24,6 +25,7 @@ type Props = {
 
 const IntroComponent = ({ userId, title, createAt, description }: Props) => {
 
+  const route = useRouter()
   const userData = useQuery(api.user.getUserData, { userId: userId || "" });
   const timestamp = Math.floor(createAt);
   const date = new Date(timestamp);
@@ -59,7 +61,9 @@ const IntroComponent = ({ userId, title, createAt, description }: Props) => {
       <h2 className="text-xl font-black">Description</h2>
       <p className="hidden sm:block">{description}</p>
       <p className="sm:hidden">{description}</p>
-      <Button className="sm:hidden">Use this trip</Button>
+      <Button className="sm:hidden" onClick={
+        () => route.push("/draft/q-xYIDmp8KMeExizBJHoW")
+      }>Use this trip</Button>
     </div>
   );
 };
