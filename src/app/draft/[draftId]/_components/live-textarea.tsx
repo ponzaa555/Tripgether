@@ -4,18 +4,47 @@ import { Hint } from "@/src/components/hint"
 import { ChevronDown, CircleX, SmilePlus } from "lucide-react"
 import { UserAvatar } from "./user-avartar"
 import { useMutation, useMyPresence, useOthers, useSelf, useStorage, useUpdateMyPresence } from "@liveblocks/react"
-import React, { useEffect, useRef, useState } from "react"
+import React, { ChangeEvent, useEffect, useRef, useState } from "react"
 import LoadingComponent from "@/src/components/UI/Loading"
 import { ListHastag } from "@/src/models/components/Blog"
 import Selection from "./Selection"
+import MyDialog from "@/src/components/UI/MyDialog"
+import { Button } from "@/src/components/UI/Button"
+import { api } from "@/convex/_generated/api"
+import { useMutation as covexMutation } from "convex/react";
+import { toast } from "sonner"
 
 
 
 interface LiveTextAreaProps {
-
+    draftId : string
 }
 
-const LiveTextArea = ({ }: LiveTextAreaProps) => {
+
+
+const LiveTextArea = ({draftId }: LiveTextAreaProps) => {
+    const [descriptionopen, setDescriptionOpen] = useState(false)
+    const [isHastag, setIsHastag] = useState(false)
+    const [hastagDropDown, setHastagDropDown] = useState(ListHastag)
+    const [isHastagDropDown, setIsHastagDropDown] = useState(false);
+    const [isOpenInviteFriend, setIsOpenInviteFriend] = useState(false)
+    const addFriend = covexMutation(api.draft.AddFriend)
+    const handleAddFriend = async() =>{
+        try {
+            console.log({draftId})
+            const res = await addFriend({
+              liveBlockId: draftId,
+              email:email,
+            })
+            console.log("Draft Created:", res)
+            if(res.status === 200) {
+                toast.success("Add friend success")
+            }
+        }catch(error){
+            console.error("Error adding friend:", error);
+        }
+    }
+    const [email, setEmail] = useState("");
     const updateMyPresence = useUpdateMyPresence();
     const updateDescribtion = useMutation((
         { storage },
@@ -38,10 +67,10 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
         console.log("selectHastagDropdown ")
         // const newListHastag = [...HastagList, hastag]
         let newListHastag
-        if(HastagList === null){
+        if (HastagList === null) {
             newListHastag = [hastag]
-        }else{
-            newListHastag = [...HastagList , hastag]
+        } else {
+            newListHastag = [...HastagList, hastag]
         }
         updateHastagList(newListHastag);
         setIsHastagDropDown(false)
@@ -70,11 +99,9 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
     };
 
 
-
-    const [descriptionopen, setDescriptionOpen] = useState(false)
-    const [isHastag, setIsHastag] = useState(false)
-    const [hastagDropDown, setHastagDropDown] = useState(ListHastag)
-    const [isHastagDropDown, setIsHastagDropDown] = useState(false);
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+    };
 
     const users = useOthers()
     const currentUser = useSelf();
@@ -83,17 +110,6 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
 
     const content = useStorage((content) => content.layers.get("Describtion"))
     const listHastag = useStorage((hastag) => hastag.layers.get("Hastag"))
-
-
-
-    // useEffect(() => {
-    //     // Add event listener for clicks
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //         // Cleanup event listener on component unmount
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, []);
 
     if (!content) {
         return (
@@ -139,11 +155,26 @@ const LiveTextArea = ({ }: LiveTextAreaProps) => {
                     )}
                     <div className=" flex ml-2 gap-2 items-center">
                         <Hint label="Invite friend" sideOffset={5}>
-                            <button className=" flex gap-2 items-center">
+                            <button className=" flex gap-2 items-center" onClick={() =>setIsOpenInviteFriend(true)}>
                                 <SmilePlus className=" h-8 w-8" />
                                 <h3>invite</h3>
                             </button>
                         </Hint>
+                        <MyDialog title="Invite Friend" isOpen={isOpenInviteFriend} setIsOpen={setIsOpenInviteFriend} >
+                            <div className="flex flex-col gap-2">
+                                <label className="block">Invite Friend </label>
+                                <input
+                                    type="text"
+                                    placeholder="Input Email"
+                                    className="border p-2"
+                                    value={email}
+                                    onChange={handleChange}
+                                />
+                                <Button onClick={handleAddFriend} >
+                                    Submit
+                                </Button>
+                            </div>
+                        </MyDialog>
                     </div>
                 </div>
             </div>

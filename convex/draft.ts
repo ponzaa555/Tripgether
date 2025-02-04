@@ -1,5 +1,7 @@
+"use client"
+
 import { ConvexError, v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { mutation, MutationCtx, query } from "./_generated/server";
 
 export const create = mutation({
   args: {
@@ -58,13 +60,19 @@ export const queryDraftByRoomId = mutation({
   },
   handler: async (ctx, args) => {
     console.log(args);
-    const draft = await ctx.db
-      .query("draft")
-      .withIndex("by_liveBlock", (q) => q.eq("liveBlockId", args.liveBlockId))
-      .first();
-    return draft;
+      return await getDraftByLiveBlockId(ctx, args.liveBlockId);
   },
 });
+
+
+
+
+async function getDraftByLiveBlockId(ctx : MutationCtx, liveBlockId : string) {
+  return await ctx.db
+    .query("draft")
+    .withIndex("by_liveBlock", (q) => q.eq("liveBlockId", liveBlockId))
+    .first();
+}
 
 export const queryDraftByUserId = query({
   args: {
@@ -85,5 +93,37 @@ export const queryDraftByUserId = query({
       .collect();
 
     return data;
+  },
+});
+
+export const AddFriend = mutation({
+  args: {
+    liveBlockId: v.string(),
+    email: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", args.email))
+      .unique();
+    if (!user) {
+      throw new ConvexError("User not found");
+    }
+
+    const draft = await getDraftByLiveBlockId(ctx, args.liveBlockId);
+    if(!draft ){
+      throw new ConvexError("Draft not found")
+    }
+    
+    const draftId = await ctx.db.insert("draft", {
+      blogName: draft?.blogName,
+      memberId: user._id,
+      coverImgUrl: draft.coverImgUrl,
+      stDate: draft.stDate,
+      endDate: draft.endDate,
+      liveBlockId: args.liveBlockId,
+    });
+
+    return {status : 200}
   },
 });

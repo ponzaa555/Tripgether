@@ -49,9 +49,14 @@ const TripPlanPreview = ({ key, id, dayIndex}: TripPreviewProps) => {
         index: number,
     ) => {
         const layer = storage.get("layers").get(id)
+        const markLayer = storage.get("layers").get("GoogleMark")
+        const listMark = markLayer?.get("ListMark")
         const { ListDestination } = layer?.toObject()
         console.log("ListDes", ListDestination)
         let newListDestiantion;
+        const placeName  =  ListDestination[index].place
+        const newListMark = listMark.filter((mark) => mark.key !== placeName)
+        console.log({placeName})
         // ลบตัวท้ายสุด 
         if (index + 1 === ListDestination.lenght) {
             newListDestiantion = ListDestination.slice(0, index)
@@ -59,6 +64,7 @@ const TripPlanPreview = ({ key, id, dayIndex}: TripPreviewProps) => {
             newListDestiantion = [...ListDestination.slice(0, index), ...ListDestination.slice(index + 1)]
         }
         layer?.set("ListDestination", newListDestiantion)
+        markLayer?.set("ListMark" , newListMark)
     }, [])
 
     const updateTitleOfDay = useMutation((

@@ -30,10 +30,13 @@ export const BlogContent = ({ blogId, stDate, imgUrl, endDate , draftId }: BlogC
     return (
         <main className=" w-full ">
             <CoverImage blogId={blogId} imgUrl={imgUrl} draftId={draftId}/>
-            <Description />
+            <Description draftId={draftId}/>
             <TripPlan startDate={stDate} endDate={endDate} />
             <ExpensePreview />
             <PreviewGallery />
+            <Button onClick={() => getBlog(blogId)}>
+                Check Block
+            </Button>
         </main>
     )
 }

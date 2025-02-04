@@ -33,11 +33,11 @@ draftId
             </div>
             <div className=" hidden  lg:w-1/3 lg:flex justify-center h-full items-center ">
                 <GoogleMapComponent poi={listMark}/>
-                {/* <Button onClick={() => {
+                <Button onClick={() => {
                     console.log(googleMarkLayer)
                 }}>
                     GoogleMark
-                </Button> */}
+                </Button>
             </div>
         </main>
     )
