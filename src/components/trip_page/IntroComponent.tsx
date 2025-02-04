@@ -14,7 +14,8 @@ import { format } from "date-fns";
 import { useEffect } from "react";
 import { nanoid } from "nanoid";
 import { CopyRoom } from "@/src/lib/backend/liveblock";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+
 
 type Props = {
   userId: string | null;
