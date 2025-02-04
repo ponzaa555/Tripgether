@@ -58,4 +58,9 @@ export const CountryName = [
 { key: "yellowBeach", location: { lat: -33.8225, lng: 151.2545 } },
 { key: "zooReserve", location: { lat: -33.8470, lng: 151.2185 } },
 { key: "zenGarden", location: { lat: -33.8635, lng: 151.2145 } },
-]
+{key: "Culver’s Miramarbeach", location: {lat: 30.385206, lng: -86.381392}},
+{key: "La Quinta Inn & Suites", location: {lat: 30.385206, lng: -86.381392}},
+{key: "Winn-Dixie", location: {lat: 30.378587, lng:  -86.352669}},
+{key: "Chick-fil-A", location: {lat: 30.376841 ,lng:  -86.349218}},
+{key: "Blue Mountain Beach", location: {lat: 30.338408, lng: -86.200871}},
+] 

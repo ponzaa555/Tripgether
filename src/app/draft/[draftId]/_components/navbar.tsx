@@ -14,6 +14,8 @@ import { useState } from "react";
 import { useMutationState } from "@/src/hooks/useMutation";
 import { api } from "@/convex/_generated/api";
 import { root } from "postcss";
+import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
 
 interface NavbarProps {
   blogName: string;
@@ -25,14 +27,12 @@ interface NavbarProps {
 
 export const Navbar = ({ blogName, startDate, endDate , blogId , authorId }: NavbarProps) => {
   const [isLoading , setIsLoading] = useState(false)
+  const route = useRouter()
   const duration = calDateDuration(startDate,endDate);
   const { mutate, pending } = useMutationState(api.blog.create)
+  const mutatetion = useMutation(api.draft.deleteDraft)
   const handlePostBlog = async( blogId : string) => {
     setIsLoading(true)
-    console.log({
-      blogName,
-      authorId,
-    })
     try{
     const  room = await GetRoomStorage( blogId)
     // console.log(room.storage.data.layers.data.CoverImg.data.imgUrl)
@@ -44,9 +44,13 @@ export const Navbar = ({ blogName, startDate, endDate , blogId , authorId }: Nav
       roomId :  blogId,
       coverImgUrl : room.storage.data.layers.data.CoverImg.data.imgUrl
     })
+    mutatetion({
+      liveBlockId : blogId
+    })
     const response = await PostRoomStorageMongo(blogId , room.storage.data)
     if(response.status === 200){
       toast.success("Post sucesss")
+      route.push("/trip")
     }
     console.log({response})
   }catch(error){

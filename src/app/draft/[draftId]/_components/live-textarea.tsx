@@ -18,6 +18,7 @@ import { toast } from "sonner"
 
 interface LiveTextAreaProps {
     draftId : string
+    blogId : string
 }
 
 
@@ -31,12 +32,10 @@ const LiveTextArea = ({draftId }: LiveTextAreaProps) => {
     const addFriend = covexMutation(api.draft.AddFriend)
     const handleAddFriend = async() =>{
         try {
-            console.log({draftId})
             const res = await addFriend({
-              liveBlockId: draftId,
+              draftId: draftId,
               email:email,
             })
-            console.log("Draft Created:", res)
             if(res.status === 200) {
                 toast.success("Add friend success")
             }

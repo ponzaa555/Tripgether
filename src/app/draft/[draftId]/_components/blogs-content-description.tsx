@@ -12,11 +12,11 @@ import Selection from "./Selection"
 
 
 interface DescriptionProps {
-    draftId : string
+    draftId : string,
+    blogId : string
 }
 
-export const Description = ({draftId}:DescriptionProps) => {
-   
+export const Description = ({draftId ,blogId}:DescriptionProps) => {
     return (
         <div className=" MuiBox-root css-0 "
         >
@@ -24,7 +24,7 @@ export const Description = ({draftId}:DescriptionProps) => {
                 py-10 rounded-none mobile:px-4 tablet:px-10 px-[5.7rem] css-4e39zc
                 " id="Description">
                 {/* Head */}
-                    <LiveTextArea draftId={draftId}/>
+                    <LiveTextArea draftId={draftId} blogId = {blogId}/>
             </div>
         </div>
     )

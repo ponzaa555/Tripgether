@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
 import { ConvexError, v } from "convex/values";
 import { mutation, MutationCtx, query } from "./_generated/server";
+import { Id } from "./_generated/dataModel";
 
 export const create = mutation({
   args: {
@@ -60,17 +61,21 @@ export const queryDraftByRoomId = mutation({
   },
   handler: async (ctx, args) => {
     console.log(args);
-      return await getDraftByLiveBlockId(ctx, args.liveBlockId);
+    return await getDraftByLiveBlockId(ctx, args.liveBlockId);
   },
 });
 
-
-
-
-async function getDraftByLiveBlockId(ctx : MutationCtx, liveBlockId : string) {
+async function getDraftByLiveBlockId(ctx: MutationCtx, liveBlockId: string) {
   return await ctx.db
     .query("draft")
     .withIndex("by_liveBlock", (q) => q.eq("liveBlockId", liveBlockId))
+    .first();
+}
+
+async function getDraftByDrafttId(ctx: MutationCtx, draftId: string) {
+  return await ctx.db
+    .query("draft")
+    .withIndex("by_id", (q) => q.eq("_id", draftId as Id<"draft">))
     .first();
 }
 
@@ -98,7 +103,7 @@ export const queryDraftByUserId = query({
 
 export const AddFriend = mutation({
   args: {
-    liveBlockId: v.string(),
+    draftId: v.string(),
     email: v.string(),
   },
   handler: async (ctx, args) => {
@@ -110,20 +115,35 @@ export const AddFriend = mutation({
       throw new ConvexError("User not found");
     }
 
-    const draft = await getDraftByLiveBlockId(ctx, args.liveBlockId);
-    if(!draft ){
-      throw new ConvexError("Draft not found")
+    const draft = await getDraftByDrafttId(ctx, args.draftId);
+    if (!draft) {
+      throw new ConvexError("Draft not found");
     }
-    
+
     const draftId = await ctx.db.insert("draft", {
       blogName: draft?.blogName,
       memberId: user._id,
       coverImgUrl: draft.coverImgUrl,
       stDate: draft.stDate,
       endDate: draft.endDate,
-      liveBlockId: args.liveBlockId,
+      liveBlockId: draft.liveBlockId,
     });
 
-    return {status : 200}
+    return { status: 200 };
+  },
+});
+
+export const deleteDraft = mutation({
+  args: {
+    liveBlockId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const listDraft = await ctx.db
+      .query("draft")
+      .withIndex("by_liveBlock", (q) => q.eq("liveBlockId", args.liveBlockId))
+      .collect();
+    for (const element of listDraft) {
+      await ctx.db.delete(element._id );
+    }
   },
 });

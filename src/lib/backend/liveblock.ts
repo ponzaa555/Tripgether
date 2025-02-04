@@ -94,7 +94,7 @@ export async function GetBlogMongoDb(roomId: string) {
           })
         );
       } else if (storageId === "GoogleMark") {
-        listMark = data[storageId].data.ListMark;
+        listMark = data[storageId].data.istMark;
 
       } else {
         const dayLayer = data[storageId].data;
