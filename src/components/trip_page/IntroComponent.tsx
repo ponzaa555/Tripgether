@@ -57,13 +57,16 @@ const IntroComponent = ({ userId, title, createAt, description }: Props) => {
             </div>
           </div>
         </div>
-        <Button className="hidden sm:block">Use this trip</Button>
+        <Button className="hidden sm:block"
+        onClick={
+          () => route.push("/draft/a2Cxk4uJWQXpOOfRyWssL")
+        }>Use this trip</Button>
       </div>
       <h2 className="text-xl font-black">Description</h2>
       <p className="hidden sm:block">{description}</p>
       <p className="sm:hidden">{description}</p>
       <Button className="sm:hidden" onClick={
-        () => route.push("/draft/q-xYIDmp8KMeExizBJHoW")
+        () => route.push("/draft/a2Cxk4uJWQXpOOfRyWssL")
       }>Use this trip</Button>
     </div>
   );
