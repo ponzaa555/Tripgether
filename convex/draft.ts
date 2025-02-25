@@ -138,6 +138,7 @@ export const deleteDraft = mutation({
     liveBlockId: v.string(),
   },
   handler: async (ctx, args) => {
+    console.log("liveBlockId : ",args.liveBlockId);
     const listDraft = await ctx.db
       .query("draft")
       .withIndex("by_liveBlock", (q) => q.eq("liveBlockId", args.liveBlockId))

@@ -7,7 +7,6 @@ import { NavInput } from "./nav-input";
 import { Button } from "@/src/components/UI/Button";
 import { Hint } from "@/src/components/hint";
 import { calDateDuration } from "@/src/lib/utils";
-import { LiveblocksProvider, useStorage } from "@liveblocks/react";
 import { GetRoomStorage, PostRoomStorageMongo } from "@/src/lib/backend/liveblock";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -29,6 +28,7 @@ export const Navbar = ({ blogName, startDate, endDate , blogId , authorId }: Nav
   const [isLoading , setIsLoading] = useState(false)
   const route = useRouter()
   const duration = calDateDuration(startDate,endDate);
+  
   const { mutate, pending } = useMutationState(api.blog.create)
   const mutatetion = useMutation(api.draft.deleteDraft)
   const handlePostBlog = async( blogId : string) => {
@@ -44,15 +44,15 @@ export const Navbar = ({ blogName, startDate, endDate , blogId , authorId }: Nav
       roomId :  blogId,
       coverImgUrl : room.storage.data.layers.data.CoverImg.data.imgUrl
     })
+    console.log({blogId})
     mutatetion({
       liveBlockId : blogId
     })
     const response = await PostRoomStorageMongo(blogId , room.storage.data)
     if(response.status === 200){
       toast.success("Post sucesss")
-      route.push("/trip")
+      route.push("/")
     }
-    console.log({response})
   }catch(error){
     console.log(error)
     toast.error("Faild to Post Blog")

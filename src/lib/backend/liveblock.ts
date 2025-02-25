@@ -5,6 +5,13 @@ import { Album, CoveImg, DayTrips } from "@/src/models/components/Blog";
 import { date } from "zod";
 
 import { nanoid } from "nanoid";
+import { Liveblocks } from "@liveblocks/node";
+import { LiveList, LiveMap, LiveObject, toPlainLson } from "@liveblocks/client";
+
+const liveblocks = new Liveblocks({
+  secret:
+    "sk_dev_H_SVLGhBIhjIzXG8-sx5qe2wOKPmn-2B-yspdt-P9hDv22sOGpFMeUEyfeT3YWo7",
+});
 
 export const GetRoomStorage = async (roomId: string) => {
   try {
@@ -94,8 +101,7 @@ export async function GetBlogMongoDb(roomId: string) {
           })
         );
       } else if (storageId === "GoogleMark") {
-        listMark =data[storageId].data.ListMark;
-
+        listMark = data[storageId].data.ListMark;
       } else {
         const dayLayer = data[storageId].data;
         listDate.push(dayLayer);
@@ -109,7 +115,7 @@ export async function GetBlogMongoDb(roomId: string) {
       listAlbum: listAlbum,
       listDate: listDate,
       budget: budget,
-      listMark : listMark
+      listMark: listMark,
     };
     return { status: 200, blog: PlanInfo };
   } catch (error) {
@@ -117,13 +123,38 @@ export async function GetBlogMongoDb(roomId: string) {
   }
 }
 
-// export async function CopyRoom(roomId:string)
-// {
-//   const liveblocks = useLiveblocks();
-//   const roomData = await liveblocks.getRoomData(roomId);
-
-//   const newRoomId = nanoid();
-//   await liveblocks.createRoom({ ...roomData, id: newRoomId });
-
-//   return newRoomId
-// }
+export async function CreateRoom(refRoomId: string ,roomId :string ) {
+  // const id = nanoid();
+  try {
+    const room = await liveblocks.createRoom(roomId, {
+      defaultAccesses: [],
+    });
+    // clone storage
+    const cloneStorage = await GetRoomStorage(refRoomId);
+    const roomInfo = cloneStorage.storage.data;
+    const layerIds = roomInfo.layerIds.data;
+    const layer = roomInfo.layers.data;
+    const listLayer = [];
+    for (const key in layer) {
+      if (layer.hasOwnProperty(key)) {
+        console.log("key : ", key);
+        const element = layer[key];
+        console.log("element : ", element);
+        listLayer.push([key,element]);
+      }
+    }
+    const initialStorage: LiveObject<Liveblocks["Storage"]> = new LiveObject({
+      layerIds: new LiveList([...layerIds]),
+      layers: new LiveMap(listLayer),
+    });
+    const storage = await liveblocks.initializeStorageDocument(
+      roomId,
+      toPlainLson(initialStorage)
+    );
+    return room
+    return;
+  } catch (error) {
+    console.log({ error });
+    return { status: 400, error: error };
+  }
+}
