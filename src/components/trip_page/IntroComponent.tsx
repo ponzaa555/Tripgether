@@ -26,9 +26,10 @@ type Props = {
   title: string;
   createAt: number;
   description?: string;
+  tripId: Id<"blog">;
 };
 
-const IntroComponent = ({ userId, title, createAt, description }: Props) => {
+const IntroComponent = ({ userId, title, createAt, description, tripId }: Props) => {
 
   const getBlogMutation =  useMutation(api.blog.getById)
   const createDraftMutation =  useMutation(api.draft.create)
@@ -43,7 +44,7 @@ const IntroComponent = ({ userId, title, createAt, description }: Props) => {
     try {
       const roomId = nanoid()
       const blog = await getBlogMutation({
-        blogId: "k173r5635fe4cbjneztm8pnnan7azpn1"as Id<"blog">
+        blogId: tripId,
       })
       await createDraftMutation({
         memberId : userId || "",

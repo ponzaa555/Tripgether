@@ -123,6 +123,7 @@ const BigScreen = ({ tripId, userId, blog, poi }: Props) => {
               userId={userId}
               title={tripData?.blogName || ""}
               createAt={tripData?._creationTime ?? 0}
+              tripId={tripId}
             />
             <EnagementComponent tripId={tripId} userId={userId}>
               <div id="tripgether">
